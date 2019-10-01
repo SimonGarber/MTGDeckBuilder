@@ -8,7 +8,7 @@ const GetCards = (props) => {
 
   const getCardsHandler = (e) => {
     e.preventDefault();
-    mtg.card.where({ name: query, pageSize: 5 }).then((results) => {
+    mtg.card.where({ name: query, pageSize: 100 }).then((results) => {
       setCards(results);
       setQuery('');
     });
