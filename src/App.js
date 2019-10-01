@@ -1,11 +1,11 @@
 import React from 'react';
-
-import './App.css';
+import GetCards from './components/GetCards/GetCards';
 
 function App() {
   return (
     <div>
       <h1>MTG App</h1>
+      <GetCards />
     </div>
   );
 }
