@@ -23,7 +23,7 @@ const GetCards = (props) => {
         <input onChange={handleChange} type="text" />
         <button type="submit">Get Cards</button>
       </form>
-      <CardList value={cards} />
+      <CardList cards={cards} />
     </div>
   );
 };

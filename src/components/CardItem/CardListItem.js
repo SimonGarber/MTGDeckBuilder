@@ -1,19 +1,15 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-const CardItem = (props) => {
+import './CardItem.css';
+const CardListItem = (props) => {
   return (
     <div>
       <Card>
-        {props.value === null ? (
-          <h3>There is no data yet</h3>
-        ) : (
-          <div>
-            <h3>{props.value.name}</h3>
-            <h4>{props.value.artist}</h4>
-          </div>
-        )}
+        <Card.Title>{props.card.name}</Card.Title>
+        <Card.Body>{props.card.artist}</Card.Body>
       </Card>
     </div>
   );
 };
-export default CardItem;
+
+export default CardListItem;

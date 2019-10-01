@@ -5,7 +5,13 @@ const CardList = (props) => {
   return (
     <div>
       <h2>This is the card list</h2>
-      <CardListItem value={props.value}></CardListItem>
+      {props.cards.map((card) => (
+        <CardListItem
+          style={{ height: 400, width: 400 }}
+          card={props.cards}
+          key={card.id}
+        />
+      ))}
     </div>
   );
 };
