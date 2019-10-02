@@ -1,0 +1,9 @@
+.Card {
+  padding: 1rem;
+  margin: 0 auto;
+  display: flexbox;
+  justify-content: center;
+  position: relative;
+  border: 1px solid black;
+
+}

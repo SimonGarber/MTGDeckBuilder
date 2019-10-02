@@ -1,11 +1,24 @@
 import React from 'react';
 import GetCards from './components/GetCards/GetCards';
-
+import Nav from './components/NavBar/Nav';
 function App() {
   return (
-    <div>
-      <h1>MTG App</h1>
-      <GetCards />
+    <div
+      style={{
+        margin: '0 auto',
+        padding: '5px'
+      }}
+    >
+      <Nav />
+
+      <div style={{}}>
+        <GetCards
+          style={{
+            padding: '1rem',
+            margin: '5px 5px'
+          }}
+        />
+      </div>
     </div>
   );
 }

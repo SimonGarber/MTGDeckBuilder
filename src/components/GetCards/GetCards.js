@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import CardList from '../CardList/CardList';
+import './GetCards.css';
+import { Container, Row } from 'react-bootstrap';
 const mtg = require('mtgsdk');
 
 const GetCards = (props) => {
@@ -8,7 +10,7 @@ const GetCards = (props) => {
 
   const getCardsHandler = (e) => {
     e.preventDefault();
-    mtg.card.where({ name: query, pageSize: 100 }).then((results) => {
+    mtg.card.where({ name: `"${query}"`, pageSize: 100 }).then((results) => {
       setCards(results);
       setQuery('');
     });
@@ -18,12 +20,31 @@ const GetCards = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={getCardsHandler}>
-        <input onChange={handleChange} type="text" />
+    <div
+      style={{
+        justifyContent: 'center'
+      }}
+    >
+      <form
+        style={{
+          display: 'flex',
+          justifyContent: 'center'
+        }}
+        onSubmit={getCardsHandler}
+      >
+        <input
+          className="search-heading"
+          value={query}
+          onChange={handleChange}
+          type="text"
+        />
         <button type="submit">Get Cards</button>
       </form>
-      <CardList cards={cards} />
+      <Container className="gallery-view">
+        <Row>
+          <CardList className="Card-Container" cards={cards} />
+        </Row>
+      </Container>
     </div>
   );
 };
