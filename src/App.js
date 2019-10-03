@@ -1,7 +1,9 @@
 import React from 'react';
+
 import GetCards from './components/GetCards/GetCards';
 import Nav from './components/NavBar/Nav';
-function App() {
+
+const App = () => {
   return (
     <div
       style={{
@@ -21,6 +23,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

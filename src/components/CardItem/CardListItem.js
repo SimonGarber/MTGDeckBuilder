@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
+import useGlobal from '../../store';
 import { Card, Col } from 'react-bootstrap';
 import './CardItem.css';
+
 const CardListItem = ({ ...card }) => {
+  const [globalState, globalActions] = useGlobal();
   return (
     <Fragment>
       <Col sm style={{ flexGrow: 0 }}>
@@ -15,11 +18,6 @@ const CardListItem = ({ ...card }) => {
             float: 'left'
           }}
         >
-          {/* <Card.Header className="flex-row" as="h5">
-            {card.name}
-          </Card.Header>
-          <Card.Body>{card.artist}</Card.Body>
-        <Card.Text>{card.originalText}</Card.Text>*/}
           <Card.Img
             className="Card-img"
             alt="Card image cap"
@@ -36,7 +34,6 @@ const CardListItem = ({ ...card }) => {
             <button>Add to Deck</button>
             <button>Add to Collection</button>
           </div>
-          {/*<Card.Text>{card.flavor}</Card.Text>*/}
         </Card>
       </Col>
     </Fragment>
