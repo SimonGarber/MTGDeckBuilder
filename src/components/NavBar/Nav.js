@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './Nav.css';
 import { Navbar } from 'react-bootstrap';
-import useGlobal from '../../store';
+import UserSettings from '../../UserSettings';
 
 const Nav = () => {
-  const [globalState, globalActions] = useGlobal();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState('');
@@ -41,6 +40,8 @@ const Nav = () => {
             marginTop: '1.1rem'
           }}
         >
+          <UserSettings />
+          {/*
           {!user ? (
             <form className="Login">
               <input
@@ -67,7 +68,7 @@ const Nav = () => {
               Logged in as {user}
               <button onClick={handleLogout}>Logout</button>
             </div>
-          )}
+          )}*/}
         </div>
       </Navbar>
     </div>

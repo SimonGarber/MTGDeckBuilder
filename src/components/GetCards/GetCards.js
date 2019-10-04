@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import CardList from '../CardList/CardList';
 import './GetCards.css';
 import { Container, Row } from 'react-bootstrap';
+
 const mtg = require('mtgsdk');
 
-const GetCards = (props) => {
+const GetCards = () => {
   const [cards, setCards] = useState([]);
   const [query, setQuery] = useState('');
 
