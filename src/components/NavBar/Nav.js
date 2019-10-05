@@ -3,7 +3,7 @@ import './Nav.css';
 import { Navbar } from 'react-bootstrap';
 import UserSettings from '../../UserSettings';
 
-const Nav = () => {
+const Nav = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState('');
@@ -40,8 +40,8 @@ const Nav = () => {
             marginTop: '1.1rem'
           }}
         >
-          <UserSettings />
-          {/*
+          {/* <UserSettings addUser={() => props.addUser} />*/}
+
           {!user ? (
             <form className="Login">
               <input
@@ -68,7 +68,7 @@ const Nav = () => {
               Logged in as {user}
               <button onClick={handleLogout}>Logout</button>
             </div>
-          )}*/}
+          )}
         </div>
       </Navbar>
     </div>

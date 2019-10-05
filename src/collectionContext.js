@@ -1,5 +1,5 @@
 import React, { createContext, Component } from 'react';
-import { Alert } from 'react-bootstrap';
+
 const CollectionContext = createContext({
   savedCards: [],
   updateSavedCards: () => {}
