@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import { CollectionConsumer } from '../../collectionContext';
+import { UserConsumer } from '../../userContext';
 import { Card, Col } from 'react-bootstrap';
 import './CardItem.css';
 
 const CardListItem = ({ ...card }) => {
   return (
-    <CollectionConsumer>
+    <UserConsumer>
       {({ updateSavedCards }) => (
         <Fragment>
           <Col sm style={{ flexGrow: 0 }}>
@@ -46,7 +46,7 @@ const CardListItem = ({ ...card }) => {
           </Col>
         </Fragment>
       )}
-    </CollectionConsumer>
+    </UserConsumer>
   );
 };
 
