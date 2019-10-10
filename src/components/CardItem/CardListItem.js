@@ -3,7 +3,7 @@ import { UserConsumer } from '../../userContext';
 import { Card, Col } from 'react-bootstrap';
 import './CardItem.css';
 
-const CardListItem = ({ ...card }) => {
+const CardListItem = ({ card }) => {
   return (
     <UserConsumer>
       {({ updateSavedCards }) => (
@@ -22,7 +22,7 @@ const CardListItem = ({ ...card }) => {
               <Card.Img
                 className="Card-img"
                 alt="Card image cap"
-                src={card.imageUrl}
+                src={card.image}
                 width={258}
                 height={343}
               />
@@ -33,6 +33,7 @@ const CardListItem = ({ ...card }) => {
                 }}
               >
                 <button>Add to Deck</button>
+
                 <button
                   id="card"
                   onClick={() => {

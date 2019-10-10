@@ -3,19 +3,52 @@ import CardList from '../CardList/CardList';
 import './GetCards.css';
 import { Container, Row } from 'react-bootstrap';
 
-const mtg = require('mtgsdk');
-
 const GetCards = () => {
   const [cards, setCards] = useState([]);
   const [query, setQuery] = useState('');
-
   const getCardsHandler = (e) => {
     e.preventDefault();
-    mtg.card.where({ name: `"${query}"`, pageSize: 100 }).then((results) => {
-      setCards(results);
-      setQuery('');
-    });
+    const request = new Request(
+      `http://localhost:3001/api/cards/${query}`,
+      // `https://api.scryfall.com/cards/search?q=${query}`,
+
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+
+    fetch(request)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error();
+        }
+      })
+      .then((data) => {
+        const obj = data.map((card) => {
+          if (card.data.image_uris) {
+            return {
+              id: card.data.id,
+              image: card.data.image_uris.normal
+            };
+          } else {
+            return {
+              id: card.data.id,
+              image:
+                'https://gamepedia.cursecdn.com/mtgsalvation_gamepedia/f/f8/Magic_card_back.jpg?version=0ddc8d41c3b69c2c3c4bb5d72669ffd7'
+            };
+          }
+        });
+        setCards(obj);
+      })
+
+      .catch((err) => {
+        console.log('Error =>', err);
+      });
   };
+
   const handleChange = (e) => {
     setQuery(e.target.value);
   };

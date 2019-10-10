@@ -13,11 +13,9 @@ const CardList = ({ cards }) => {
       }}
     >
       {cards.map((card) => {
-        if (card.imageUrl)
-          return <CardListItem className="Card" key={card.id} {...card} />;
-        else {
-          return <p key={card.id}></p>;
-        }
+        return (
+          <CardListItem className="Card" key={card.id} card={{ ...card }} />
+        );
       })}
     </div>
   );

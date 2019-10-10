@@ -73,6 +73,7 @@ export default function UserSettings() {
         console.log(err);
       });
   };
+
   return (
     <UserConsumer>
       {({ updateUserName, updateUserPassword }) => (
