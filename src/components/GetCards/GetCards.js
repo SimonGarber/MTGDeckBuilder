@@ -31,7 +31,8 @@ const GetCards = () => {
           if (card.data.image_uris) {
             return {
               id: card.data.id,
-              image: card.data.image_uris.normal
+              image: card.data.image_uris.normal,
+              name: card.data.name
             };
           } else {
             return {

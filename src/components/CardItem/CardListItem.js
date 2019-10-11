@@ -19,6 +19,8 @@ const CardListItem = ({ card }) => {
                 float: 'left'
               }}
             >
+              {' '}
+              {card.name && <p>{card.name}</p>}
               <Card.Img
                 className="Card-img"
                 alt="Card image cap"
