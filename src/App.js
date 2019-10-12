@@ -10,11 +10,18 @@ const App = () => {
       <div
         style={{
           margin: '0 auto',
-          padding: '5px'
+          padding: '5px',
+          width: '100%',
+          position: 'absolute'
         }}
       >
-        <Nav />
-
+        <div
+          style={{
+            position: 'relative'
+          }}
+        >
+          <Nav />
+        </div>
         <div>
           <GetCards
             style={{

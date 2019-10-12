@@ -63,7 +63,9 @@ const GetCards = () => {
       <form
         style={{
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          position: 'relative',
+          marginTop: '8rem'
         }}
         onSubmit={getCardsHandler}
       >
@@ -74,6 +76,14 @@ const GetCards = () => {
           type="text"
         />
         <button type="submit">Get Cards</button>
+        <div>
+          <span>
+            <input type="checkbox" />
+            <p>Artist</p>
+            <input type="checkbox" />
+            <p>Card Name</p>
+          </span>
+        </div>
       </form>
       <Container className="gallery-view">
         <Row>

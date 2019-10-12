@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { UserConsumer } from '../../userContext';
 import { Card, Col } from 'react-bootstrap';
 import './CardItem.css';
 
 const CardListItem = ({ card }) => {
+  const [toggle, setToggle] = useState(false);
   return (
     <UserConsumer>
       {({ updateSavedCards }) => (
@@ -16,11 +17,11 @@ const CardListItem = ({ card }) => {
                 margin: '16px',
                 border: '1px solid black',
                 padding: '1rem',
-                float: 'left'
+                float: 'right'
               }}
             >
               {' '}
-              {card.name && <p>{card.name}</p>}
+              {card.name && <p>card Name :{card.name}</p>}
               <Card.Img
                 className="Card-img"
                 alt="Card image cap"

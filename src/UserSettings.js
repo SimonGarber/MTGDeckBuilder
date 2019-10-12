@@ -79,7 +79,8 @@ export default function UserSettings() {
       {({ updateUserName, updateUserPassword }) => (
         <div
           style={{
-            float: 'right'
+            float: 'right',
+            marginRight: '1.1rem'
           }}
         >
           {!isloggedin && getuseractive && !activeuser && !adduseractive && (
@@ -152,9 +153,16 @@ export default function UserSettings() {
           )}
 
           {isloggedin && !adduseractive && (
-            <div>
+            <div
+              style={{
+                display: 'inline-flex'
+              }}
+            >
               <p>logged in as {activeuser}</p>
               <form
+                style={{
+                  margin: 'auto 1.1rem'
+                }}
                 type="submit"
                 onSubmit={(e) => {
                   e.preventDefault();
