@@ -100,6 +100,7 @@ export default function GetCards() {
             />
             <button type="submit">Get Cards</button>
           </form>
+
           <Grid columns="equal">
             <CardList cards={cards} />
           </Grid>
