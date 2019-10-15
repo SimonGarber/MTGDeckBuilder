@@ -1,54 +1,68 @@
 import React, { Fragment, useState } from 'react';
 import { UserConsumer } from '../../userContext';
-import { Card, Col } from 'react-bootstrap';
+
+import { Card, Image, Label } from 'semantic-ui-react';
 import './CardItem.css';
+import '../CardModal/CardModal.css';
 
 const CardListItem = ({ card }) => {
-  const [toggle, setToggle] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => {
+    if (!show) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  };
+
   return (
     <UserConsumer>
       {({ updateSavedCards }) => (
-        <Fragment>
-          <Col sm style={{ flexGrow: 0 }}>
-            <Card
-              key={card.id}
-              style={{
-                width: '18rem',
-                margin: '16px',
-                border: '1px solid black',
-                padding: '1rem',
-                float: 'right'
-              }}
-            >
-              {' '}
-              {card.name && <p>card Name :{card.name}</p>}
-              <Card.Img
-                className="Card-img"
-                alt="Card image cap"
-                src={card.image}
-                width={258}
-                height={343}
-              />
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <button>Add to Deck</button>
+        <div>
+          <Card
+            className="Card"
+            bg="primary"
+            text="white"
+            style={{
+              width: '18rem',
+              float: 'left'
+            }}
+          >
+            {' '}
+            <Card.Header>{card.name}</Card.Header>
+            {!show ? (
+              <div>
+                <Image wrapped ui={false} src={card.image} size="small" />
+                <Card.Content>
+                  <Card.Description>This is a magic Card</Card.Description>
+                </Card.Content>
+                <Fragment>
+                  <div>
+                    <button onClick={handleShow}>Show Details</button>
 
-                <button
-                  id="card"
-                  onClick={() => {
-                    updateSavedCards(card);
-                  }}
-                >
-                  Add to Collection
-                </button>
+                    <button
+                      id="card"
+                      onClick={() => {
+                        updateSavedCards(card);
+                      }}
+                    >
+                      Add to Collection
+                    </button>
+                  </div>
+                </Fragment>
               </div>
-            </Card>
-          </Col>
-        </Fragment>
+            ) : (
+              <div>
+                <button onClick={handleShow}>Hide Details</button>
+                <Label as="a" color="blue">
+                  <Label.Detail>Modern</Label.Detail>
+                  {card.modernLegal}
+                </Label>
+              </div>
+            )}
+          </Card>
+        </div>
       )}
     </UserConsumer>
   );

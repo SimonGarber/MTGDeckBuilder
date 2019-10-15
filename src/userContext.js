@@ -4,6 +4,10 @@ export const UserContext = createContext({
   username: '',
   userpassword: '',
   savedcards: [],
+  showcarddetails: false,
+  ismodern: false,
+  updateIsModern: () => {},
+  updateShowCardDetails: () => {},
   updateSavedCards: () => {},
   updateUserName: () => {},
   updateUserPassword: () => {}
@@ -12,8 +16,18 @@ export const UserContext = createContext({
 export class UserProvider extends Component {
   constructor(props) {
     super(props);
+    this.updateIsModern = () => {
+      if (this.state.isModern) {
+        this.setState({ isModern: false });
+      } else {
+        this.setState({ isModern: true });
+      }
+    };
     this.updateUserPassword = (newUserPassword) => {
       this.setState({ userpassword: newUserPassword });
+    };
+    this.showCardDetails = () => {
+      this.setState({ showcarddetails: true });
     };
     this.updateUserName = (newUserName) => {
       this.setState({ username: newUserName });
@@ -49,7 +63,9 @@ export class UserProvider extends Component {
       savedcards: [],
       updateUserName: this.updateUserName,
       updateUserPassword: this.updateUserPassword,
-      updateSavedCards: this.updateSavedCards
+      updateSavedCards: this.updateSavedCards,
+      updateIsModern: this.updateIsModern,
+      isModern: false
     };
   }
   render() {

@@ -1,37 +1,29 @@
 import React from 'react';
 import { UserProvider } from './userContext';
-
+import { Container } from 'react-bootstrap';
 import GetCards from './components/GetCards/GetCards';
 import Nav from './components/NavBar/Nav';
 
 const App = () => {
   return (
-    <UserProvider>
-      <div
-        style={{
-          margin: '0 auto',
-          padding: '5px',
-          width: '100%',
-          position: 'absolute'
-        }}
-      >
-        <div
+    <div>
+      <UserProvider>
+        <Nav />
+
+        <Container
           style={{
-            position: 'relative'
+            textAlign: 'center'
           }}
         >
-          <Nav />
-        </div>
-        <div>
           <GetCards
             style={{
               padding: '1rem',
-              margin: '5px 5px'
+              margin: '10px 10px'
             }}
           />
-        </div>
-      </div>
-    </UserProvider>
+        </Container>
+      </UserProvider>
+    </div>
   );
 };
 

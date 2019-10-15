@@ -1,9 +1,22 @@
 .Card {
   padding: 1rem;
-  margin: 0 auto;
-  display: flexbox;
-  justify-content: center;
+  width: 18rem;
+  height: 18rem;
+  margin: 16px;
+  display: inline-flexbox;
+
   position: relative;
   border: 1px solid black;
 
 }
+
+/* className="Card"
+              key={card.id}
+              style={{
+                width: '18rem',
+
+                margin: '16px',
+                border: '1px solid black',
+                padding: '1rem',
+                float: 'right'
+              }} */
