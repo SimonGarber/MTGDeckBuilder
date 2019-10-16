@@ -6,6 +6,12 @@ export const UserContext = createContext({
   savedcards: [],
   showcarddetails: false,
   ismodern: false,
+  iscommander: false,
+  islegacy: false,
+  isvintage: false,
+  updateIsCommander: () => {},
+  updateIsVintage: () => {},
+  updateIsLegacy: () => {},
   updateIsModern: () => {},
   updateShowCardDetails: () => {},
   updateSavedCards: () => {},
@@ -16,11 +22,32 @@ export const UserContext = createContext({
 export class UserProvider extends Component {
   constructor(props) {
     super(props);
-    this.updateIsModern = () => {
-      if (this.state.isModern) {
-        this.setState({ isModern: false });
+    this.updateIsCommander = () => {
+      if (this.state.iscommander) {
+        this.setState({ iscommander: false });
       } else {
-        this.setState({ isModern: true });
+        this.setState({ iscommander: true });
+      }
+    };
+    this.updateIsLegacy = () => {
+      if (this.state.islegacy) {
+        this.setState({ islegacy: false });
+      } else {
+        this.setState({ islegacy: true });
+      }
+    };
+    this.updateIsVintage = () => {
+      if (this.state.isvintage) {
+        this.setState({ isvintage: false });
+      } else {
+        this.setState({ isvintage: true });
+      }
+    };
+    this.updateIsModern = () => {
+      if (this.state.ismodern) {
+        this.setState({ ismodern: false });
+      } else {
+        this.setState({ ismodern: true });
       }
     };
     this.updateUserPassword = (newUserPassword) => {
@@ -61,11 +88,17 @@ export class UserProvider extends Component {
       username: '',
       userpassword: '',
       savedcards: [],
+      ismodern: false,
+      iscommander: false,
+      isvintage: false,
+      islegacy: false,
       updateUserName: this.updateUserName,
       updateUserPassword: this.updateUserPassword,
       updateSavedCards: this.updateSavedCards,
       updateIsModern: this.updateIsModern,
-      isModern: false
+      updateIsCommander: this.updateIsCommander,
+      updateIsLegacy: this.updateIsLegacy,
+      updateIsVintage: this.updateIsVintage
     };
   }
   render() {

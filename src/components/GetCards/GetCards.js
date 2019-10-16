@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import CardList from '../CardList/CardList';
 import './GetCards.css';
-import { UserConsumer, UserContext } from '../../userContext';
-import { Grid } from 'semantic-ui-react';
+import { UserContext } from '../../userContext';
+import { Grid, Button } from 'semantic-ui-react';
 export default function GetCards() {
   const [cards, setCards] = useState([]);
   const [query, setQuery] = useState('');
-  const ModernContext = useContext(UserContext);
+  const context = useContext(UserContext);
   const getCardsHandler = (e) => {
-    console.log(ModernContext);
+    console.log(context);
     e.preventDefault();
     const request = new Request(
       `http://localhost:3001/api/cards/${query}`,
@@ -49,7 +49,11 @@ export default function GetCards() {
               colorIdentity: card.data.color_identity.map((identity) => {
                 return identity;
               }),
-              isModern: card.data.legalities.modern === 'legal'
+              isModern: card.data.legalities.modern === 'legal',
+              isLegacy: card.data.legalities.legacy === 'legal',
+              isCommander: card.data.legalities.commander === 'legal',
+              isVintage:
+                card.data.legalities.vintage === 'restricted' || 'legal'
             };
           } else {
             return {
@@ -71,41 +75,81 @@ export default function GetCards() {
   };
 
   return (
-    <UserConsumer>
-      {({ updateIsModern }) => (
-        <div
+    <div
+      style={{
+        justifyContent: 'center'
+      }}
+    >
+      <div>
+        <form
           style={{
-            justifyContent: 'center'
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'relative',
+            marginTop: '8rem'
           }}
+          onSubmit={getCardsHandler}
         >
-          <form
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              position: 'relative',
-              marginTop: '8rem'
-            }}
-            onSubmit={getCardsHandler}
-          >
-            <input
-              value={ModernContext.isModern}
-              type="checkbox"
-              onChange={updateIsModern}
-            />
+          {' '}
+          <div>
+            <label>
+              Commander
+              <input
+                id="Commander"
+                type="checkbox"
+                onChange={context.updateIsCommander}
+              ></input>
+            </label>
+
+            <label>
+              Vintage
+              <input
+                id="Vintage"
+                type="checkbox"
+                onChange={context.updateIsVintage}
+              ></input>
+            </label>
+            <label>
+              Legacy
+              <input
+                id="Legacy"
+                type="checkbox"
+                onChange={context.updateIsLegacy}
+              ></input>
+            </label>
+            <label>
+              Modern
+              <input
+                id="Modern"
+                type="checkbox"
+                onChange={context.updateIsModern}
+              ></input>
+            </label>
             <input
               className="search-heading"
               value={query}
               onChange={handleChange}
               type="text"
+              style={{
+                height: '50px'
+              }}
             />
-            <button type="submit">Get Cards</button>
-          </form>
-
-          <Grid columns="equal">
-            <CardList cards={cards} />
-          </Grid>
-        </div>
-      )}
-    </UserConsumer>
+          </div>
+          <Button
+            className="ui primary button"
+            type="submit"
+            style={{
+              height: '50px',
+              backgroundColor: '#03b6fc'
+            }}
+          >
+            Get Cards
+          </Button>
+        </form>
+      </div>
+      <Grid columns="equal">
+        <CardList cards={cards} />
+      </Grid>
+    </div>
   );
 }
