@@ -1,21 +1,50 @@
-import React from 'react';
-import { Card, Modal } from 'react-bootstrap';
-import './CardModal.css';
+// import React, { useState } from 'react';
+// import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react';
 
-const CardModal = ({ show, hide }) => {
-  return (
-    <Modal show={show} hide={hide}>
-      <Modal.Header>
-        <Modal.Title>Card Info</Modal.Title>
-      </Modal.Header>
-      <Card>
-        <p>Card Type</p>
-        <p>Artist</p>
-        <p>Rules Text</p>
-        <button onClick={hide}>Close</button>
-      </Card>
-    </Modal>
-  );
-};
+// const CardModal = ({ card }) => {
+//   const [show, setShow] = useState(false);
+//   const handleClose = () => {
+//     setShow(false);
+//   };
+//   return (
+//     <Modal
+//       open={show}
+//       trigger={
+//         <Button
+//           onClick={() => {
+//             setShow(true);
+//           }}
+//         >
+//           Scrolling Content Modal
+//         </Button>
+//       }
+//       style={{
+//         top: '0',
+//         left: '0',
+//         margin: '0, auto',
+//         position: 'absolute',
+//         backgroundColor: 'aliceblue',
+//         maxWidth: '50%',
+//         maxheight: '50%'
+//       }}
+//     >
+//       <Modal.Header>Card Image</Modal.Header>
+//       <Modal.Content image scrolling>
+//         <Image wrapped size="medium" src={card.image} />
+//         <Modal.Description>
+//           <Header>{card.name}</Header>
+//           <p>
+//             Card Data
+//           </p>
+//         </Modal.Description>
+//       </Modal.Content>
+//       <Modal.Actions>
+//         <Button onClick={handleClose} primary>
+//           close <Icon name="right chevron" />
+//         </Button>
+//       </Modal.Actions>
+//     </Modal>
+//   );
+// };
 
-export default CardModal;
+// export default CardModal;
