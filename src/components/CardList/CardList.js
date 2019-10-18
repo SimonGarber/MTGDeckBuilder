@@ -7,7 +7,7 @@ const CardList = ({ cards }) => {
   const context = useContext(UserContext);
 
   return (
-    <Grid.Row columns={4}>
+    <Grid.Row centered columns={4}>
       {cards.map((card) => {
         return card.image !== null && card.isModern && context.ismodern ? (
           <CardListItem key={card.id} card={{ ...card }} />

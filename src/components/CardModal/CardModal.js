@@ -48,3 +48,39 @@
 // };
 
 // export default CardModal;
+// const CardModal = (props) => {
+//   console.log(props);
+//   const [modalShow, setModalShow] = useState(false);
+//   const handleClose = () => {
+//     setModalShow(false);
+//   };
+//   return (
+//     <Modal
+//       className="modal-wrapper"
+//       open={modalShow}
+//       trigger={
+//         <Button
+//           onClick={() => {
+//             setModalShow(true);
+//           }}
+//         >
+//           Scrolling Content Modal
+//         </Button>
+//       }
+//     >
+//       <Modal.Header>Card Image</Modal.Header>
+//       <Modal.Content>
+//         <Image size="small" src={props.card.image} wrapped />
+//         <Modal.Description>
+//           <Header>{props.card.name}</Header>
+//           <p>Card Data</p>
+//         </Modal.Description>
+//       </Modal.Content>
+//       <Modal.Actions>
+//         <Button onClick={handleClose} primary>
+//           close <Icon name="right chevron" />
+//         </Button>
+//       </Modal.Actions>
+//     </Modal>
+//   );
+// };

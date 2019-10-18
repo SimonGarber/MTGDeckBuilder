@@ -32,7 +32,7 @@ export default function GetCards() {
           if (card.data.image_uris) {
             return {
               id: card.data.id,
-              image2: card.data.image_uris.large,
+              image2: card.data.image_uris.normal,
               image: card.data.image_uris.small,
               name: card.data.name,
               artist: card.data.artist,
@@ -150,7 +150,7 @@ export default function GetCards() {
           </Button>
         </form>
       </div>
-      <Grid columns="equal">
+      <Grid centered columns={4}>
         <CardList cards={cards} />
       </Grid>
     </div>

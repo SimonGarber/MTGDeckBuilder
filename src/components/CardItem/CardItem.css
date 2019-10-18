@@ -28,5 +28,9 @@
   background: white;
   border: 1px solid #d0cccc;
   margin: 100px auto 0;
-  position: static;
+  position: relative;
+}
+
+.popup-Button :hover {
+  visibility: hidden;
 }
