@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import CardList from '../CardList/CardList';
 import './GetCards.css';
 import { UserContext } from '../../userContext';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Container, Form } from 'semantic-ui-react';
 export default function GetCards() {
   const [cards, setCards] = useState([]);
   const [query, setQuery] = useState('');
@@ -32,7 +32,7 @@ export default function GetCards() {
           if (card.data.image_uris) {
             return {
               id: card.data.id,
-              image2: card.data.image_uris.normal,
+              image2: card.data.image_uris.border_crop,
               image: card.data.image_uris.small,
               name: card.data.name,
               artist: card.data.artist,
@@ -80,79 +80,85 @@ export default function GetCards() {
   return (
     <div
       style={{
-        justifyContent: 'center'
+        width: '90%'
       }}
     >
-      <div>
-        <form
+      <Form
+        style={{
+          marginTop: '4rem'
+        }}
+        onSubmit={getCardsHandler}
+      >
+        {' '}
+        <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            position: 'relative',
-            marginTop: '8rem'
+            padding: '2rem'
           }}
-          onSubmit={getCardsHandler}
         >
-          {' '}
-          <div>
-            <label>
-              Commander
-              <input
-                id="Commander"
-                type="checkbox"
-                onChange={context.updateIsCommander}
-              ></input>
-            </label>
-
-            <label>
-              Vintage
-              <input
-                id="Vintage"
-                type="checkbox"
-                onChange={context.updateIsVintage}
-              ></input>
-            </label>
-            <label>
-              Legacy
-              <input
-                id="Legacy"
-                type="checkbox"
-                onChange={context.updateIsLegacy}
-              ></input>
-            </label>
-            <label>
-              Modern
-              <input
-                id="Modern"
-                type="checkbox"
-                onChange={context.updateIsModern}
-              ></input>
-            </label>
+          <label>
+            Commander
             <input
-              className="search-heading"
-              value={query}
-              onChange={handleChange}
-              type="text"
-              style={{
-                height: '50px'
-              }}
-            />
-          </div>
-          <Button
-            className="ui primary button"
-            type="submit"
-            style={{
-              height: '50px',
-              backgroundColor: '#03b6fc'
-            }}
-          >
-            Get Cards
-          </Button>
-        </form>
-      </div>
-      <Grid centered columns={4}>
-        <CardList cards={cards} />
-      </Grid>
+              id="Commander"
+              type="checkbox"
+              onChange={context.updateIsCommander}
+            ></input>
+          </label>
+
+          <label>
+            Vintage
+            <input
+              id="Vintage"
+              type="checkbox"
+              onChange={context.updateIsVintage}
+            ></input>
+          </label>
+          <label>
+            Legacy
+            <input
+              id="Legacy"
+              type="checkbox"
+              onChange={context.updateIsLegacy}
+            ></input>
+          </label>
+          <label>
+            Modern
+            <input
+              id="Modern"
+              type="checkbox"
+              onChange={context.updateIsModern}
+            ></input>
+          </label>
+        </div>
+        <Form.Input
+          className="search-heading"
+          value={query}
+          onChange={handleChange}
+          type="text"
+          style={{
+            height: '50px'
+          }}
+        />
+        <Button
+          className="ui primary button"
+          type="submit"
+          style={{
+            height: '50px',
+            backgroundColor: '#03b6fc'
+          }}
+        >
+          Get Cards
+        </Button>
+      </Form>
+
+      <Container
+        style={{
+          margin: '2.5rem'
+        }}
+      >
+        <Grid centered>
+          <CardList cards={cards} />
+        </Grid>
+      </Container>
     </div>
   );
 }

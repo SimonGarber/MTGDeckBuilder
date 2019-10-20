@@ -5,18 +5,16 @@ import UserSettings from '../../UserSettings';
 
 const Nav = () => {
   return (
-    <div>
-      <Navbar className="Nav" bg="light" expand="lg">
-        <h3>MTG Deckbuilder</h3>
-        <div
-          style={{
-            marginTop: '1.1rem'
-          }}
-        >
-          <UserSettings />
-        </div>
-      </Navbar>
-    </div>
+    <Navbar className="Nav" bg="light" expand="lg">
+      <h3>MTG Deckbuilder</h3>
+      <div
+        style={{
+          marginTop: '1.1rem'
+        }}
+      >
+        <UserSettings />
+      </div>
+    </Navbar>
   );
 };
 
