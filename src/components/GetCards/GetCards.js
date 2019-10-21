@@ -80,19 +80,29 @@ export default function GetCards() {
   return (
     <div
       style={{
-        width: '90%'
+        width: '100%',
+        top: '30rem',
+        position: 'absolute'
       }}
     >
       <Form
         style={{
-          marginTop: '4rem'
+          height: '19rem',
+          width: '100%',
+          top: '33rem',
+          position: 'fixed',
+          background: 'tan',
+          zIndex: '10',
+          textAlign: 'center',
+          left: '0'
         }}
         onSubmit={getCardsHandler}
       >
         {' '}
         <div
           style={{
-            padding: '2rem'
+            padding: '2rem',
+            backgroundColor: '#5AC6FC'
           }}
         >
           <label>
@@ -130,12 +140,13 @@ export default function GetCards() {
           </label>
         </div>
         <Form.Input
-          className="search-heading"
           value={query}
           onChange={handleChange}
           type="text"
           style={{
-            height: '50px'
+            height: '50px',
+            backgroundColor: '#ECFDA0',
+            padding: '0.5rem'
           }}
         />
         <Button
@@ -152,10 +163,19 @@ export default function GetCards() {
 
       <Container
         style={{
-          margin: '2.5rem'
+          margin: '12.5rem',
+          width: '90%',
+
+          position: 'absolute'
         }}
       >
-        <Grid centered>
+        <Grid
+          centered
+          style={{
+            position: 'relative',
+            textAlign: 'center'
+          }}
+        >
           <CardList cards={cards} />
         </Grid>
       </Container>

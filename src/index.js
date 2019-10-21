@@ -8,7 +8,11 @@ ReactDOM.render(
     style={{
       justifyContent: 'center',
       display: 'flex',
-      textAlign: 'center'
+      textAlign: 'center',
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      top: '9rem'
     }}
   >
     <App />

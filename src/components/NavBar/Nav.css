@@ -1,14 +1,14 @@
 .Nav {
   display: flex;
   justify-content: space-between;
-  height: 4rem;
+  height: 9rem;
   border-bottom: solid black;
   margin-bottom: 3rem;
 
   width: 100%;
   z-index: 10;
   background-color: #efefef;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
 }

@@ -22,24 +22,28 @@ const CardListItem = ({ card }) => {
     }
   };
   const popup1 = {
-    position: 'relative',
-    top: '35rem',
-    left: '30rem',
-    height: '32rem',
-    width: '32rem',
+    position: 'fixed',
+    top: '9rem',
+    left: '43rem',
+    height: '20rem',
+    width: '70%',
     backgroundColor: 'green',
     padding: '2rem',
     border: '5px solid black',
-    transform: 'none'
+    transform: 'none',
+    display: 'flex',
+    zIndex: '15'
   };
 
   const popup2 = {
-    top: '32rem',
-    left: '30rem',
+    right: 'auto',
+    top: '9rem',
+    left: '13rem',
     height: '32rem',
     width: '32rem',
     transform: 'none',
-    position: 'absolute'
+    position: 'fixed',
+    zIndex: '15'
   };
 
   const content = (
@@ -54,8 +58,23 @@ const CardListItem = ({ card }) => {
       >
         <Popup.Content>
           <Card>
-            <Card.Header>Card Actions</Card.Header>
-            <Card.Content>
+            <Card.Header
+              style={{
+                border: '1px solid black',
+                backgroundColor: 'gray'
+              }}
+            >
+              <Button>Details</Button>
+              <Button>Rulings</Button>
+              <Button>Price</Button>
+            </Card.Header>
+            <Card.Content
+              style={{
+                border: '1px solid black',
+                backgroundColor: '#F9FEE1',
+                padding: '1em'
+              }}
+            >
               Aliquip nostrud quis duis esse amet cupidatat consequat minim
               anim. Sunt nulla anim reprehenderit commodo eiusmod dolor tempor
               eu voluptate reprehenderit nulla deserunt. Laboris tempor
@@ -81,9 +100,9 @@ const CardListItem = ({ card }) => {
               cupidatat adipisicing nostrud ex ut. Ad eiusmod minim veniam
               veniam exercitation excepteur velit dolore.
             </Card.Content>
+            <Button>Close</Button>
           </Card>
         </Popup.Content>
-        <Button>Close</Button>
       </Popup>
     </Card>
   );

@@ -1,0 +1,13 @@
+.dashboard {
+  background: gray;
+  width: 100%;
+  position: fixed;
+  height: 24rem;
+  z-index: 9;
+  top: 9rem
+}
+
+.dashboard .Card {
+  background: blue;
+  position: relative;
+}
