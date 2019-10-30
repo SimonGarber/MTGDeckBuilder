@@ -10,3 +10,14 @@
   max-height: 100%;
   max-width: 100%;
 }
+
+.FormContainer {
+  height: 19rem;
+  max-width: 100%;
+  top: 4.3rem;
+  position: fixed;
+  background: tan;
+  z-index: 11;
+  text-align: center;
+  left: 10rem;
+}

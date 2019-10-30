@@ -3,15 +3,15 @@ import CardList from '../CardList/CardList';
 import './GetCards.css';
 import { UserContext } from '../../userContext';
 import { Grid, Button, Container, Form } from 'semantic-ui-react';
-export default function GetCards() {
+
+const GetCards = () => {
   const [cards, setCards] = useState([]);
   const [query, setQuery] = useState('');
   const context = useContext(UserContext);
   const getCardsHandler = (e) => {
-    console.log(context);
     e.preventDefault();
     const request = new Request(
-      `http://localhost:3001/api/cards/${query}`,
+      `http://localhost:3001/api/sets/${query}`,
 
       {
         method: 'GET',
@@ -33,7 +33,7 @@ export default function GetCards() {
             return {
               id: card.data.id,
               image2: card.data.image_uris.border_crop,
-              image: card.data.image_uris.small,
+              image: card.data.image_uris.normal,
               name: card.data.name,
               artist: card.data.artist,
               reserved: card.data.reserved,
@@ -81,23 +81,13 @@ export default function GetCards() {
     <div
       style={{
         width: '100%',
-        top: '30rem',
-        position: 'absolute'
+        top: '4.3rem',
+        left: '10rem',
+        position: 'absolute',
+        display: 'flex'
       }}
     >
-      <Form
-        style={{
-          height: '19rem',
-          width: '100%',
-          top: '33rem',
-          position: 'fixed',
-          background: 'tan',
-          zIndex: '10',
-          textAlign: 'center',
-          left: '0'
-        }}
-        onSubmit={getCardsHandler}
-      >
+      <Form className="FormContainer" onSubmit={getCardsHandler}>
         {' '}
         <div
           style={{
@@ -181,4 +171,6 @@ export default function GetCards() {
       </Container>
     </div>
   );
-}
+};
+
+export default GetCards;

@@ -1,0 +1,15 @@
+.CardOverlay .container {
+  position: fixed;
+  z-index: 11;
+  left: 13rem;
+  top: 9.2rem;
+}
+
+.CardOverlay .card {
+  position: fixed;
+  width: 480px;
+  height: 680px;
+  background-color: #BCBEB7;
+  border: 2px solid black;
+  z-index: 11;
+}

@@ -10,13 +10,6 @@
 
 }
 
-/* className="Card"
-              key={card.id}
-              style={{
-                width: '18rem',
-
-                margin: '16px',
-                border: '1px solid black',
-                padding: '1rem',
-                float: 'right'
-              }} */
+CardListRow {
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 .dashboard {
-  background: gray;
+
   width: 100%;
   position: fixed;
   height: 24rem;
@@ -10,4 +10,11 @@
 .dashboard .Card {
   background: blue;
   position: relative;
+}
+
+.dashboard .CardContainer {
+  position: fixed;
+  width: 480px;
+  height: 680px;
+  background-color: red;
 }
