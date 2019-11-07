@@ -11,7 +11,7 @@ const GetCards = () => {
   const getCardsHandler = (e) => {
     e.preventDefault();
     const request = new Request(
-      `http://localhost:3001/api/sets/${query}`,
+      `http://localhost:3001/api/cards/${query}`,
 
       {
         method: 'GET',
@@ -28,33 +28,33 @@ const GetCards = () => {
         }
       })
       .then((data) => {
+        console.log(data);
         const obj = data.map((card) => {
-          if (card.data.image_uris) {
+          if (card.image_uris) {
             return {
-              id: card.data.id,
-              image2: card.data.image_uris.border_crop,
-              image: card.data.image_uris.normal,
-              name: card.data.name,
-              artist: card.data.artist,
-              reserved: card.data.reserved,
-              setName: card.data.set_name,
-              commanderLegal: card.data.legalities.commander,
-              modernLegal: card.data.legalities.modern,
-              legacyLegal: card.data.legalities.legacy,
-              vintageLegal: card.data.legalities.vintage,
-              standardLegal: card.data.legalities.standard,
-              pauperLegal: card.data.legalities.pauper,
-              oldSchoolLegal: card.data.legalities.oldschool,
-              cardType: card.data.type_line,
-              manaCost: card.data.cmc,
-              colorIdentity: card.data.color_identity.map((identity) => {
+              id: card.id,
+              image2: card.image_uris.border_crop,
+              image: card.image_uris.normal,
+              name: card.name,
+              artist: card.artist,
+              reserved: card.reserved,
+              setName: card.set_name,
+              commanderLegal: card.legalities.commander,
+              modernLegal: card.legalities.modern,
+              legacyLegal: card.legalities.legacy,
+              vintageLegal: card.legalities.vintage,
+              standardLegal: card.legalities.standard,
+              pauperLegal: card.legalities.pauper,
+              oldSchoolLegal: card.legalities.oldschool,
+              cardType: card.type_line,
+              manaCost: card.cmc,
+              colorIdentity: card.color_identity.map((identity) => {
                 return identity;
               }),
-              isModern: card.data.legalities.modern === 'legal',
-              isLegacy: card.data.legalities.legacy === 'legal',
-              isCommander: card.data.legalities.commander === 'legal',
-              isVintage:
-                card.data.legalities.vintage === 'restricted' || 'legal'
+              isModern: card.legalities.modern === 'legal',
+              isLegacy: card.legalities.legacy === 'legal',
+              isCommander: card.legalities.commander === 'legal',
+              isVintage: card.legalities.vintage === 'restricted' || 'legal'
             };
           } else {
             return {
