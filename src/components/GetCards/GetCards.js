@@ -7,13 +7,22 @@ import { Grid, Button, Container, Form } from 'semantic-ui-react';
 const GetCards = () => {
   const [cards, setCards] = useState([]);
   const [query, setQuery] = useState('');
+  const [newQuery, setNewQuery] = useState({
+    name: '',
+    set: '',
+    cmc: '',
+    power: '',
+    toughness: '',
+    typeLine: ''
+  });
   const context = useContext(UserContext);
   const getCardsHandler = (e) => {
     e.preventDefault();
     const request = new Request(
-      `http://localhost:3001/api/cards/${query}`,
+      `http://localhost:3001/api/cards/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}`,
 
       {
+        mode: 'cors',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       }
@@ -21,6 +30,7 @@ const GetCards = () => {
 
     fetch(request)
       .then((response) => {
+        console.log(response.status);
         if (response.status === 200) {
           return response.json();
         } else {
@@ -65,7 +75,14 @@ const GetCards = () => {
         });
 
         setCards(obj);
-        setQuery('');
+        setNewQuery({
+          name: '',
+          set: '',
+          cmc: '',
+          power: '',
+          toughness: '',
+          typeLine: ''
+        });
       })
 
       .catch((err) => {
@@ -73,10 +90,18 @@ const GetCards = () => {
       });
   };
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
+  const handleNameChange = (e) => {
+    setNewQuery({ ...newQuery, name: e.target.value });
   };
-
+  const handleSetChange = (e) => {
+    setNewQuery({ ...newQuery, set: e.target.value });
+  };
+  const handleTypeLineChange = (e) => {
+    setNewQuery({ ...newQuery, typeLine: e.target.value });
+  };
+  const handleCmcChange = (e) => {
+    setNewQuery({ ...newQuery, cmc: e.target.value });
+  };
   return (
     <div
       style={{
@@ -130,8 +155,27 @@ const GetCards = () => {
           </label>
         </div>
         <Form.Input
-          value={query}
-          onChange={handleChange}
+          value={newQuery.cmc}
+          onChange={handleCmcChange}
+          type="number"
+          placeholder="cmc"
+        />
+        <Form.Input
+          value={newQuery.typeLine}
+          onChange={handleTypeLineChange}
+          type="text"
+          placeholder="type line"
+        />
+        <Form.Input
+          value={newQuery.set}
+          onChange={handleSetChange}
+          type="text"
+          placeholder="set name"
+        />
+        <Form.Input
+          value={newQuery.name}
+          onChange={handleNameChange}
+          placeholder="card name"
           type="text"
           style={{
             height: '50px',
