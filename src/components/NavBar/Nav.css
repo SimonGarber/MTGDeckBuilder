@@ -1,16 +1,14 @@
 .Nav {
   display: flex;
   justify-content: space-between;
-  height: 4rem;
+  height: 60px;
   border-bottom: solid black;
   margin-bottom: 3rem;
-  background-color: rgb(114, 161, 182);
   width: 100%;
-  z-index: 10;
+  z-index: 1;
   background-color: #efefef;
   position: fixed;
-  top: 0;
-  left: 0;
+
 }
 
 .Login {

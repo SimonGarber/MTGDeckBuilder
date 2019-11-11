@@ -12,12 +12,10 @@
 }
 
 .FormContainer {
-  height: 19rem;
-  max-width: 100%;
-  top: 4.3rem;
+  width: 100%;
+  height: 25vh;
   position: fixed;
   background: tan;
   z-index: 11;
   text-align: center;
-  left: 10rem;
 }

@@ -6,15 +6,15 @@ import { Grid, Button, Container, Form } from 'semantic-ui-react';
 
 const GetCards = () => {
   const [cards, setCards] = useState([]);
-  const [query, setQuery] = useState('');
+  // const [query, setQuery] = useState('');
   const [newQuery, setNewQuery] = useState({
     name: '',
     set: '',
     cmc: '',
-
     typeLine: '',
     oracleText: ''
   });
+
   const context = useContext(UserContext);
 
   const getCardsHandler = (e) => {
@@ -113,9 +113,9 @@ const GetCards = () => {
       style={{
         width: '100%',
         top: '4.3rem',
-        left: '10rem',
         position: 'absolute',
-        display: 'flex'
+        display: 'flex',
+        justifyContent: 'center'
       }}
     >
       <Form className="FormContainer" onSubmit={getCardsHandler}>
@@ -206,8 +206,7 @@ const GetCards = () => {
 
       <Container
         style={{
-          margin: '12.5rem',
-          width: '90%',
+          width: '100%',
 
           position: 'absolute'
         }}
@@ -215,7 +214,6 @@ const GetCards = () => {
         <Grid
           centered
           style={{
-            position: 'relative',
             textAlign: 'center'
           }}
         >

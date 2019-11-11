@@ -58,7 +58,13 @@ const CardListItem = ({ card }) => {
                   on="click"
                   closeOnDocumentClick={false}
                   style={popup}
-                  trigger={<Image size="small" src={card.image} />}
+                  trigger={
+                    <Image
+                      style={{ marginTop: '25vh' }}
+                      size="small"
+                      src={card.image}
+                    />
+                  }
                 >
                   <Popup.Content> {content}</Popup.Content>
                 </Popup>

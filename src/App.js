@@ -10,15 +10,10 @@ import './App.css';
 const App = () => {
   return (
     <UserProvider>
-      <div
-        style={{
-          width: '100%',
-          display: 'flex'
-        }}
-      >
+      <div className="div">
         <Nav />
         <SideBar />
-        <CardOverlay />
+        {/*<CardOverlay />*/}
 
         <GetCards />
       </div>
