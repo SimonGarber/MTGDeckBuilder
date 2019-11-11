@@ -11,22 +11,24 @@ const GetCards = () => {
     name: '',
     set: '',
     cmc: '',
-    power: '',
-    toughness: '',
-    typeLine: ''
+
+    typeLine: '',
+    oracleText: ''
   });
   const context = useContext(UserContext);
+
   const getCardsHandler = (e) => {
     e.preventDefault();
-    const request = new Request(
-      `http://localhost:3001/api/cards/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}`,
 
-      {
-        mode: 'cors',
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      }
+    const url = new URL(
+      `http://localhost:3001/api/cards/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}`
     );
+
+    const request = new Request(url, {
+      mode: 'cors',
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
 
     fetch(request)
       .then((response) => {
@@ -73,15 +75,16 @@ const GetCards = () => {
             };
           }
         });
-
+        console.log(obj);
         setCards(obj);
+
         setNewQuery({
+          ...newQuery,
           name: '',
           set: '',
           cmc: '',
-          power: '',
-          toughness: '',
-          typeLine: ''
+          typeLine: '',
+          oracleText: ''
         });
       })
 
@@ -101,6 +104,9 @@ const GetCards = () => {
   };
   const handleCmcChange = (e) => {
     setNewQuery({ ...newQuery, cmc: e.target.value });
+  };
+  const handleOracleTextChange = (e) => {
+    setNewQuery({ ...newQuery, oracleText: e.target.value });
   };
   return (
     <div
@@ -155,9 +161,15 @@ const GetCards = () => {
           </label>
         </div>
         <Form.Input
+          value={newQuery.oracleText}
+          onChange={handleOracleTextChange}
+          type="text"
+          placeholder="Oracle Text"
+        />
+        <Form.Input
           value={newQuery.cmc}
           onChange={handleCmcChange}
-          type="number"
+          type="text"
           placeholder="cmc"
         />
         <Form.Input
@@ -173,15 +185,12 @@ const GetCards = () => {
           placeholder="set name"
         />
         <Form.Input
+          id="cardName"
+          name="name"
           value={newQuery.name}
           onChange={handleNameChange}
           placeholder="card name"
           type="text"
-          style={{
-            height: '50px',
-            backgroundColor: '#ECFDA0',
-            padding: '0.5rem'
-          }}
         />
         <Button
           className="ui primary button"
