@@ -1,12 +1,14 @@
 * {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
   line-height: 1.6;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .Card {
   position: relative;
@@ -16,7 +18,8 @@ body {
   height: 100%;
   justify-content: center;
   margin-bottom: 5px;
-  scroll-snap-align: center; }
+  scroll-snap-align: center;
+}
 
 .FormContainer {
   width: 100%;
@@ -24,16 +27,20 @@ body {
   position: fixed;
   background: tan;
   z-index: 11;
-  text-align: center; }
+  text-align: center;
+}
 
 .GetCardsContainer {
   width: 100%;
   top: 4.3rem;
   position: absolute;
-  display: flex; }
+  display: flex;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace; }
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
 
 .Nav {
   display: flex;
@@ -44,10 +51,12 @@ code {
   width: 100%;
   z-index: 1;
   background-color: #efefef;
-  position: fixed; }
+  position: fixed;
+}
 
 .Login {
-  float: right; }
+  float: right;
+}
 
 #portal {
   width: 100%;
@@ -57,4 +66,5 @@ code {
   scroll-snap-type: y mandatory;
   position: absolute;
   top: 8rem;
-  text-align: center; }
+  text-align: center;
+}

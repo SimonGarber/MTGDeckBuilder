@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import React from 'react';
+import { Component } from "react";
+import React from "react";
 
 export default class Toggle extends Component {
   state = { on: false };

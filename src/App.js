@@ -1,24 +1,15 @@
-import React from 'react';
-import { UserProvider } from './userContext';
+import React, { Component } from "react";
+import { UserProvider } from "./stateManagement/userContext";
+import GetCards from "./components/GetCards/GetCards";
+import Nav from "./components/NavBar/Nav";
 
-import GetCards from './components/GetCards/GetCards';
-import Nav from './components/NavBar/Nav';
-import CardOverlay from './components/CardOverlay/CardOverlay';
-import SideBar from './components/SideBar/SideBar';
-import './App.css';
-
-const App = () => {
-  return (
-    <UserProvider>
-      <div className="div">
+export default class App extends Component {
+  render() {
+    return (
+      <UserProvider>
         <Nav />
-        <SideBar />
-        {/*<CardOverlay />*/}
-
         <GetCards />
-      </div>
-    </UserProvider>
-  );
-};
-
-export default App;
+      </UserProvider>
+    );
+  }
+}

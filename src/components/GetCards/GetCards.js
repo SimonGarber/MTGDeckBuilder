@@ -1,47 +1,47 @@
-import React, { useState, useContext } from 'react';
-import CardList from '../CardList/CardList';
-import './GetCards.css';
-import { UserContext } from '../../userContext';
-import { Grid, Button, Container, Form } from 'semantic-ui-react';
+import React, { useState, useContext } from "react";
 
+import "../../index.scss";
+import { UserContext } from "../../stateManagement/userContext";
+import { Button, Form, Card } from "semantic-ui-react";
+import Portal from "../Portal/Portal";
 const GetCards = () => {
   const [cards, setCards] = useState([]);
-  // const [query, setQuery] = useState('');
+
   const [newQuery, setNewQuery] = useState({
-    name: '',
-    set: '',
-    cmc: '',
-    typeLine: '',
-    oracleText: ''
+    name: "",
+    set: "",
+    cmc: "",
+    typeLine: "",
+    oracleText: "",
+    colorIdentity: "",
+    numOfResults: ""
   });
 
   const context = useContext(UserContext);
 
-  const getCardsHandler = (e) => {
+  async function getCardsHandler(e) {
     e.preventDefault();
 
     const url = new URL(
-      `http://localhost:3001/api/cards/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}`
+      `http://localhost:3001/api/cards/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`
     );
 
     const request = new Request(url, {
-      mode: 'cors',
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      mode: "cors",
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
     });
 
-    fetch(request)
-      .then((response) => {
-        console.log(response.status);
+    await fetch(request)
+      .then(response => {
         if (response.status === 200) {
           return response.json();
         } else {
           throw new Error();
         }
       })
-      .then((data) => {
-        console.log(data);
-        const obj = data.map((card) => {
+      .then(data => {
+        const obj = data.map(card => {
           if (card.image_uris) {
             return {
               id: card.id,
@@ -60,70 +60,68 @@ const GetCards = () => {
               oldSchoolLegal: card.legalities.oldschool,
               cardType: card.type_line,
               manaCost: card.cmc,
-              colorIdentity: card.color_identity.map((identity) => {
+              colorIdentity: card.color_identity.map(identity => {
                 return identity;
               }),
-              isModern: card.legalities.modern === 'legal',
-              isLegacy: card.legalities.legacy === 'legal',
-              isCommander: card.legalities.commander === 'legal',
-              isVintage: card.legalities.vintage === 'restricted' || 'legal'
+              isModern: card.legalities.modern === "legal",
+              isLegacy: card.legalities.legacy === "legal",
+              isCommander: card.legalities.commander === "legal",
+              isVintage: card.legalities.vintage === "restricted" || "legal",
+              queryResults: data.length
             };
           } else {
             return {
-              id: 'invalid card data',
+              id: "invalid card data",
               image: null
             };
           }
         });
-        console.log(obj);
+
         setCards(obj);
 
         setNewQuery({
           ...newQuery,
-          name: '',
-          set: '',
-          cmc: '',
-          typeLine: '',
-          oracleText: ''
+          name: "",
+          set: "",
+          cmc: "",
+          typeLine: "",
+          oracleText: "",
+          colorIdentity: "",
+          numOfResults: obj.length
         });
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
-  };
+  }
 
-  const handleNameChange = (e) => {
+  const handleNameChange = e => {
     setNewQuery({ ...newQuery, name: e.target.value });
   };
-  const handleSetChange = (e) => {
+  const handleSetChange = e => {
     setNewQuery({ ...newQuery, set: e.target.value });
   };
-  const handleTypeLineChange = (e) => {
+  const handleTypeLineChange = e => {
     setNewQuery({ ...newQuery, typeLine: e.target.value });
   };
-  const handleCmcChange = (e) => {
+  const handleCmcChange = e => {
     setNewQuery({ ...newQuery, cmc: e.target.value });
   };
-  const handleOracleTextChange = (e) => {
+  const handleOracleTextChange = e => {
     setNewQuery({ ...newQuery, oracleText: e.target.value });
   };
+  const handleColorIdentityChange = e => {
+    setNewQuery({ ...newQuery, colorIdentity: e.target.value });
+  };
   return (
-    <div
-      style={{
-        width: '100%',
-        top: '4.3rem',
-        position: 'absolute',
-        display: 'flex',
-        justifyContent: 'center'
-      }}
-    >
+    <div className="GetCardsContainer">
       <Form className="FormContainer" onSubmit={getCardsHandler}>
-        {' '}
+        {" "}
         <div
           style={{
-            padding: '2rem',
-            backgroundColor: '#5AC6FC'
+            padding: "2rem",
+            backgroundColor: "#5AC6FC"
           }}
         >
           <label>
@@ -161,6 +159,12 @@ const GetCards = () => {
           </label>
         </div>
         <Form.Input
+          value={newQuery.colorIdentity}
+          onChange={handleColorIdentityChange}
+          type="text"
+          placeholder="Color Identity"
+        />
+        <Form.Input
           value={newQuery.oracleText}
           onChange={handleOracleTextChange}
           type="text"
@@ -196,30 +200,53 @@ const GetCards = () => {
           className="ui primary button"
           type="submit"
           style={{
-            height: '50px',
-            backgroundColor: '#03b6fc'
+            height: "50px",
+            backgroundColor: "#03b6fc"
           }}
         >
           Get Cards
         </Button>
+        {newQuery.numOfResults === "" ? (
+          <p></p>
+        ) : (
+          <div style={{ background: "black" }}>
+            {" "}
+            <p style={{ color: "white" }}>
+              {" "}
+              Returned {newQuery.numOfResults} Matches
+            </p>
+          </div>
+        )}
       </Form>
-
-      <Container
-        style={{
-          width: '100%',
-
-          position: 'absolute'
-        }}
-      >
-        <Grid
-          centered
-          style={{
-            textAlign: 'center'
-          }}
-        >
-          <CardList cards={cards} />
-        </Grid>
-      </Container>
+      <Portal className="cardPortal">
+        {cards.map(card => {
+          return card.image !== null && card.isModern && context.ismodern ? (
+            <Card className="Card" bg="primary" text="white" key={card.id}>
+              <img style={{ marginTop: "25vh" }} src={card.image} />
+            </Card>
+          ) : card.image !== null && card.isLegacy && context.islegacy ? (
+            <Card className="Card" bg="primary" text="white" key={card.id}>
+              <img style={{ marginTop: "25vh" }} src={card.image} />
+            </Card>
+          ) : card.image !== null && card.isCommander && context.iscommander ? (
+            <Card className="Card" bg="primary" text="white" key={card.id}>
+              <img style={{ marginTop: "25vh" }} src={card.image} />
+            </Card>
+          ) : card.image !== null && card.isVintage && context.isvintage ? (
+            <Card className="Card" bg="primary" text="white" key={card.id}>
+              <img style={{ marginTop: "25vh" }} src={card.image} />
+            </Card>
+          ) : card.image !== null &&
+            !context.ismodern &&
+            !context.isvintage &&
+            !context.iscommander &&
+            !context.islegacy ? (
+            <Card className="Card" bg="primary" text="white" key={card.id}>
+              <img style={{ marginTop: "25vh" }} src={card.image} />
+            </Card>
+          ) : null;
+        })}
+      </Portal>
     </div>
   );
 };

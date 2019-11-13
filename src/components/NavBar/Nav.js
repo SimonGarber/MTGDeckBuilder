@@ -1,7 +1,7 @@
-import React from 'react';
-import './Nav.css';
-import { Navbar } from 'react-bootstrap';
-import UserSettings from '../../UserSettings';
+import React from "react";
+import "../../index.scss";
+import { Navbar } from "react-bootstrap";
+import UserSettings from "../UserSettings/UserSettings";
 
 const Nav = () => {
   return (
@@ -9,7 +9,7 @@ const Nav = () => {
       <h3>MTG Deckbuilder</h3>
       <div
         style={{
-          marginTop: '1.1rem'
+          marginTop: "1.1rem"
         }}
       >
         <UserSettings />
