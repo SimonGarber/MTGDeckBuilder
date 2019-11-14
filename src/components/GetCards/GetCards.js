@@ -4,6 +4,7 @@ import "../../index.scss";
 import { UserContext } from "../../stateManagement/userContext";
 import { Button, Form, Card } from "semantic-ui-react";
 import Portal from "../Portal/Portal";
+import FormatFilter from "../FormatFilter/FormatFilter";
 const GetCards = () => {
   const [cards, setCards] = useState([]);
 
@@ -45,8 +46,11 @@ const GetCards = () => {
           if (card.image_uris) {
             return {
               id: card.id,
-              image2: card.image_uris.border_crop,
-              image: card.image_uris.normal,
+              image2: card.image_uris.border_crop
+                ? card.image_uris.border_crop
+                : null,
+              image: card.image_uris.normal ? card.image_uris.normal : null,
+              image3: card.image_uris.small ? card.image_uris.small : null,
               name: card.name,
               artist: card.artist,
               reserved: card.reserved,
@@ -76,7 +80,7 @@ const GetCards = () => {
             };
           }
         });
-
+        console.log(obj);
         setCards(obj);
 
         setNewQuery({
@@ -115,50 +119,16 @@ const GetCards = () => {
     setNewQuery({ ...newQuery, colorIdentity: e.target.value });
   };
   return (
-    <div className="GetCardsContainer">
+    <div
+      className={
+        cards.length < 1 ? "GetCardsContainer" : "GetCardsContainer-collapse"
+      }
+    >
+      <h2>Card Search</h2>
       <Form className="FormContainer" onSubmit={getCardsHandler}>
         {" "}
-        <div
-          style={{
-            padding: "2rem",
-            backgroundColor: "#5AC6FC"
-          }}
-        >
-          <label>
-            Commander
-            <input
-              id="Commander"
-              type="checkbox"
-              onChange={context.updateIsCommander}
-            ></input>
-          </label>
-
-          <label>
-            Vintage
-            <input
-              id="Vintage"
-              type="checkbox"
-              onChange={context.updateIsVintage}
-            ></input>
-          </label>
-          <label>
-            Legacy
-            <input
-              id="Legacy"
-              type="checkbox"
-              onChange={context.updateIsLegacy}
-            ></input>
-          </label>
-          <label>
-            Modern
-            <input
-              id="Modern"
-              type="checkbox"
-              onChange={context.updateIsModern}
-            ></input>
-          </label>
-        </div>
         <Form.Input
+          className="input-field"
           value={newQuery.colorIdentity}
           onChange={handleColorIdentityChange}
           type="text"
@@ -219,22 +189,23 @@ const GetCards = () => {
         )}
       </Form>
       <Portal className="cardPortal">
+        {cards.length > 0 ? <FormatFilter /> : <p></p>}
         {cards.map(card => {
           return card.image !== null && card.isModern && context.ismodern ? (
             <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img style={{ marginTop: "25vh" }} src={card.image} />
+              <img src={card.image} alt="" />
             </Card>
           ) : card.image !== null && card.isLegacy && context.islegacy ? (
             <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img style={{ marginTop: "25vh" }} src={card.image} />
+              <img src={card.image} alt="" />
             </Card>
           ) : card.image !== null && card.isCommander && context.iscommander ? (
             <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img style={{ marginTop: "25vh" }} src={card.image} />
+              <img src={card.image} alt="" />
             </Card>
           ) : card.image !== null && card.isVintage && context.isvintage ? (
             <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img style={{ marginTop: "25vh" }} src={card.image} />
+              <img src={card.image} alt="" />
             </Card>
           ) : card.image !== null &&
             !context.ismodern &&
@@ -242,7 +213,7 @@ const GetCards = () => {
             !context.iscommander &&
             !context.islegacy ? (
             <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img style={{ marginTop: "25vh" }} src={card.image} />
+              <img src={card.image} alt="" />
             </Card>
           ) : null;
         })}

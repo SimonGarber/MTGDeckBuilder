@@ -4,33 +4,55 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  height: 100vh;
-  line-height: 1.6;
+  height: 100%;
+  line-height: 2;
   overflow: hidden; }
 
 .Card {
   position: relative;
-  border: 1px solid black;
-  background-color: #faebd7;
+  background-color: white;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   justify-content: center;
   margin-bottom: 5px;
   scroll-snap-align: center; }
 
+.Card img {
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 75%; }
+
 .FormContainer {
+  box-sizing: border-box;
   width: 100%;
-  height: 25vh;
-  position: fixed;
-  background: tan;
-  z-index: 11;
-  text-align: center; }
+  height: 100vh;
+  position: relative;
+  background: white;
+  z-index: 10;
+  text-align: center;
+  top: 0; }
+
+.FormContainer input {
+  width: 80%;
+  border: 2px solid grey;
+  padding: 2px;
+  height: 2rem;
+  margin-bottom: 1rem;
+  box-shadow: 5px 10px #888888; }
 
 .GetCardsContainer {
   width: 100%;
-  top: 4.3rem;
+  top: 20%;
   position: absolute;
-  display: flex; }
+  z-index: 10; }
+
+.GetCardsContainer h2 {
+  text-align: center;
+  background: white; }
+
+.GetCardsContainer-collapse {
+  display: none; }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace; }
@@ -50,11 +72,12 @@ code {
   float: right; }
 
 #portal {
+  box-sizing: border;
   width: 100%;
-  height: calc(100vh - 8rem);
+  height: 100vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   position: absolute;
-  top: 8rem;
+  top: 56px;
   text-align: center; }
