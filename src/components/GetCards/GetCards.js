@@ -20,20 +20,19 @@ const GetCards = () => {
 
   const context = useContext(UserContext);
 
-  async function getCardsHandler(e) {
-    e.preventDefault();
+  const getCardsHandler = async () => {
+    await fetch(
+      `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
 
-    const url = new URL(
-      `https://mtgdeckbuilder-api.herokuapp.com/api/cards/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`
-    );
-
-    const request = new Request(url, {
-      mode: "cors",
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
-
-    await fetch(request)
+      {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    )
       .then(response => {
         if (response.status === 200) {
           return response.json();
@@ -41,8 +40,9 @@ const GetCards = () => {
           throw new Error();
         }
       })
+
       .then(data => {
-        const obj = data.map(card => {
+        const obj = data.data.map(card => {
           if (card.image_uris) {
             return {
               id: card.id,
@@ -93,12 +93,8 @@ const GetCards = () => {
           colorIdentity: "",
           numOfResults: obj.length
         });
-      })
-
-      .catch(err => {
-        console.log(err);
       });
-  }
+  };
 
   const handleNameChange = e => {
     setNewQuery({ ...newQuery, name: e.target.value });
@@ -126,7 +122,6 @@ const GetCards = () => {
     >
       <h2>Card Search</h2>
       <Form className="FormContainer" onSubmit={getCardsHandler}>
-        {" "}
         <Form.Input
           className="input-field"
           value={newQuery.colorIdentity}
@@ -188,36 +183,42 @@ const GetCards = () => {
           </div>
         )}
       </Form>
-      <Portal className="cardPortal">
-        {cards.length > 0 ? <FormatFilter /> : <p></p>}
-        {cards.map(card => {
-          return card.image !== null && card.isModern && context.ismodern ? (
-            <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img src={card.image} alt="" />
-            </Card>
-          ) : card.image !== null && card.isLegacy && context.islegacy ? (
-            <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img src={card.image} alt="" />
-            </Card>
-          ) : card.image !== null && card.isCommander && context.iscommander ? (
-            <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img src={card.image} alt="" />
-            </Card>
-          ) : card.image !== null && card.isVintage && context.isvintage ? (
-            <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img src={card.image} alt="" />
-            </Card>
-          ) : card.image !== null &&
-            !context.ismodern &&
-            !context.isvintage &&
-            !context.iscommander &&
-            !context.islegacy ? (
-            <Card className="Card" bg="primary" text="white" key={card.id}>
-              <img src={card.image} alt="" />
-            </Card>
-          ) : null;
-        })}
-      </Portal>
+      {cards.length > 0 ? (
+        <Portal className="cardPortal">
+          {cards.length > 0 ? <FormatFilter /> : <p></p>}
+          {cards.map(card => {
+            return card.image !== null && card.isModern && context.ismodern ? (
+              <Card className="Card" bg="primary" text="white" key={card.id}>
+                <img src={card.image} alt="" />
+              </Card>
+            ) : card.image !== null && card.isLegacy && context.islegacy ? (
+              <Card className="Card" bg="primary" text="white" key={card.id}>
+                <img src={card.image} alt="" />
+              </Card>
+            ) : card.image !== null &&
+              card.isCommander &&
+              context.iscommander ? (
+              <Card className="Card" bg="primary" text="white" key={card.id}>
+                <img src={card.image} alt="" />
+              </Card>
+            ) : card.image !== null && card.isVintage && context.isvintage ? (
+              <Card className="Card" bg="primary" text="white" key={card.id}>
+                <img src={card.image} alt="" />
+              </Card>
+            ) : card.image !== null &&
+              !context.ismodern &&
+              !context.isvintage &&
+              !context.iscommander &&
+              !context.islegacy ? (
+              <Card className="Card" bg="primary" text="white" key={card.id}>
+                <img src={card.image} alt="" />
+              </Card>
+            ) : null;
+          })}
+        </Portal>
+      ) : (
+        <p>No Cards to display yet</p>
+      )}
     </div>
   );
 };
