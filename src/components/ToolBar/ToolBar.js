@@ -16,10 +16,7 @@ const toolBar = props => (
       <div className="toolbar-navigation-items">
         <ul>
           <li>
-            <a href="/">Create Account</a>
-          </li>
-          <li>
-            <a href="/">Log in</a>
+            <label onClick={props.logout}>Log Out</label>
           </li>
         </ul>
       </div>

@@ -6,7 +6,7 @@ import { Provider as AuthProvider } from "./stateManagement/AuthContext";
 import WithAuth from "./components/WithAuth/WithAuth";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
-import AuthScreen from "./components/AuthScreen/AuthScreen";
+
 const App = () => (
   <AuthProvider>
     <div>

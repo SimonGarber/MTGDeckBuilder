@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  padding: 0;
+  // padding: 0;
 }
 
 body {
@@ -32,7 +32,7 @@ body {
 .FormContainer {
   box-sizing: border-box;
   width: 100%;
-  height: 100vh;
+  // height: 100vh;
   position: relative;
   background: white;
   z-index: 10;
@@ -50,11 +50,17 @@ body {
   }
 }
 
+.FormContainer-collapse {
+  display: none
+}
+
 .GetCardsContainer {
   width: 100%;
   top: 20%;
-  position: absolute;
-  z-index: 10;
+  position: relative;
+  height: 100vh;
+  text-align: center;
+  // z-index: 9;
 
   h2 {
     text-align: center;
@@ -93,8 +99,9 @@ code {
 #portal {
   box-sizing: border;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   overflow-y: scroll;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   position: absolute;

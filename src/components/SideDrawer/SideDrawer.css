@@ -33,6 +33,16 @@
   text-decoration: none;
 }
 
+.side-drawer label {
+  color: #521751;
+  text-decoration: none;
+}
+
+.side-drawer label:hover,
+.side-drawer label:active {
+  color: #fa923f;
+}
+
 .side-drawer a:hover,
 .side-drawer a:active {
   color: #fa923f;

@@ -22,8 +22,8 @@ const GetCards = () => {
 
   const getCardsHandler = async () => {
     await fetch(
-      // `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
-      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      // `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
       {
         method: "GET",
         mode: "cors",
@@ -80,7 +80,6 @@ const GetCards = () => {
             };
           }
         });
-        console.log(obj);
         setCards(obj);
 
         setNewQuery({
@@ -116,12 +115,16 @@ const GetCards = () => {
   };
   return (
     <div
-      className={
-        cards.length < 1 ? "GetCardsContainer" : "GetCardsContainer-collapse"
-      }
+      className="GetCardsContainer"
+      // cards.length < 1 ? "GetCardsContainer" : "GetCardsContainer-collapse"
     >
       <h2>Card Search</h2>
-      <Form className="FormContainer" onSubmit={getCardsHandler}>
+      <Form
+        className={
+          cards.length < 1 ? "FormContainer" : "FormContainer-collapse"
+        }
+        onSubmit={getCardsHandler}
+      >
         <Form.Input
           className="input-field"
           value={newQuery.colorIdentity}

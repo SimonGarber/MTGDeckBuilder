@@ -12,6 +12,12 @@ export default function SideDrawer(props) {
         <li>
           <a href="/">Search</a>
         </li>
+        <li>
+          <label onClick={props.logout}>Log out</label>
+        </li>
+        <li>
+          <label>Collection</label>
+        </li>
       </ul>
     </nav>
   );
