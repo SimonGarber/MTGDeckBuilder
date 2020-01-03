@@ -200,7 +200,7 @@ const GetCards = () => {
         <React.Fragment>
           <Default>
             <Portal className="cardPortal">
-              {cards.length > 0 ? <FormatFilter /> : null}
+              {cards.length < 0 ? <FormatFilter /> : null}
               {cards.map(card => {
                 return card.image !== null &&
                   card.isModern &&
@@ -263,13 +263,13 @@ const GetCards = () => {
           </Default>
           <Mobile>
             <Portal className="cardPortal">
-              {cards.length > 0 ? <FormatFilter /> : null}
+              {cards.length < 0 ? <FormatFilter /> : null}
               {cards.map(card => {
                 return card.image !== null &&
                   card.isModern &&
                   context.ismodern ? (
                   <Card
-                    className="Card"
+                    className="Card-mobile"
                     bg="primary"
                     text="white"
                     key={card.id}
@@ -278,7 +278,7 @@ const GetCards = () => {
                   </Card>
                 ) : card.image !== null && card.isLegacy && context.islegacy ? (
                   <Card
-                    className="Card"
+                    className="Card-mobile"
                     bg="primary"
                     text="white"
                     key={card.id}
@@ -289,7 +289,7 @@ const GetCards = () => {
                   card.isCommander &&
                   context.iscommander ? (
                   <Card
-                    className="Card"
+                    className="Card-mobile"
                     bg="primary"
                     text="white"
                     key={card.id}
@@ -300,7 +300,7 @@ const GetCards = () => {
                   card.isVintage &&
                   context.isvintage ? (
                   <Card
-                    className="Card"
+                    className="Card-mobile"
                     bg="primary"
                     text="white"
                     key={card.id}
@@ -313,7 +313,7 @@ const GetCards = () => {
                   !context.iscommander &&
                   !context.islegacy ? (
                   <Card
-                    className="Card"
+                    className="Card-mobile"
                     bg="primary"
                     text="white"
                     key={card.id}
