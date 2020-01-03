@@ -24,8 +24,7 @@ body {
     top: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    height: 75%;
-
+    height: 60%;
   }
 }
 
@@ -39,19 +38,18 @@ body {
   text-align: center;
   top: 0;
 
-
   input {
     width: 80%;
     border: 2px solid grey;
     padding: 2px;
     height: 2rem;
     margin-bottom: 1rem;
-    box-shadow: 5px 10px #888888
+    box-shadow: 5px 10px #888888;
   }
 }
 
 .FormContainer-collapse {
-  display: none
+  display: none;
 }
 
 .GetCardsContainer {
@@ -66,14 +64,11 @@ body {
     text-align: center;
     background: white;
   }
-
 }
 
 .GetCardsContainer-collapse {
-  display: none
+  display: none;
 }
-
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
