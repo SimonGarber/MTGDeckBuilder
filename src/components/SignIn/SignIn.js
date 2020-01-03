@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import { Redirect } from "react-router-dom";
 import "./SignIn.css";
@@ -18,6 +18,12 @@ const SignIn = props => {
       props.history.push("/dashboard");
     });
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      props.history.push("/dashboard");
+    }
+  }, [props.history]);
   return (
     <div className="center">
       <div className="card">
