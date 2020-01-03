@@ -27,6 +27,7 @@ const SignIn = props => {
   return (
     <div className="center">
       <div className="card">
+        <h1>Sign into your account</h1>
         <form>
           <input
             className="form-item"
@@ -44,6 +45,20 @@ const SignIn = props => {
           />
           <input className="form-submit" type="submit" onClick={handleSubmit} />
         </form>
+        <span>
+          Dont't have an account? Click{" "}
+          <label
+            for="signup"
+            id="signup"
+            onClick={() => {
+              props.history.push("/signup");
+            }}
+          >
+            {" "}
+            here
+          </label>
+          to Register
+        </span>
       </div>
     </div>
   );

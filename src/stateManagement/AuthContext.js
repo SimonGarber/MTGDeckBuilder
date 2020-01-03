@@ -14,6 +14,7 @@ const authReducer = (state, action) => {
       return state;
   }
 };
+
 const signout = dispatch => async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
@@ -21,12 +22,30 @@ const signout = dispatch => async () => {
     type: "signout"
   });
 };
+const signup = dispatch => async input => {
+  try {
+    const { email, password } = input;
+    const response = await axios.post(
+      `http://localhost:3001/api/v1/users/signup`,
+      { email, password }
+    );
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("userId", response.data.userId);
+
+    dispatch({
+      type: "signin",
+      payload: { token: response.data.token, userId: response.data.userId }
+    });
+  } catch (err) {
+    console.log("Error =>", err.message);
+  }
+};
 const signin = dispatch => async input => {
   try {
     const { email, password } = input;
     const response = await axios.post(
-      // `http://localhost:3001/api/v1/users/signin`,
-      "https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/signin",
+      `http://localhost:3001/api/v1/users/signin`,
+      // "https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/signin",
       { email, password }
     );
     localStorage.setItem("token", response.data.token);
@@ -43,7 +62,7 @@ const signin = dispatch => async input => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signin, signout },
+  { signin, signout, signup },
   {
     token: localStorage.getItem("token") || null,
     errorMessage: "",

@@ -5,14 +5,17 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider as AuthProvider } from "./stateManagement/AuthContext";
 import WithAuth from "./components/WithAuth/WithAuth";
 import SignIn from "./components/SignIn/SignIn";
-
+import SignUp from "./components/SignUp/SignUp";
+import AuthScreen from "./components/AuthScreen/AuthScreen";
 const App = () => (
   <AuthProvider>
     <div>
       <Router>
         <Switch>
           <Route path="/dashboard" exact component={WithAuth(DashBoard)} />
-          <Route path="/" component={SignIn} />
+          <Route path="/" exact component={SignIn} />
+          <Route path="/signin" exact component={SignIn} />
+          <Route path="/signup" exact component={SignUp} />
         </Switch>
       </Router>
     </div>
