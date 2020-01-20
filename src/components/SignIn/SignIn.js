@@ -15,13 +15,13 @@ const SignIn = props => {
     event.preventDefault();
 
     signin(input).then(() => {
-      props.history.push("/dashboard");
+      props.history.push("/search");
     });
   };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      props.history.push("/dashboard");
+      props.history.push("/search");
     }
   }, [props.history]);
   return (

@@ -1,11 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import "../../index.scss";
-import { UserContext } from "../../stateManagement/userContext";
-import { Button, Form, Card } from "semantic-ui-react";
-import Portal from "../Portal/Portal";
-import FormatFilter from "../FormatFilter/FormatFilter";
-const GetCards = () => {
+
+import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
+import * as Auth from "../../stateManagement/AuthContext";
+import { Button, Form, Card, Image, Icon } from "semantic-ui-react";
+import searchedArray from "../../helpers/checkResult";
+import DashBoard from "../../DashBoard";
+const GetCards = props => {
   const [cards, setCards] = useState([]);
 
   const [newQuery, setNewQuery] = useState({
@@ -17,16 +19,21 @@ const GetCards = () => {
     colorIdentity: "",
     numOfResults: ""
   });
+  const userCards = useContext(userCardsContext);
+  const user = useContext(Auth.Context);
+  useEffect(() => {
+    userCards.getCards(user.state.userId);
+  }, []);
 
-  const context = useContext(UserContext);
-  const Desktop = ({ children }) => {
-    const isDesktop = useMediaQuery({ minWidth: 992 });
-    return isDesktop ? children : null;
-  };
-  const Tablet = ({ children }) => {
-    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-    return isTablet ? children : null;
-  };
+  // const context = useContext(UserContext);
+  // const Desktop = ({ children }) => {
+  //   const isDesktop = useMediaQuery({ minWidth: 992 });
+  //   return isDesktop ? children : null;
+  // };
+  // const Tablet = ({ children }) => {
+  //   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
+  //   return isTablet ? children : null;
+  // };
   const Mobile = ({ children }) => {
     const isMobile = useMediaQuery({ maxWidth: 767 });
     return isMobile ? children : null;
@@ -35,6 +42,9 @@ const GetCards = () => {
     const isNotMobile = useMediaQuery({ minWidth: 768 });
     return isNotMobile ? children : null;
   };
+  // const saveCardHandler = async () => {
+  //   await userCards.addCard();
+  // };
   const getCardsHandler = async () => {
     await fetch(
       // `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
@@ -129,206 +139,150 @@ const GetCards = () => {
     setNewQuery({ ...newQuery, colorIdentity: e.target.value });
   };
   return (
-    <div className="GetCardsContainer">
-      <h2>Card Search</h2>
-      <Form
-        className={
-          cards.length < 1 ? "FormContainer" : "FormContainer-collapse"
-        }
-        onSubmit={getCardsHandler}
-      >
-        <Form.Input
-          className="input-field"
-          value={newQuery.colorIdentity}
-          onChange={handleColorIdentityChange}
-          type="text"
-          placeholder="Color Identity"
-        />
-        <Form.Input
-          value={newQuery.oracleText}
-          onChange={handleOracleTextChange}
-          type="text"
-          placeholder="Oracle Text"
-        />
-        <Form.Input
-          value={newQuery.cmc}
-          onChange={handleCmcChange}
-          type="text"
-          placeholder="cmc"
-        />
-        <Form.Input
-          value={newQuery.typeLine}
-          onChange={handleTypeLineChange}
-          type="text"
-          placeholder="type line"
-        />
-        <Form.Input
-          value={newQuery.set}
-          onChange={handleSetChange}
-          type="text"
-          placeholder="set name"
-        />
-        <Form.Input
-          id="cardName"
-          name="name"
-          value={newQuery.name}
-          onChange={handleNameChange}
-          placeholder="card name"
-          type="text"
-        />
-        <Button
-          className="ui primary button"
-          type="submit"
-          style={{
-            height: "50px",
-            backgroundColor: "#03b6fc"
-          }}
+    <React.Fragment>
+      <DashBoard history={props.history} />
+      <div className="GetCardsContainer">
+        {cards.length < 1 ? <h2>Card Search</h2> : null}
+        <Form
+          className={
+            cards.length < 1 ? "FormContainer" : "FormContainer-collapse"
+          }
+          onSubmit={getCardsHandler}
         >
-          Get Cards
-        </Button>
-        {newQuery.numOfResults === "" ? null : (
-          <div style={{ background: "black" }}>
-            {" "}
-            <p style={{ color: "white" }}>
+          <Form.Input
+            className="input-field"
+            value={newQuery.colorIdentity}
+            onChange={handleColorIdentityChange}
+            type="text"
+            placeholder="Color Identity"
+          />
+          <Form.Input
+            value={newQuery.oracleText}
+            onChange={handleOracleTextChange}
+            type="text"
+            placeholder="Oracle Text"
+          />
+          <Form.Input
+            value={newQuery.cmc}
+            onChange={handleCmcChange}
+            type="text"
+            placeholder="cmc"
+          />
+          <Form.Input
+            value={newQuery.typeLine}
+            onChange={handleTypeLineChange}
+            type="text"
+            placeholder="type line"
+          />
+          <Form.Input
+            value={newQuery.set}
+            onChange={handleSetChange}
+            type="text"
+            placeholder="set name"
+          />
+          <Form.Input
+            id="cardName"
+            name="name"
+            value={newQuery.name}
+            onChange={handleNameChange}
+            placeholder="card name"
+            type="text"
+          />
+          <Button
+            className="ui primary button"
+            type="submit"
+            style={{
+              height: "50px",
+              backgroundColor: "#03b6fc"
+            }}
+          >
+            Get Cards
+          </Button>
+          {newQuery.numOfResults === "" ? null : (
+            <div style={{ background: "black" }}>
               {" "}
-              Returned {newQuery.numOfResults} Matches
-            </p>
-          </div>
+              <p style={{ color: "white" }}>
+                {" "}
+                Returned {newQuery.numOfResults} Matches
+              </p>
+            </div>
+          )}
+        </Form>
+        {cards.length > 0 ? (
+          <React.Fragment>
+            <Default>
+              {cards.map(card => {
+                return (
+                  <Card
+                    // className="Card"
+                    bg="primary"
+                    text="white"
+                    key={card.id}
+                  >
+                    <Image src={card.image} wrapped ui={false} />
+                    {!searchedArray(card.id, userCards.state.cards) ? (
+                      <Card.Content extra>
+                        <a
+                          onClick={() =>
+                            userCards.addCard(
+                              user.state.userId,
+                              card.id,
+                              card.name,
+                              card.image
+                            )
+                          }
+                        >
+                          <Icon name="save" />
+                          Add Card
+                        </a>
+                      </Card.Content>
+                    ) : (
+                      <a>In Collection</a>
+                    )}
+                  </Card>
+                );
+              })}
+            </Default>
+
+            <Mobile>
+              {cards.map(card => {
+                return (
+                  <Card
+                    // className="Card-mobile"
+                    bg="primary"
+                    text="white"
+                    key={card.id}
+                  >
+                    <Image src={card.image} wrapped ui={false} />
+                    {!searchedArray(card.id, userCards.state.cards) ? (
+                      <Card.Content extra>
+                        <a
+                          onClick={() =>
+                            userCards.addCard(
+                              user.state.userId,
+                              card.id,
+                              card.name,
+                              card.image
+                            )
+                          }
+                        >
+                          <Icon name="save" />
+                          Add Card
+                        </a>
+                      </Card.Content>
+                    ) : (
+                      <a>In Collection</a>
+                    )}
+                  </Card>
+                );
+              })}
+            </Mobile>
+          </React.Fragment>
+        ) : (
+          <p>No Cards to display yet</p>
         )}
-      </Form>
-      {cards.length > 0 ? (
-        <React.Fragment>
-          <Default>
-            <Portal className="cardPortal">
-              {cards.length < 0 ? <FormatFilter /> : null}
-              {cards.map(card => {
-                return card.image !== null &&
-                  card.isModern &&
-                  context.ismodern ? (
-                  <Card
-                    className="Card"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image} alt="" />
-                  </Card>
-                ) : card.image !== null && card.isLegacy && context.islegacy ? (
-                  <Card
-                    className="Card"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image} alt="" />
-                  </Card>
-                ) : card.image !== null &&
-                  card.isCommander &&
-                  context.iscommander ? (
-                  <Card
-                    className="Card"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image} alt="" />
-                  </Card>
-                ) : card.image !== null &&
-                  card.isVintage &&
-                  context.isvintage ? (
-                  <Card
-                    className="Card"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image} alt="" />
-                  </Card>
-                ) : card.image !== null &&
-                  !context.ismodern &&
-                  !context.isvintage &&
-                  !context.iscommander &&
-                  !context.islegacy ? (
-                  <Card
-                    className="Card"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image} alt="" />
-                  </Card>
-                ) : null;
-              })}
-            </Portal>
-          </Default>
-          <Mobile>
-            <Portal className="cardPortal">
-              {cards.length < 0 ? <FormatFilter /> : null}
-              {cards.map(card => {
-                return card.image !== null &&
-                  card.isModern &&
-                  context.ismodern ? (
-                  <Card
-                    className="Card-mobile"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image3} alt="" />
-                  </Card>
-                ) : card.image !== null && card.isLegacy && context.islegacy ? (
-                  <Card
-                    className="Card-mobile"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image3} alt="" />
-                  </Card>
-                ) : card.image !== null &&
-                  card.isCommander &&
-                  context.iscommander ? (
-                  <Card
-                    className="Card-mobile"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image3} alt="" />
-                  </Card>
-                ) : card.image !== null &&
-                  card.isVintage &&
-                  context.isvintage ? (
-                  <Card
-                    className="Card-mobile"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image3} alt="" />
-                  </Card>
-                ) : card.image !== null &&
-                  !context.ismodern &&
-                  !context.isvintage &&
-                  !context.iscommander &&
-                  !context.islegacy ? (
-                  <Card
-                    className="Card-mobile"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <img src={card.image3} alt="" />
-                  </Card>
-                ) : null;
-              })}
-            </Portal>
-          </Mobile>
-        </React.Fragment>
-      ) : (
-        <p>No Cards to display yet</p>
-      )}
-    </div>
+      </div>
+    </React.Fragment>
   );
 };
 

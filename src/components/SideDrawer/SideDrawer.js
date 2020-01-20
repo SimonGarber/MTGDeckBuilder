@@ -10,13 +10,13 @@ export default function SideDrawer(props) {
     <nav className={drawerClasses}>
       <ul>
         <li>
-          <a href="/">Search</a>
+          <a href="/search">Search</a>
         </li>
         <li>
           <label onClick={props.logout}>Log out</label>
         </li>
         <li>
-          <label>Collection</label>
+          <a href="/cards">Collection</a>
         </li>
       </ul>
     </nav>

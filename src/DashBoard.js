@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import GetCards from "./components/GetCards/GetCards";
+
 import { UserProvider } from "./stateManagement/userContext";
 import { Provider as AuthProvider } from "./stateManagement/AuthContext";
 import { Context as AuthContext } from "./stateManagement/AuthContext";
@@ -18,9 +18,6 @@ const DashBoard = props => {
   };
   const drawerToggleClickHandler = () => {
     setSideDrawerOpen(!sideDrawerOpen);
-    // this.setState(prevState => {
-    //   return { sideDrawerOpen: !prevState.sideDrawerOpen };
-    // });
   };
   const backdropClickHandler = () => {
     setSideDrawerOpen(false);
@@ -56,9 +53,7 @@ const DashBoard = props => {
               height: "100vh",
               minWidth: "40%"
             }}
-          >
-            <GetCards />
-          </main>
+          ></main>
         </div>
       </UserProvider>
     </AuthProvider>
