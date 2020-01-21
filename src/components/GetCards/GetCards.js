@@ -6,6 +6,7 @@ import { Context as userCardsContext } from "../../stateManagement/userCardsCont
 import * as Auth from "../../stateManagement/AuthContext";
 import { Button, Form, Card, Image, Icon } from "semantic-ui-react";
 import searchedArray from "../../helpers/checkResult";
+import Portal from "../Portal/Portal";
 import DashBoard from "../../DashBoard";
 const GetCards = props => {
   const [cards, setCards] = useState([]);
@@ -23,8 +24,10 @@ const GetCards = props => {
   const user = useContext(Auth.Context);
   useEffect(() => {
     userCards.getCards(user.state.userId);
-  }, []);
-
+  }, [user.state.userId]);
+  const showSearch = () => {
+    props.history.push("/search");
+  };
   // const context = useContext(UserContext);
   // const Desktop = ({ children }) => {
   //   const isDesktop = useMediaQuery({ minWidth: 992 });
@@ -42,9 +45,7 @@ const GetCards = props => {
     const isNotMobile = useMediaQuery({ minWidth: 768 });
     return isNotMobile ? children : null;
   };
-  // const saveCardHandler = async () => {
-  //   await userCards.addCard();
-  // };
+
   const getCardsHandler = async () => {
     await fetch(
       // `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
@@ -71,11 +72,18 @@ const GetCards = props => {
           if (card.image_uris) {
             return {
               id: card.id,
-              image2: card.image_uris.border_crop
-                ? card.image_uris.border_crop
-                : null,
-              image: card.image_uris.normal ? card.image_uris.normal : null,
-              image3: card.image_uris.small ? card.image_uris.small : null,
+              images: [
+                {
+                  image2: card.image_uris.border_crop
+                    ? card.image_uris.border_crop
+                    : null
+                },
+                {
+                  image: card.image_uris.normal ? card.image_uris.normal : null
+                },
+                { image3: card.image_uris.small ? card.image_uris.small : null }
+              ],
+
               name: card.name,
               artist: card.artist,
               reserved: card.reserved,
@@ -96,7 +104,8 @@ const GetCards = props => {
               isLegacy: card.legalities.legacy === "legal",
               isCommander: card.legalities.commander === "legal",
               isVintage: card.legalities.vintage === "restricted" || "legal",
-              queryResults: data.length
+              queryResults: data.length,
+              inCollection: searchedArray(card.id, userCards.state.cards)
             };
           } else {
             return {
@@ -140,7 +149,8 @@ const GetCards = props => {
   };
   return (
     <React.Fragment>
-      <DashBoard history={props.history} />
+      <DashBoard history={props.history} search={showSearch} />
+
       <div className="GetCardsContainer">
         {cards.length < 1 ? <h2>Card Search</h2> : null}
         <Form
@@ -210,73 +220,90 @@ const GetCards = props => {
         </Form>
         {cards.length > 0 ? (
           <React.Fragment>
-            <Default>
-              {cards.map(card => {
-                return (
-                  <Card
-                    // className="Card"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <Image src={card.image} wrapped ui={false} />
-                    {!searchedArray(card.id, userCards.state.cards) ? (
-                      <Card.Content extra>
-                        <a
-                          onClick={() =>
-                            userCards.addCard(
-                              user.state.userId,
-                              card.id,
-                              card.name,
-                              card.image
-                            )
-                          }
+            <Portal>
+              <Default>
+                {cards.map(card => {
+                  return (
+                    <Card
+                      // className="Card"
+                      bg="primary"
+                      text="white"
+                      key={card.id}
+                    >
+                      <Image src={card.images[1].image} wrapped ui={false} />
+                      {!card.inCollection ? (
+                        <Card.Content extra>
+                          <button
+                            onClick={() =>
+                              userCards.addCard(
+                                user.state.userId,
+                                card.id,
+                                card.name,
+                                card.images
+                              )
+                            }
+                          >
+                            <Icon name="save" />
+                            Add Card
+                          </button>
+                        </Card.Content>
+                      ) : (
+                        <button
+                          style={{
+                            color: "white",
+                            backgroundColor: "Green"
+                          }}
                         >
-                          <Icon name="save" />
-                          Add Card
-                        </a>
-                      </Card.Content>
-                    ) : (
-                      <a>In Collection</a>
-                    )}
-                  </Card>
-                );
-              })}
-            </Default>
-
-            <Mobile>
-              {cards.map(card => {
-                return (
-                  <Card
-                    // className="Card-mobile"
-                    bg="primary"
-                    text="white"
-                    key={card.id}
-                  >
-                    <Image src={card.image} wrapped ui={false} />
-                    {!searchedArray(card.id, userCards.state.cards) ? (
-                      <Card.Content extra>
-                        <a
-                          onClick={() =>
-                            userCards.addCard(
-                              user.state.userId,
-                              card.id,
-                              card.name,
-                              card.image
-                            )
-                          }
+                          In Collection
+                        </button>
+                      )}
+                    </Card>
+                  );
+                })}
+              </Default>
+            </Portal>
+            <Portal>
+              <Mobile>
+                {cards.map(card => {
+                  return (
+                    <Card
+                      // className="Card-mobile"
+                      bg="primary"
+                      text="white"
+                      key={card.id}
+                    >
+                      <Image src={card.images[2].image3} wrapped ui={false} />
+                      {!searchedArray(card.id, userCards.state.cards) ? (
+                        <Card.Content extra>
+                          <button
+                            onClick={() =>
+                              userCards.addCard(
+                                user.state.userId,
+                                card.id,
+                                card.name,
+                                card.images
+                              )
+                            }
+                          >
+                            <Icon name="save" />
+                            Add Card
+                          </button>
+                        </Card.Content>
+                      ) : (
+                        <button
+                          style={{
+                            color: "white",
+                            backgroundColor: "Green"
+                          }}
                         >
-                          <Icon name="save" />
-                          Add Card
-                        </a>
-                      </Card.Content>
-                    ) : (
-                      <a>In Collection</a>
-                    )}
-                  </Card>
-                );
-              })}
-            </Mobile>
+                          In Collection
+                        </button>
+                      )}
+                    </Card>
+                  );
+                })}
+              </Mobile>
+            </Portal>
           </React.Fragment>
         ) : (
           <p>No Cards to display yet</p>

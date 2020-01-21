@@ -24,7 +24,7 @@ body {
     top: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    height: 70%
+    height: 70%;
   }
 
   button {
@@ -53,7 +53,7 @@ body {
 .FormContainer {
   box-sizing: border-box;
   width: 100%;
-  // height: 100vh;
+  height: 100vh;
   position: relative;
   background: white;
   z-index: 10;
@@ -76,16 +76,17 @@ body {
 
 .GetCardsContainer {
   width: 100%;
-  top: 20%;
-  position: relative;
-  height: 100vh;
+  padding: 1rem;
+  top: 0;
+  position: absolute;
+  max-height: 100%;
   text-align: center;
-  z-index: 9;
-
-  h2 {
-    text-align: center;
-    background: white;
-  }
+  // z-index: 9;
+  overflow-y: hidden;
+}
+.GetCardsContainer .h2 {
+  text-align: center;
+  background: white;
 }
 
 .GetCardsContainer-collapse {
@@ -114,14 +115,43 @@ code {
 }
 
 #portal {
-  box-sizing: border;
+  box-sizing: border-box;
   width: 100%;
   height: 90vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  // scroll-behavior: smooth;
+  // scroll-snap-type: y mandatory;
   position: absolute;
   top: 56px;
   text-align: center;
+}
+#root {
+  box-sizing: border-box;
+  width: 100%;
+  height: 96vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  // scroll-behavior: smooth;
+  // scroll-snap-type: y mandatory;
+  position: absolute;
+  top: 56px;
+  text-align: center;
+}
+
+.userCardList {
+  position: relative;
+  margin-top: 4rem;
+}
+.userCardList h2:hover,
+.userCardList h2:active {
+  color: #fa923f;
+}
+
+.collectionTitle {
+  z-index: 12;
+  position: fixed;
+  width: 100%;
+  background-color: green;
+  overflow-y: hidden;
 }

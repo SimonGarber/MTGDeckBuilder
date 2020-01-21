@@ -1,8 +1,8 @@
-import React, { createContext, Component } from 'react';
+import React, { createContext, Component } from "react";
 
 export const UserContext = createContext({
-  username: '',
-  userpassword: '',
+  username: "",
+  userpassword: "",
   savedcards: [],
   showcarddetails: false,
   ismodern: false,
@@ -50,43 +50,40 @@ export class UserProvider extends Component {
         this.setState({ ismodern: true });
       }
     };
-    this.updateUserPassword = (newUserPassword) => {
+    this.updateUserPassword = newUserPassword => {
       this.setState({ userpassword: newUserPassword });
     };
     this.showCardDetails = () => {
       this.setState({ showcarddetails: true });
     };
-    this.updateUserName = (newUserName) => {
+    this.updateUserName = newUserName => {
       this.setState({ username: newUserName });
     };
-    this.updateSavedCards = (card) => {
-      console.log(card.id);
+    this.updateSavedCards = card => {
       const request = new Request(`http://localhost:3001/api/save-card`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ card }),
-        mode: 'no-cors'
+        mode: "no-cors"
       });
-      fetch(request).then((response) => {
+      fetch(request).then(response => {
         response
           .json()
-          .then((body) => {
-            console.log(body);
-          })
+
           .then(() => {
-            this.setState((prevState) => ({
+            this.setState(prevState => ({
               savedcards: [...prevState.savedcards, card]
             }));
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           });
       });
     };
 
     this.state = {
-      username: '',
-      userpassword: '',
+      username: "",
+      userpassword: "",
       savedcards: [],
       ismodern: false,
       iscommander: false,

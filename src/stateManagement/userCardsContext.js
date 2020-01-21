@@ -25,7 +25,6 @@ const cardsReducer = (state, action) => {
 };
 
 const getCards = dispatch => async userId => {
-  console.log(userId);
   try {
     const response = await axios.get(
       `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`
@@ -39,9 +38,11 @@ const getCards = dispatch => async userId => {
     console.log("Error in Get Cards =>", err);
   }
 };
-const getCard = dispatch => async ({ item }) => {
+const getCard = dispatch => async ({ card }) => {
   try {
-    const response = await axios.get(`/api/v1/cards/${item.id}`);
+    const response = await axios.get(
+      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/cards/${card.id}`
+    );
     if (!response.data) {
       return;
     }

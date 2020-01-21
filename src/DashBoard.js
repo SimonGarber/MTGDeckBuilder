@@ -9,13 +9,14 @@ import BackDrop from "./components/BackDrop/BackDrop";
 
 const DashBoard = props => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  const { signout } = useContext(AuthContext);
+  const { signout, state } = useContext(AuthContext);
 
   const handleLogout = () => {
     signout().then(() => {
       props.history.push("/signin");
     });
   };
+
   const drawerToggleClickHandler = () => {
     setSideDrawerOpen(!sideDrawerOpen);
   };
@@ -30,6 +31,9 @@ const DashBoard = props => {
     <AuthProvider>
       <UserProvider>
         <ToolBar
+          loggedIn={state.token}
+          showSearch={() => props.history.push("/")}
+          showCollection={() => props.history.push("/cards")}
           drawerClickHandler={drawerToggleClickHandler}
           logout={handleLogout}
         />

@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
+import DashBoard from "../../DashBoard";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import "./SignUp.css";
 const SignUp = props => {
-  const { state, signup } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
   const [input, setInput] = useState({});
   const handleInputChange = e =>
     setInput({
@@ -23,42 +24,49 @@ const SignUp = props => {
     }
   }, [props.history]);
   return (
-    <div className="center">
-      <div className="card">
-        <h1>Register for an account</h1>
-        <form>
-          <input
-            className="form-item"
-            placeholder="Email"
-            name="email"
-            type="text"
-            onChange={handleInputChange}
-          />
-          <input
-            className="form-item"
-            placeholder="Password"
-            name="password"
-            type="password"
-            onChange={handleInputChange}
-          />
-          <input className="form-submit" type="submit" onClick={handleSubmit} />
-        </form>
-        <span>
-          Already have an account? Click
-          <label
-            for="signin"
-            id="signin"
-            onClick={() => {
-              props.history.push("/signin");
-            }}
-          >
-            {" "}
-            here
-          </label>
-          to log in
-        </span>
+    <React.Fragment>
+      <DashBoard />
+      <div className="center">
+        <div className="card">
+          <h1>Register for an account</h1>
+          <form>
+            <input
+              className="form-item"
+              placeholder="Email"
+              name="email"
+              type="text"
+              onChange={handleInputChange}
+            />
+            <input
+              className="form-item"
+              placeholder="Password"
+              name="password"
+              type="password"
+              onChange={handleInputChange}
+            />
+            <input
+              className="form-submit"
+              type="submit"
+              onClick={handleSubmit}
+            />
+          </form>
+          <span>
+            Already have an account? Click
+            <label
+              htmlFor="signin"
+              id="signin"
+              onClick={() => {
+                props.history.push("/signin");
+              }}
+            >
+              {" "}
+              here
+            </label>
+            to log in
+          </span>
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
