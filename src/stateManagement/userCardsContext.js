@@ -24,7 +24,8 @@ const cardsReducer = (state, action) => {
   }
 };
 
-const getCards = dispatch => async userId => {
+const getCards = dispatch => async state => {
+  const { userId } = state;
   try {
     const response = await axios.get(
       `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`
@@ -85,6 +86,7 @@ const addCard = dispatch => async (userId, id, name, image) => {
       type: "add_card",
       payload: response.data
     });
+
     dispatch({
       type: "get_card",
       payload: {
@@ -98,12 +100,15 @@ const addCard = dispatch => async (userId, id, name, image) => {
   }
 };
 
-const removeCard = dispatch => async ({ state, item }) => {
+const removeCard = dispatch => async ({ state, card }) => {
   const { userId } = state;
   try {
-    const response = await axios.put(`/api/v1/users/cards/delete/${userId}`, {
-      card: { id: item.id }
-    });
+    const response = await axios.put(
+      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/cards/delete/${userId}`,
+      {
+        card: { id: card.id }
+      }
+    );
     if (!response) {
       console.log("Error!?!?");
     }
@@ -111,7 +116,7 @@ const removeCard = dispatch => async ({ state, item }) => {
       type: "remove_card",
       payload: {
         userCards: response.data.data.cards,
-        deletedCard: item.id
+        deletedCard: card.id
       }
     });
     dispatch({

@@ -1,16 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Card, Grid, Row } from "semantic-ui-react";
 import DashBoard from "../../DashBoard";
 import Portal from "../Portal/Portal";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
-import * as Auth from "../../stateManagement/AuthContext";
+// import * as Auth from "../../stateManagement/AuthContext";
+import { Context as AuthContext } from "../../stateManagement/AuthContext";
 const Cards = props => {
   const userCards = useContext(userCardsContext);
-  const user = useContext(Auth.Context);
+  const { state } = useContext(AuthContext);
 
   useEffect(() => {
-    userCards.getCards(user.state.userId);
-  });
+    userCards.getCards(state);
+  }, []);
   return (
     <React.Fragment>
       <DashBoard history={props.history} />
@@ -20,10 +22,19 @@ const Cards = props => {
         </div>
       </Portal>
       <Portal>
-        <div className="userCardList">
+        <Grid.Column className="userCardList">
           {userCards.state.cards.map(card => {
             return (
-              <div key={card.id}>
+              <Grid.Row
+                key={card.id}
+                style={{
+                  border: "2px solid black",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingHorizontal: "10px"
+                }}
+              >
                 <h2
                   key={card.id}
                   onClick={() => {
@@ -34,10 +45,19 @@ const Cards = props => {
                 >
                   {card.name}
                 </h2>
-              </div>
+                <div>
+                  <h3
+                    onClick={() => {
+                      userCards.removeCard({ state, card });
+                    }}
+                  >
+                    Delete
+                  </h3>
+                </div>
+              </Grid.Row>
             );
           })}
-        </div>
+        </Grid.Column>
       </Portal>
     </React.Fragment>
   );

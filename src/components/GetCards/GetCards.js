@@ -3,14 +3,15 @@ import { useMediaQuery } from "react-responsive";
 import "../../index.scss";
 
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
-import * as Auth from "../../stateManagement/AuthContext";
+// import * as Auth from "../../stateManagement/AuthContext";
+import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import { Button, Form, Card, Image, Icon } from "semantic-ui-react";
 import searchedArray from "../../helpers/checkResult";
 import Portal from "../Portal/Portal";
 import DashBoard from "../../DashBoard";
 const GetCards = props => {
   const [cards, setCards] = useState([]);
-
+  const [isActive, setIsActive] = useState(false);
   const [newQuery, setNewQuery] = useState({
     name: "",
     set: "",
@@ -21,13 +22,18 @@ const GetCards = props => {
     numOfResults: ""
   });
   const userCards = useContext(userCardsContext);
-  const user = useContext(Auth.Context);
-  useEffect(() => {
-    userCards.getCards(user.state.userId);
-  }, [user.state.userId]);
+  const { state } = useContext(AuthContext);
+
   const showSearch = () => {
     props.history.push("/search");
   };
+  const handleAddCard = async ({ state, card }) => {
+    const { userId } = state;
+    const { id, name, images, in_Collection } = card;
+    await userCards.addCard(userId, id, name, images);
+    userCards.getCards(state);
+  };
+  const style = { button: { background: "red" } };
   // const context = useContext(UserContext);
   // const Desktop = ({ children }) => {
   //   const isDesktop = useMediaQuery({ minWidth: 992 });
@@ -105,7 +111,7 @@ const GetCards = props => {
               isCommander: card.legalities.commander === "legal",
               isVintage: card.legalities.vintage === "restricted" || "legal",
               queryResults: data.length,
-              inCollection: searchedArray(card.id, userCards.state.cards)
+              in_Collection: searchedArray(card.id, userCards.state.cards)
             };
           } else {
             return {
@@ -147,6 +153,9 @@ const GetCards = props => {
   const handleColorIdentityChange = e => {
     setNewQuery({ ...newQuery, colorIdentity: e.target.value });
   };
+  useEffect(() => {
+    userCards.getCards(state);
+  }, [userCards.state.showCard]);
   return (
     <React.Fragment>
       <DashBoard history={props.history} search={showSearch} />
@@ -231,19 +240,13 @@ const GetCards = props => {
                       key={card.id}
                     >
                       <Image src={card.images[1].image} wrapped ui={false} />
-                      {!card.inCollection ? (
+                      {!card.in_Collection ? (
                         <Card.Content extra>
                           <button
                             onClick={() =>
-                              userCards.addCard(
-                                user.state.userId,
-                                card.id,
-                                card.name,
-                                card.images
-                              )
+                              handleAddCard({ state, card }).then(() => {})
                             }
                           >
-                            <Icon name="save" />
                             Add Card
                           </button>
                         </Card.Content>
@@ -273,19 +276,11 @@ const GetCards = props => {
                       key={card.id}
                     >
                       <Image src={card.images[2].image3} wrapped ui={false} />
-                      {!searchedArray(card.id, userCards.state.cards) ? (
+                      {!card.in_Collection ? (
                         <Card.Content extra>
                           <button
-                            onClick={() =>
-                              userCards.addCard(
-                                user.state.userId,
-                                card.id,
-                                card.name,
-                                card.images
-                              )
-                            }
+                            onClick={() => handleAddCard({ state, card })}
                           >
-                            <Icon name="save" />
                             Add Card
                           </button>
                         </Card.Content>

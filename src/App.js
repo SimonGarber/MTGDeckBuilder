@@ -5,7 +5,7 @@ import { Provider as UserCardsProvider } from "./stateManagement/userCardsContex
 import WithAuth from "./components/WithAuth/WithAuth";
 import GetCards from "./components/GetCards/GetCards";
 import Cards from "./components/Cards/Cards";
-import Card from "./components/Card/Card";
+import UserCard from "./components/Card/Card";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 
@@ -20,7 +20,7 @@ const App = props => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/search" component={WithAuth(GetCards)} />
             <Route exact path="/cards" component={WithAuth(Cards)} />
-            <Route path={`/cards/:cardId`} component={Card} />
+            <Route path={`/cards/:cardId`} component={UserCard} />
           </Switch>
         </div>
       </UserCardsProvider>
