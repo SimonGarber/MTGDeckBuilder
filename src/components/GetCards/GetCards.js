@@ -224,7 +224,13 @@ const GetCards = props => {
                 {cards.map(card => {
                   return (
                     <Card bg="primary" text="white" key={card.id}>
-                      <Image src={card.images[1].image} wrapped ui={false} />
+                      <Image
+                        src={`https://img.scryfall.com/cards/large/front/${
+                          card.id[0]
+                        }/${card.id[1]}/${card.id}.jpg?${card.id.slice(0, 10)}`}
+                        wrapped
+                        ui={false}
+                      />
                       {!card.in_Collection ? (
                         <Card.Content extra>
                           <button
@@ -254,27 +260,40 @@ const GetCards = props => {
               <Mobile>
                 {cards.map(card => {
                   return (
-                    <Card bg="primary" text="white" key={card.id}>
-                      <Image src={card.images[2].image3} wrapped ui={false} />
-                      {!card.in_Collection ? (
-                        <Card.Content extra>
+                    <div>
+                      <Card bg="primary" text="white" key={card.id}>
+                        <Image
+                          width="300px"
+                          src={`https://img.scryfall.com/cards/normal/front/${
+                            card.id[0]
+                          }/${card.id[1]}/${card.id}.jpg?${card.id.slice(
+                            0,
+                            10
+                          )}`}
+                          wrapped
+                          ui={false}
+                        />
+
+                        {!card.in_Collection ? (
+                          <Card.Content extra>
+                            <button
+                              onClick={() => handleAddCard({ state, card })}
+                            >
+                              Add Card
+                            </button>
+                          </Card.Content>
+                        ) : (
                           <button
-                            onClick={() => handleAddCard({ state, card })}
+                            style={{
+                              color: "white",
+                              backgroundColor: "Green"
+                            }}
                           >
-                            Add Card
+                            In Collection
                           </button>
-                        </Card.Content>
-                      ) : (
-                        <button
-                          style={{
-                            color: "white",
-                            backgroundColor: "Green"
-                          }}
-                        >
-                          In Collection
-                        </button>
-                      )}
-                    </Card>
+                        )}
+                      </Card>
+                    </div>
                   );
                 })}
               </Mobile>

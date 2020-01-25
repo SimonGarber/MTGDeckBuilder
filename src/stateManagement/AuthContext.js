@@ -26,8 +26,8 @@ const signup = dispatch => async input => {
   try {
     const { email, password } = input;
     const response = await axios.post(
-      // "https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/signup",
-      `http://localhost:3001/api/v1/users/signup`,
+      // `http://localhost:3001/api/v1/users/signup`,
+      "https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/signup",
       { email, password }
     );
     localStorage.setItem("token", response.data.token);
