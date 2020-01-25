@@ -1,17 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import "../../index.scss";
-
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
-// import * as Auth from "../../stateManagement/AuthContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
-import { Button, Form, Card, Image, Icon } from "semantic-ui-react";
+import { Button, Form, Card, Image } from "semantic-ui-react";
 import searchedArray from "../../helpers/checkResult";
 import Portal from "../Portal/Portal";
-import DashBoard from "../../DashBoard";
+import DashBoard from "../DashBoard/DashBoard";
+import "../../index.scss";
+
 const GetCards = props => {
   const [cards, setCards] = useState([]);
-  const [isActive, setIsActive] = useState(false);
+
   const [newQuery, setNewQuery] = useState({
     name: "",
     set: "",
@@ -29,20 +28,11 @@ const GetCards = props => {
   };
   const handleAddCard = async ({ state, card }) => {
     const { userId } = state;
-    const { id, name, images, in_Collection } = card;
+    const { id, name, images } = card;
     await userCards.addCard(userId, id, name, images);
     userCards.getCards(state);
   };
-  const style = { button: { background: "red" } };
-  // const context = useContext(UserContext);
-  // const Desktop = ({ children }) => {
-  //   const isDesktop = useMediaQuery({ minWidth: 992 });
-  //   return isDesktop ? children : null;
-  // };
-  // const Tablet = ({ children }) => {
-  //   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-  //   return isTablet ? children : null;
-  // };
+
   const Mobile = ({ children }) => {
     const isMobile = useMediaQuery({ maxWidth: 767 });
     return isMobile ? children : null;
@@ -54,8 +44,8 @@ const GetCards = props => {
 
   const getCardsHandler = async () => {
     await fetch(
-      // `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
-      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      // `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
       {
         method: "GET",
         mode: "cors",
@@ -233,12 +223,7 @@ const GetCards = props => {
               <Default>
                 {cards.map(card => {
                   return (
-                    <Card
-                      // className="Card"
-                      bg="primary"
-                      text="white"
-                      key={card.id}
-                    >
+                    <Card bg="primary" text="white" key={card.id}>
                       <Image src={card.images[1].image} wrapped ui={false} />
                       {!card.in_Collection ? (
                         <Card.Content extra>
@@ -269,12 +254,7 @@ const GetCards = props => {
               <Mobile>
                 {cards.map(card => {
                   return (
-                    <Card
-                      // className="Card-mobile"
-                      bg="primary"
-                      text="white"
-                      key={card.id}
-                    >
+                    <Card bg="primary" text="white" key={card.id}>
                       <Image src={card.images[2].image3} wrapped ui={false} />
                       {!card.in_Collection ? (
                         <Card.Content extra>

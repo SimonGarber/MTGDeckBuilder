@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Card, Grid, Row } from "semantic-ui-react";
-import DashBoard from "../../DashBoard";
+import { Grid } from "semantic-ui-react";
+import DashBoard from "../DashBoard/DashBoard";
 import Portal from "../Portal/Portal";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
-// import * as Auth from "../../stateManagement/AuthContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
+
 const Cards = props => {
   const userCards = useContext(userCardsContext);
   const { state } = useContext(AuthContext);

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import DashBoard from "../../DashBoard";
+import DashBoard from "../DashBoard/DashBoard";
 import { useMediaQuery } from "react-responsive";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Card, Image } from "semantic-ui-react";

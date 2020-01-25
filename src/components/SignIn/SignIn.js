@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
-import DashBoard from "../../DashBoard";
+import DashBoard from "../DashBoard/DashBoard";
 
 import "./SignIn.css";
 

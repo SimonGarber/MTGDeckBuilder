@@ -9,7 +9,7 @@ import UserCard from "./components/Card/Card";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 
-const App = props => {
+const App = () => {
   return (
     <AuthProvider>
       <UserCardsProvider>

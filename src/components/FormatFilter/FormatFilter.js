@@ -1,7 +1,7 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../../stateManagement/userContext";
 import "./FormatFilter.css";
+
 const FormatFilter = () => {
   const context = useContext(UserContext);
   return (

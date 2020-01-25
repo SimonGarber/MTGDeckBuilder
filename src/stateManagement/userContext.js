@@ -1,10 +1,6 @@
 import React, { createContext, Component } from "react";
 
 export const UserContext = createContext({
-  username: "",
-  userpassword: "",
-  savedcards: [],
-  showcarddetails: false,
   ismodern: false,
   iscommander: false,
   islegacy: false,
@@ -12,11 +8,7 @@ export const UserContext = createContext({
   updateIsCommander: () => {},
   updateIsVintage: () => {},
   updateIsLegacy: () => {},
-  updateIsModern: () => {},
-  updateShowCardDetails: () => {},
-  updateSavedCards: () => {},
-  updateUserName: () => {},
-  updateUserPassword: () => {}
+  updateIsModern: () => {}
 });
 
 export class UserProvider extends Component {
@@ -50,48 +42,12 @@ export class UserProvider extends Component {
         this.setState({ ismodern: true });
       }
     };
-    this.updateUserPassword = newUserPassword => {
-      this.setState({ userpassword: newUserPassword });
-    };
-    this.showCardDetails = () => {
-      this.setState({ showcarddetails: true });
-    };
-    this.updateUserName = newUserName => {
-      this.setState({ username: newUserName });
-    };
-    this.updateSavedCards = card => {
-      const request = new Request(`http://localhost:3001/api/save-card`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ card }),
-        mode: "no-cors"
-      });
-      fetch(request).then(response => {
-        response
-          .json()
-
-          .then(() => {
-            this.setState(prevState => ({
-              savedcards: [...prevState.savedcards, card]
-            }));
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      });
-    };
 
     this.state = {
-      username: "",
-      userpassword: "",
-      savedcards: [],
       ismodern: false,
       iscommander: false,
       isvintage: false,
       islegacy: false,
-      updateUserName: this.updateUserName,
-      updateUserPassword: this.updateUserPassword,
-      updateSavedCards: this.updateSavedCards,
       updateIsModern: this.updateIsModern,
       updateIsCommander: this.updateIsCommander,
       updateIsLegacy: this.updateIsLegacy,
