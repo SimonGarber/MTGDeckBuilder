@@ -21,13 +21,26 @@ const UserCard = ({ match, history }) => {
           <DashBoard history={history} />
           <Default>
             <Card>
-              <Image src={card.image[0].image2} wrapped ui={false} />
+              <Image
+                src={`https://img.scryfall.com/cards/large/front/${
+                  card.id[0]
+                }/${card.id[1]}/${card.id}.jpg?${card.id.slice(0, 10)}`}
+                wrapped
+                ui={false}
+              />
             </Card>
           </Default>
           <Mobile>
             <Card>
               <h1>{card.name}</h1>
-              <Image src={card.image[2].image3} wrapped ui={false} />
+              <Image
+                width="300px"
+                src={`https://img.scryfall.com/cards/normal/front/${
+                  card.id[0]
+                }/${card.id[1]}/${card.id}.jpg?${card.id.slice(0, 10)}`}
+                wrapped
+                ui={false}
+              />
             </Card>
           </Mobile>
         </React.Fragment>
