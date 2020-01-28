@@ -225,7 +225,10 @@ const GetCards = props => {
             <Portal>
               <Default>
                 {cards.map(card => {
-                  console.log(stringToSplit(card.name).join("-"));
+                  console.log(
+                    card.name.replace(/[.,\/#!$%\^&\*;:{}=\-_`'~()]/g, "")
+                  );
+
                   return (
                     <div>
                       <Card bg="primary" text="white" key={card.id}>
