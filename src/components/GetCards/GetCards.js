@@ -86,7 +86,12 @@ const GetCards = props => {
               reserved: card.reserved,
               setName: card.set_name,
               set: card.set,
-              collectionNumer: card.collector_number,
+              collectionNumber: card.collector_number,
+              isFoil: card.foil,
+              isPromo: card.promo,
+              set_type: card.set_type,
+              mana_cost: card.mana_cost,
+              colors: card.colors,
               commanderLegal: card.legalities.commander,
               modernLegal: card.legalities.modern,
               legacyLegal: card.legalities.legacy,
@@ -113,6 +118,7 @@ const GetCards = props => {
             };
           }
         });
+        console.log(obj);
         setCards(obj);
 
         setNewQuery({
@@ -146,6 +152,18 @@ const GetCards = props => {
   const handleColorIdentityChange = e => {
     setNewQuery({ ...newQuery, colorIdentity: e.target.value });
   };
+  const isFoil = card => {
+    if (card.isFoil) {
+      return "enf";
+    } else {
+      return "enn";
+    }
+  };
+  const isPromo = card => {
+    if (card.isPromo) {
+      return "p";
+    }
+  };
   useEffect(() => {
     userCards.getCards(state);
   }, [userCards.state.showCard]);
@@ -162,7 +180,6 @@ const GetCards = props => {
           onSubmit={getCardsHandler}
         >
           <Form.Input
-            className="input-field"
             value={newQuery.colorIdentity}
             onChange={handleColorIdentityChange}
             type="text"
@@ -193,8 +210,6 @@ const GetCards = props => {
             placeholder="set name"
           />
           <Form.Input
-            id="cardName"
-            name="name"
             value={newQuery.name}
             onChange={handleNameChange}
             placeholder="card name"
@@ -254,23 +269,37 @@ const GetCards = props => {
                             <a
                               href={`https://starcitygames.com/${stringToSplit(
                                 card.name
-                              ).join("-")}-sgl-mtg-${card.set}-${
-                                card.collectionNumer
-                              }-enn/`}
+                              ).join("-")}-sgl-mtg-${isPromo(card)}${
+                                card.set
+                              }-${isPromo(card)}${
+                                card.collectionNumber
+                              }-${isFoil(card)}/`}
                               target="_blank"
                             >
                               Link to Star City Games
                             </a>
                           </Card.Content>
                         ) : (
-                          <button
-                            style={{
-                              color: "white",
-                              backgroundColor: "Green"
-                            }}
-                          >
-                            In Collection
-                          </button>
+                          <React.Fragment>
+                            <button
+                              style={{
+                                color: "white",
+                                backgroundColor: "Green"
+                              }}
+                            >
+                              In Collection
+                            </button>
+                            <a
+                              href={`https://starcitygames.com/${stringToSplit(
+                                card.name
+                              ).join("-")}-sgl-mtg-${card.set}-${
+                                card.collectionNumber
+                              }-enn/`}
+                              target="_blank"
+                            >
+                              Link to Star City Games
+                            </a>
+                          </React.Fragment>
                         )}
                       </Card>
                     </div>
@@ -307,22 +336,34 @@ const GetCards = props => {
                               href={`https://starcitygames.com/${stringToSplit(
                                 card.name
                               ).join("-")}-sgl-mtg-${card.set}-${
-                                card.collectionNumer
-                              }-enn/`}
+                                card.collectionNumber
+                              }-${isFoil(card)}/`}
                               target="_blank"
                             >
                               Link to Star City Games
                             </a>
                           </Card.Content>
                         ) : (
-                          <button
-                            style={{
-                              color: "white",
-                              backgroundColor: "Green"
-                            }}
-                          >
-                            In Collection
-                          </button>
+                          <React.Fragment>
+                            <button
+                              style={{
+                                color: "white",
+                                backgroundColor: "Green"
+                              }}
+                            >
+                              In Collection
+                            </button>
+                            <a
+                              href={`https://starcitygames.com/${stringToSplit(
+                                card.name
+                              ).join("-")}-sgl-mtg-${card.set}-${
+                                card.collectionNumber
+                              }-${isFoil}/`}
+                              target="_blank"
+                            >
+                              Link to Star City Games
+                            </a>
+                          </React.Fragment>
                         )}
                       </Card>
                     </div>

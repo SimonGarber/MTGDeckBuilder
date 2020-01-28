@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import DashBoard from "../DashBoard/DashBoard";
+import Portal from "../Portal/Portal";
 import { useMediaQuery } from "react-responsive";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Card, Image } from "semantic-ui-react";
+import "../../index.scss";
 const UserCard = ({ match, history }) => {
   const { state } = useContext(userCardsContext);
   const card = state.cards.find(card => match.params.cardId === card.id);
@@ -15,14 +17,16 @@ const UserCard = ({ match, history }) => {
     return isNotMobile ? children : null;
   };
   return (
-    <React.Fragment>
+    <div>
       {match.isExact && (
-        <React.Fragment>
+        <div>
           <DashBoard history={history} />
+
           <Default>
-            <Card>
+            <Card className="Card">
+              <h1>{card.name}</h1>
               <Image
-                src={`https://img.scryfall.com/cards/large/front/${
+                src={`https://img.scryfall.com/cards/normal/front/${
                   card.id[0]
                 }/${card.id[1]}/${card.id}.jpg?${card.id.slice(0, 10)}`}
                 wrapped
@@ -30,8 +34,9 @@ const UserCard = ({ match, history }) => {
               />
             </Card>
           </Default>
+
           <Mobile>
-            <Card>
+            <Card className="Card">
               <h1>{card.name}</h1>
               <Image
                 width="300px"
@@ -43,9 +48,9 @@ const UserCard = ({ match, history }) => {
               />
             </Card>
           </Mobile>
-        </React.Fragment>
+        </div>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
