@@ -4,6 +4,7 @@ import { Context as userCardsContext } from "../../stateManagement/userCardsCont
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import { Button, Form, Card, Image } from "semantic-ui-react";
 import searchedArray from "../../helpers/checkResult";
+import stringToSplit from "../../helpers/stringSplit";
 import Portal from "../Portal/Portal";
 import DashBoard from "../DashBoard/DashBoard";
 import "../../index.scss";
@@ -44,8 +45,8 @@ const GetCards = props => {
 
   const getCardsHandler = async () => {
     await fetch(
-      // `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
-      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      // `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
       {
         method: "GET",
         mode: "cors",
@@ -59,7 +60,7 @@ const GetCards = props => {
         if (response.status === 200) {
           return response.json();
         } else {
-          throw new Error();
+          throw new Error("Message");
         }
       })
 
@@ -84,6 +85,8 @@ const GetCards = props => {
               artist: card.artist,
               reserved: card.reserved,
               setName: card.set_name,
+              set: card.set,
+              collectionNumer: card.collector_number,
               commanderLegal: card.legalities.commander,
               modernLegal: card.legalities.modern,
               legacyLegal: card.legalities.legacy,
@@ -222,36 +225,52 @@ const GetCards = props => {
             <Portal>
               <Default>
                 {cards.map(card => {
+                  console.log(stringToSplit(card.name).join("-"));
                   return (
-                    <Card bg="primary" text="white" key={card.id}>
-                      <Image
-                        src={`https://img.scryfall.com/cards/large/front/${
-                          card.id[0]
-                        }/${card.id[1]}/${card.id}.jpg?${card.id.slice(0, 10)}`}
-                        wrapped
-                        ui={false}
-                      />
-                      {!card.in_Collection ? (
-                        <Card.Content extra>
+                    <div>
+                      <Card bg="primary" text="white" key={card.id}>
+                        <Image
+                          src={`https://img.scryfall.com/cards/normal/front/${
+                            card.id[0]
+                          }/${card.id[1]}/${card.id}.jpg?${card.id.slice(
+                            0,
+                            10
+                          )}`}
+                          wrapped
+                          ui={false}
+                        />
+                        {!card.in_Collection ? (
+                          <Card.Content extra>
+                            <button
+                              onClick={() =>
+                                handleAddCard({ state, card }).then(() => {})
+                              }
+                            >
+                              Add Card
+                            </button>
+                            <a
+                              href={`https://starcitygames.com/${stringToSplit(
+                                card.name
+                              ).join("-")}-sgl-mtg-${card.set}-${
+                                card.collectionNumer
+                              }-enn/`}
+                              target="_blank"
+                            >
+                              Link to Star City Games
+                            </a>
+                          </Card.Content>
+                        ) : (
                           <button
-                            onClick={() =>
-                              handleAddCard({ state, card }).then(() => {})
-                            }
+                            style={{
+                              color: "white",
+                              backgroundColor: "Green"
+                            }}
                           >
-                            Add Card
+                            In Collection
                           </button>
-                        </Card.Content>
-                      ) : (
-                        <button
-                          style={{
-                            color: "white",
-                            backgroundColor: "Green"
-                          }}
-                        >
-                          In Collection
-                        </button>
-                      )}
-                    </Card>
+                        )}
+                      </Card>
+                    </div>
                   );
                 })}
               </Default>
@@ -281,6 +300,16 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
+                            <a
+                              href={`https://starcitygames.com/${stringToSplit(
+                                card.name
+                              ).join("-")}-sgl-mtg-${card.set}-${
+                                card.collectionNumer
+                              }-enn/`}
+                              target="_blank"
+                            >
+                              Link to Star City Games
+                            </a>
                           </Card.Content>
                         ) : (
                           <button
