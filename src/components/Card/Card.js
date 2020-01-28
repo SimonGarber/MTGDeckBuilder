@@ -17,13 +17,13 @@ const UserCard = ({ match, history }) => {
     return isNotMobile ? children : null;
   };
   return (
-    <div>
+    <React.Fragment>
       {match.isExact && (
-        <div>
+        <React.Fragment>
           <DashBoard history={history} />
 
           <Default>
-            <Card className="Card">
+            <Card>
               <h1>{card.name}</h1>
               <Image
                 src={`https://img.scryfall.com/cards/normal/front/${
@@ -36,7 +36,7 @@ const UserCard = ({ match, history }) => {
           </Default>
 
           <Mobile>
-            <Card className="Card">
+            <Card>
               <h1>{card.name}</h1>
               <Image
                 width="300px"
@@ -48,9 +48,9 @@ const UserCard = ({ match, history }) => {
               />
             </Card>
           </Mobile>
-        </div>
+        </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 
