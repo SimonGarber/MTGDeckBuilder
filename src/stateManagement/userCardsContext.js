@@ -28,8 +28,8 @@ const getCards = dispatch => async state => {
   const { userId } = state;
   try {
     const response = await axios.get(
-      `http://localhost:3001/api/v1/users/${userId}`
-      // `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`
+      // `http://localhost:3001/api/v1/users/${userId}`
+      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`
     );
 
     dispatch({
