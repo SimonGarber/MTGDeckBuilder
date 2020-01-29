@@ -4,7 +4,7 @@ import { Context as userCardsContext } from "../../stateManagement/userCardsCont
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import { Button, Form, Card, Image } from "semantic-ui-react";
 import searchedArray from "../../helpers/checkResult";
-import stringToSplit from "../../helpers/stringSplit";
+import StarCityLink from "../CustomLink/StarCityLink";
 import Portal from "../Portal/Portal";
 import DashBoard from "../DashBoard/DashBoard";
 import "../../index.scss";
@@ -29,8 +29,8 @@ const GetCards = props => {
   };
   const handleAddCard = async ({ state, card }) => {
     const { userId } = state;
-    const { id, name, images } = card;
-    await userCards.addCard(userId, id, name, images);
+    const { id, name, images, set, collectionNumber } = card;
+    await userCards.addCard(userId, id, name, images, set, collectionNumber);
     userCards.getCards(state);
   };
 
@@ -152,33 +152,7 @@ const GetCards = props => {
   const handleColorIdentityChange = e => {
     setNewQuery({ ...newQuery, colorIdentity: e.target.value });
   };
-  const isFoil = someCard => {
-    if (someCard.isFoil) {
-      return "enf";
-    } else {
-      return "enn";
-    }
-  };
-  const StarCityLink = props => {
-    return (
-      <a
-        href={`https://starcitygames.com/${stringToSplit(
-          props.card.name
-        )}-sgl-mtg-${props.card.set}-${props.card.collectionNumber}-${isFoil(
-          props.card
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Link to Star City Games
-      </a>
-    );
-  };
-  // const isPromo = card => {
-  //   if (card.isPromo) {
-  //     return "p";
-  //   }
-  // };
+
   useEffect(() => {
     userCards.getCards(state);
   }, [userCards.state.showCard]);
@@ -275,9 +249,7 @@ const GetCards = props => {
                         {!card.in_Collection ? (
                           <Card.Content extra>
                             <button
-                              onClick={() =>
-                                handleAddCard({ state, card }).then(() => {})
-                              }
+                              onClick={() => handleAddCard({ state, card })}
                             >
                               Add Card
                             </button>

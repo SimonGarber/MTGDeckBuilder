@@ -74,13 +74,26 @@ const getSearchCard = dispatch => async ({ item }) => {
   });
 };
 
-const addCard = dispatch => async (userId, id, name, image) => {
+const addCard = dispatch => async (
+  userId,
+  id,
+  name,
+  image,
+  set,
+  collectionNumber
+) => {
   try {
     const response = await axios.put(
       // `http://localhost:3001/api/v1/users/${userId}`,
       `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`,
       {
-        card: { id: id, name: name, image: image }
+        card: {
+          id: id,
+          name: name,
+          image: image,
+          set: set,
+          collectionNumber: collectionNumber
+        }
       }
     );
     if (!response.data) {
