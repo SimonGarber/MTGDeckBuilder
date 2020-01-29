@@ -1,7 +1,8 @@
 const stringSplit = someString => {
   const result = someString
     .replace(/[.,\/#!$%\^&\*;:{}=\-_`'~()]/g, "")
-    .split(" ");
+    .split(" ")
+    .join("-");
   return result;
 };
 

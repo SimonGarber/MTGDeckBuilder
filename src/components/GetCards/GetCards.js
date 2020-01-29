@@ -45,8 +45,8 @@ const GetCards = props => {
 
   const getCardsHandler = async () => {
     await fetch(
-      // `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
-      `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      `http://localhost:3001/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
+      // `https://mtgdeckbuilder-api.herokuapp.com/api/v1/query/?name=${newQuery.name}&set=${newQuery.set}&cmc=${newQuery.cmc}&typeLine=${newQuery.typeLine}&oracleText=${newQuery.oracleText}&colorIdentity=${newQuery.colorIdentity}`,
       {
         method: "GET",
         mode: "cors",
@@ -152,18 +152,33 @@ const GetCards = props => {
   const handleColorIdentityChange = e => {
     setNewQuery({ ...newQuery, colorIdentity: e.target.value });
   };
-  const isFoil = card => {
-    if (card.isFoil) {
+  const isFoil = someCard => {
+    if (someCard.isFoil) {
       return "enf";
     } else {
       return "enn";
     }
   };
-  const isPromo = card => {
-    if (card.isPromo) {
-      return "p";
-    }
+  const StarCityLink = props => {
+    return (
+      <a
+        href={`https://starcitygames.com/${stringToSplit(
+          props.card.name
+        )}-sgl-mtg-${props.card.set}-${props.card.collectionNumber}-${isFoil(
+          props.card
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Link to Star City Games
+      </a>
+    );
   };
+  // const isPromo = card => {
+  //   if (card.isPromo) {
+  //     return "p";
+  //   }
+  // };
   useEffect(() => {
     userCards.getCards(state);
   }, [userCards.state.showCard]);
@@ -240,13 +255,13 @@ const GetCards = props => {
             <Portal>
               <Default>
                 {cards.map(card => {
-                  console.log(
-                    card.name.replace(/[.,\/#!$%\^&\*;:{}=\-_`'~()]/g, "")
-                  );
-
                   return (
                     <div>
-                      <Card bg="primary" text="white" key={card.id}>
+                      <Card
+                        bg="primary"
+                        text="white"
+                        key={card.id ? card.id : Math.floor(Math.random())}
+                      >
                         <Image
                           src={`https://img.scryfall.com/cards/normal/front/${
                             card.id[0]
@@ -266,18 +281,7 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
-                            <a
-                              href={`https://starcitygames.com/${stringToSplit(
-                                card.name
-                              ).join("-")}-sgl-mtg-${isPromo(card)}${
-                                card.set
-                              }-${isPromo(card)}${
-                                card.collectionNumber
-                              }-${isFoil(card)}/`}
-                              target="_blank"
-                            >
-                              Link to Star City Games
-                            </a>
+                            <StarCityLink card={card} />
                           </Card.Content>
                         ) : (
                           <React.Fragment>
@@ -289,16 +293,7 @@ const GetCards = props => {
                             >
                               In Collection
                             </button>
-                            <a
-                              href={`https://starcitygames.com/${stringToSplit(
-                                card.name
-                              ).join("-")}-sgl-mtg-${card.set}-${
-                                card.collectionNumber
-                              }-enn/`}
-                              target="_blank"
-                            >
-                              Link to Star City Games
-                            </a>
+                            <StarCityLink card={card} />
                           </React.Fragment>
                         )}
                       </Card>
@@ -332,16 +327,7 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
-                            <a
-                              href={`https://starcitygames.com/${stringToSplit(
-                                card.name
-                              ).join("-")}-sgl-mtg-${card.set}-${
-                                card.collectionNumber
-                              }-${isFoil(card)}/`}
-                              target="_blank"
-                            >
-                              Link to Star City Games
-                            </a>
+                            <StarCityLink card={card} />
                           </Card.Content>
                         ) : (
                           <React.Fragment>
@@ -353,16 +339,7 @@ const GetCards = props => {
                             >
                               In Collection
                             </button>
-                            <a
-                              href={`https://starcitygames.com/${stringToSplit(
-                                card.name
-                              ).join("-")}-sgl-mtg-${card.set}-${
-                                card.collectionNumber
-                              }-${isFoil}/`}
-                              target="_blank"
-                            >
-                              Link to Star City Games
-                            </a>
+                            <StarCityLink card={card} />
                           </React.Fragment>
                         )}
                       </Card>
