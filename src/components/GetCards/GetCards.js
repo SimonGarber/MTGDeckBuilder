@@ -88,6 +88,7 @@ const GetCards = props => {
               set: card.set,
               collectionNumber: card.collector_number,
               isFoil: card.foil,
+              isNonFoil: card.nonfoil,
               isPromo: card.promo,
               set_type: card.set_type,
               mana_cost: card.mana_cost,

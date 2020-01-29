@@ -3,7 +3,7 @@ import stringToSplit from "../../helpers/stringSplit";
 
 const StarCityLink = props => {
   const isFoil = someCard => {
-    if (someCard.isFoil) {
+    if (!someCard.isNonFoil) {
       return "enf";
     } else {
       return "enn";
