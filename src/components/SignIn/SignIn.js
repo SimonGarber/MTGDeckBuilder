@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
-import DashBoard from "../DashBoard/DashBoard";
-
+import LoadingIndicator from "../LoadingSpinner/LoadingSpinner";
+import { trackPromise } from "react-promise-tracker";
+import sleeper from "../../helpers/sleeper";
 import "./SignIn.css";
 
 const SignIn = props => {
   const { signin } = useContext(AuthContext);
   const [input, setInput] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const handleInputChange = e =>
     setInput({
       ...input,
@@ -14,10 +16,17 @@ const SignIn = props => {
     });
   const handleSubmit = event => {
     event.preventDefault();
-
-    signin(input).then(() => {
-      props.history.push("/search");
-    });
+    setIsLoading(true);
+    trackPromise(
+      signin(input)
+        .then(sleeper(2000))
+        .then(() => {
+          props.history.push("/search");
+        })
+        .catch(err => {
+          console.log("Error signing in =>", err);
+        })
+    );
   };
 
   useEffect(() => {
@@ -27,8 +36,8 @@ const SignIn = props => {
   }, [props.history]);
   return (
     <React.Fragment>
-      <DashBoard />
-      <div className="center">
+      <LoadingIndicator />
+      <div className={!isLoading ? "center" : "FormContainer-collapse"}>
         <div className="card">
           <h1>Sign into your account</h1>
           <form>

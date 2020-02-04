@@ -23,7 +23,11 @@ const UserCard = ({ match, history }) => {
           <DashBoard history={history} />
 
           <Default>
-            <Card>
+            <Card
+              style={{
+                marginTop: "4rem"
+              }}
+            >
               <h1>{card.name}</h1>
               <Image
                 src={`https://img.scryfall.com/cards/normal/front/${
@@ -36,7 +40,11 @@ const UserCard = ({ match, history }) => {
           </Default>
 
           <Mobile>
-            <Card>
+            <Card
+              style={{
+                marginTop: "4rem"
+              }}
+            >
               <h1>{card.name}</h1>
               <Image
                 width="300px"

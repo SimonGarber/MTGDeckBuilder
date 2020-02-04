@@ -14,7 +14,7 @@ const SignUp = props => {
     event.preventDefault();
 
     signup(input).then(() => {
-      props.history.push("/dashboard");
+      props.history.push("/search");
     });
   };
 
