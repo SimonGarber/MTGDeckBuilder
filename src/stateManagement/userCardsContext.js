@@ -82,7 +82,9 @@ const addCard = dispatch => async (
   set,
   collectionNumber,
   isFoil,
-  isNonFoil
+  isNonFoil,
+  set_type,
+  isPromo
 ) => {
   try {
     const response = await axios.put(
@@ -96,7 +98,9 @@ const addCard = dispatch => async (
           set: set,
           collectionNumber: collectionNumber,
           isFoil: isFoil,
-          isNonFoil: isNonFoil
+          isNonFoil: isNonFoil,
+          set_type: set_type,
+          isPromo: isPromo
         }
       }
     );
@@ -112,7 +116,12 @@ const addCard = dispatch => async (
       payload: {
         id: id,
         name: name,
-        image: image
+        image: image,
+        set_type: set_type,
+        set: set,
+        collectionNumber: collectionNumber,
+        isFoil: isFoil,
+        isNonFoil: isNonFoil
       }
     });
   } catch (err) {

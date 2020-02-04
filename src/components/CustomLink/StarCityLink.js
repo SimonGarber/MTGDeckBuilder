@@ -2,7 +2,6 @@ import React from "react";
 import stringToSplit from "../../helpers/stringSplit";
 
 const StarCityLink = props => {
-  console.log(props.card);
   const str = "0";
   const str2 = props.card.set;
   const isNewSet = () => {

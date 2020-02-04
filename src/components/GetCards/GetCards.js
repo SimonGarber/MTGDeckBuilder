@@ -8,7 +8,7 @@ import StarCityLink from "../CustomLink/StarCityLink";
 import Portal from "../Portal/Portal";
 import DashBoard from "../DashBoard/DashBoard";
 import "../../index.scss";
-import StarCityFoil from "../CustomLink/starcityFoil";
+import StarCityFoil from "../CustomLink/StarcityFoil";
 
 const GetCards = props => {
   const [cards, setCards] = useState([]);
@@ -30,7 +30,17 @@ const GetCards = props => {
   };
   const handleAddCard = async ({ state, card }) => {
     const { userId } = state;
-    const { id, name, images, set, collectionNumber, isFoil, isNonFoil } = card;
+    const {
+      id,
+      name,
+      images,
+      set,
+      collectionNumber,
+      isFoil,
+      isNonFoil,
+      set_type,
+      isPromo
+    } = card;
     await userCards.addCard(
       userId,
       id,
@@ -39,7 +49,9 @@ const GetCards = props => {
       set,
       collectionNumber,
       isFoil,
-      isNonFoil
+      isNonFoil,
+      set_type,
+      isPromo
     );
     userCards.getCards(state);
   };

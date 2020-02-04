@@ -5,8 +5,9 @@ import Portal from "../Portal/Portal";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import StarCityLink from "../CustomLink/StarCityLink";
-import StarCityFoil from "../CustomLink/starcityFoil";
+import StarCityFoil from "../CustomLink/StarcityFoil";
 const Cards = props => {
+  console.log(props);
   const userCards = useContext(userCardsContext);
   const { state } = useContext(AuthContext);
 
