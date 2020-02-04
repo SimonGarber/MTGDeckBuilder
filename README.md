@@ -1,68 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MTG DeckBuilder
 
-## Available Scripts
+Author: Simon Garber
 
-In the project directory, you can run:
+## Technology Stack
 
-### `npm start`
+React.js, Javascript, Seantic-UI, React Hooks, React Context-Api
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Introduction
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Welcome to the world of searching large databases for 'Magic: The Gathering' card objects. The client
+is built with React.js and connects with an Express API (that repo is called 'MTGDeckBuilder-Api).
 
-### `npm test`
+This is the front end framework that allows users to authenticate themselves, search the database,
+save cards to their collection and remove ones they no longer want. The authentication is performed using Json Web Tokens
+and passwords are hashed using bcrypt.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Front End
 
-### `npm run build`
+MTGDeckBuilder is designed to be a single page application. The routing is handled both on the client-side using 'React-Router' as well as on the server side for authentication purposes and Api requests. Users must create an account in order to use the app (this will later change in future releases to allow for 'search only' functionality). Once a user is authenticated a token is stored locally so that navigating away from the application does not cause a required re-authentication. Once the user logs out succesfully, the token is destroyed and the application is inaccessible until re-authentication.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+MTGDeckBuilder has been designed to be responsive for desktop and mobile resolutions/screen sizes. Button location and menu options have been placed to ensure ease of access. Future versions will pay specific attention to accessbility including those with reduced vision as well as one-handed use.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Back End
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Note
 
-### `npm run eject`
+The front end client receives data by making requests to a companion Express API. For more detailed information, please refer to the 'MTGDeckBuilder-API' repository in Github.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Summary
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The database is housed in a MongoDB Cloud atlas cluster. The data is split up into two main collections: cards and users.
+The cards collection houses over 50,000 unique data objects spanning the entire 26 history of 'Magic: The Gathering'. The original
+data set was downloaded as a bulk data download from 'Scryfall' - an online application and service that hosts it's own card searching tool and API. The image links are sources from 'Scryfall' and conform to the fair usage policy set out by both 'Scryfall' and 'Wizards of the cost' : the owner of the card images.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. NPM install - This will download all of the necessary packages detailed in the JSON package file.
+2. NPM Run Start - This script will start the development server on the default port on LocalHost in the browser.
 
-## Learn More
+### Screenshots
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![screenshot_1](public/images/mtgdeckbuilder_search.png?raw=true "Main Screen")
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![screenshot_2](public/images/mtgdeckbuilder_search2.png?raw=true "Completed Search")
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+![screenshot_3](public/images/mtgdeckbuilder_collection.png?raw=true "User Collection")
