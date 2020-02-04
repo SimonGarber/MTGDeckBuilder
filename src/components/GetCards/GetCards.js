@@ -264,12 +264,28 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
-                            <div>
-                              <StarCityLink card={card} />
-                            </div>
-                            <div>
-                              <StarCityFoil card={card} />
-                            </div>
+                            {card.set_type !== "memorabilia" &&
+                            card.set_type !== "promo" &&
+                            card.set_type !== "masters" ? (
+                              <React.Fragment>
+                                <div>
+                                  {card.isNonFoil ? (
+                                    <StarCityLink card={card} />
+                                  ) : (
+                                    <p>Non Non-foil Printing</p>
+                                  )}
+                                </div>
+                                <div>
+                                  {card.isFoil === true ? (
+                                    <StarCityFoil card={card} />
+                                  ) : (
+                                    <p>No Foil Printing</p>
+                                  )}
+                                </div>{" "}
+                              </React.Fragment>
+                            ) : (
+                              <p>no pricing information</p>
+                            )}
                           </Card.Content>
                         ) : (
                           <React.Fragment>
@@ -315,12 +331,28 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
-                            <div>
-                              <StarCityLink card={card} />
-                            </div>
-                            <div>
-                              <StarCityFoil card={card} />
-                            </div>
+                            {card.set_type !== "memorabilia" &&
+                            card.set_type !== "promo" &&
+                            card.set_type !== "masters" ? (
+                              <React.Fragment>
+                                <div>
+                                  {card.isNonFoil ? (
+                                    <StarCityLink card={card} />
+                                  ) : (
+                                    <p>Non Non-foil Printing</p>
+                                  )}
+                                </div>
+                                <div>
+                                  {card.isFoil === true ? (
+                                    <StarCityFoil card={card} />
+                                  ) : (
+                                    <p>No Foil Printing</p>
+                                  )}
+                                </div>{" "}
+                              </React.Fragment>
+                            ) : (
+                              <p>no pricing information</p>
+                            )}
                           </Card.Content>
                         ) : (
                           <React.Fragment>

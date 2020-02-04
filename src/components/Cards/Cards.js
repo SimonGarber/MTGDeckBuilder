@@ -56,10 +56,18 @@ const Cards = props => {
                     Delete
                   </h3>
                   <div>
-                    <StarCityLink card={card} />
+                    {card.isNonFoil ? (
+                      <StarCityLink card={card} />
+                    ) : (
+                      <p>Non Non-foil Printing</p>
+                    )}
                   </div>
                   <div>
-                    <StarCityFoil card={card} />
+                    {card.isFoil === true ? (
+                      <StarCityFoil card={card} />
+                    ) : (
+                      <p>No Foil Printing</p>
+                    )}
                   </div>
                 </div>
               </Grid.Row>
