@@ -8,6 +8,7 @@ import StarCityLink from "../CustomLink/StarCityLink";
 import Portal from "../Portal/Portal";
 import DashBoard from "../DashBoard/DashBoard";
 import "../../index.scss";
+import StarCityFoil from "../CustomLink/starcityFoil";
 
 const GetCards = props => {
   const [cards, setCards] = useState([]);
@@ -29,8 +30,17 @@ const GetCards = props => {
   };
   const handleAddCard = async ({ state, card }) => {
     const { userId } = state;
-    const { id, name, images, set, collectionNumber } = card;
-    await userCards.addCard(userId, id, name, images, set, collectionNumber);
+    const { id, name, images, set, collectionNumber, isFoil, isNonFoil } = card;
+    await userCards.addCard(
+      userId,
+      id,
+      name,
+      images,
+      set,
+      collectionNumber,
+      isFoil,
+      isNonFoil
+    );
     userCards.getCards(state);
   };
 
@@ -254,7 +264,12 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
-                            <StarCityLink card={card} />
+                            <div>
+                              <StarCityLink card={card} />
+                            </div>
+                            <div>
+                              <StarCityFoil card={card} />
+                            </div>
                           </Card.Content>
                         ) : (
                           <React.Fragment>
@@ -300,7 +315,12 @@ const GetCards = props => {
                             >
                               Add Card
                             </button>
-                            <StarCityLink card={card} />
+                            <div>
+                              <StarCityLink card={card} />
+                            </div>
+                            <div>
+                              <StarCityFoil card={card} />
+                            </div>
                           </Card.Content>
                         ) : (
                           <React.Fragment>

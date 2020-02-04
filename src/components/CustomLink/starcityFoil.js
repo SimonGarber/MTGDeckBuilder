@@ -1,9 +1,9 @@
 import React from "react";
 import stringToSplit from "../../helpers/stringSplit";
 
-const StarCityLink = props => {
+const StarCityFoil = props => {
   const isFoil = () => {
-    if (props.card.isNonFoil === false) {
+    if (props.card.isFoil === true) {
       return "enf";
     } else {
       return "enn";
@@ -19,9 +19,9 @@ const StarCityLink = props => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      Link to Star City Games
+      Link to Foil
     </a>
   );
 };
 
-export default StarCityLink;
+export default StarCityFoil;

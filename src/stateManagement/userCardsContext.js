@@ -80,7 +80,9 @@ const addCard = dispatch => async (
   name,
   image,
   set,
-  collectionNumber
+  collectionNumber,
+  isFoil,
+  isNonFoil
 ) => {
   try {
     const response = await axios.put(
@@ -92,7 +94,9 @@ const addCard = dispatch => async (
           name: name,
           image: image,
           set: set,
-          collectionNumber: collectionNumber
+          collectionNumber: collectionNumber,
+          isFoil: isFoil,
+          isNonFoil: isNonFoil
         }
       }
     );

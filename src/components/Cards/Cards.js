@@ -5,6 +5,7 @@ import Portal from "../Portal/Portal";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import StarCityLink from "../CustomLink/StarCityLink";
+import StarCityFoil from "../CustomLink/starcityFoil";
 const Cards = props => {
   const userCards = useContext(userCardsContext);
   const { state } = useContext(AuthContext);
@@ -34,16 +35,18 @@ const Cards = props => {
                   paddingHorizontal: "10px"
                 }}
               >
-                <h2
-                  key={card.id}
-                  onClick={() => {
-                    userCards.getCard({ card }).then(() => {
-                      props.history.push(`cards/${card.id}`);
-                    });
-                  }}
-                >
-                  {card.name}
-                </h2>
+                <div>
+                  <h2
+                    key={card.id}
+                    onClick={() => {
+                      userCards.getCard({ card }).then(() => {
+                        props.history.push(`cards/${card.id}`);
+                      });
+                    }}
+                  >
+                    {card.name}
+                  </h2>
+                </div>
                 <div>
                   <h3
                     onClick={() => {
@@ -52,7 +55,12 @@ const Cards = props => {
                   >
                     Delete
                   </h3>
-                  <StarCityLink card={card} />
+                  <div>
+                    <StarCityLink card={card} />
+                  </div>
+                  <div>
+                    <StarCityFoil card={card} />
+                  </div>
                 </div>
               </Grid.Row>
             );
