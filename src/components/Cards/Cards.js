@@ -4,10 +4,8 @@ import DashBoard from "../DashBoard/DashBoard";
 import Portal from "../Portal/Portal";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
-import StarCityLink from "../CustomLink/StarCityLink";
-import StarCityFoil from "../CustomLink/StarcityFoil";
+
 const Cards = props => {
-  console.log(props);
   const userCards = useContext(userCardsContext);
   const { state } = useContext(AuthContext);
 
@@ -56,20 +54,6 @@ const Cards = props => {
                   >
                     Delete
                   </h3>
-                  <div>
-                    {card.isNonFoil ? (
-                      <StarCityLink card={card} />
-                    ) : (
-                      <p>Non Non-foil Printing</p>
-                    )}
-                  </div>
-                  <div>
-                    {card.isFoil === true ? (
-                      <StarCityFoil card={card} />
-                    ) : (
-                      <p>No Foil Printing</p>
-                    )}
-                  </div>
                 </div>
               </Grid.Row>
             );

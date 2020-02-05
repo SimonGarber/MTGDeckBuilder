@@ -1,10 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import DashBoard from "../DashBoard/DashBoard";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
+import LoadingIndicator from "../LoadingSpinner/LoadingSpinner";
+import { trackPromise } from "react-promise-tracker";
+import sleeper from "../../helpers/sleeper";
 import "./SignUp.css";
 const SignUp = props => {
   const { signup } = useContext(AuthContext);
   const [input, setInput] = useState({});
+  const [isLoading, setIsloading] = useState(false);
   const handleInputChange = e =>
     setInput({
       ...input,
@@ -12,10 +16,14 @@ const SignUp = props => {
     });
   const handleSubmit = event => {
     event.preventDefault();
-
-    signup(input).then(() => {
-      props.history.push("/search");
-    });
+    setIsloading(true);
+    trackPromise(
+      signup(input)
+        .then(sleeper(2000))
+        .then(() => {
+          props.history.push("/search");
+        })
+    );
   };
 
   useEffect(() => {
@@ -25,8 +33,8 @@ const SignUp = props => {
   }, [props.history]);
   return (
     <React.Fragment>
-      <DashBoard />
-      <div className="center">
+      <LoadingIndicator />
+      <div className={!isLoading ? "center" : "center-collapse"}>
         <div className="card">
           <h1>Register for an account</h1>
           <form>

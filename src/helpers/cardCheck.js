@@ -3,40 +3,73 @@ import StarCityLink from "../components/CustomLink/StarCityLink";
 import StarCityFoil from "../components/CustomLink/StarcityFoil";
 
 const CardLinks = ({ card }) => {
-  const isMemorabilia = card.set_type.includes("memorabilia");
-  const isPromo = card.set_type.includes("promo");
-  const setName = card.set_name;
-  const isVintage = setName.includes("Vintage", 0);
-  const isNonFoil = card.isNonFoil;
-  const isFoil = card.isFoil;
+  function containsOnly(arr1, arr2) {
+    return arr2.every(elem => arr1.includes(elem));
+  }
 
-  const cardcheck = {
-    name: card.name,
-    memorabilia: isMemorabilia,
-    promo: isPromo,
-    vintage: isVintage,
-    nonFoil: isNonFoil,
-    foil: isFoil
+  const gamesArray = ["mtgo"];
+  const isMemorabilia = card.set_type.includes("memorabilia", 0) ? true : false;
+  const isPromo = card.set_type.includes("promo");
+  const isFunny = card.set_type.includes("funny");
+
+  const checkedCardNonFoil = card => {
+    if (
+      !containsOnly(gamesArray, card.games) &&
+      !isMemorabilia &&
+      !isPromo &&
+      !isFunny &&
+      card.isNonFoil
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
-  console.log("cardCheck =>", cardcheck);
+  const checkedCardFoil = card => {
+    if (
+      !containsOnly(gamesArray, card.games) &&
+      !isMemorabilia &&
+      !isPromo &&
+      !isFunny &&
+      card.isFoil
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <React.Fragment>
-      <div>
-        {!isMemorabilia && !isPromo && !isVintage && isNonFoil ? (
-          <StarCityLink card={card} />
-        ) : (
+      {checkedCardNonFoil(card) && (
+        <div>
+          <StarCityLink card={card} key={card.id} />
+        </div>
+      )}
+
+      {!checkedCardNonFoil(card) && (
+        <div>
           <p>no non-foil printing</p>
-        )}
-      </div>
-      <div>
-        {!isMemorabilia && !isPromo && !isVintage && isFoil ? (
-          <StarCityFoil card={card} />
-        ) : (
+        </div>
+      )}
+
+      {checkedCardFoil(card) && (
+        <div>
+          <StarCityFoil card={card} key={card.id} />
+        </div>
+      )}
+
+      {!checkedCardFoil(card) && (
+        <div>
           <p>no foil printing</p>
-        )}
-      </div>
+        </div>
+      )}
+      {!checkedCardFoil(card) && !checkedCardNonFoil(card) && (
+        <div>
+          <p>no pricing information</p>
+        </div>
+      )}
     </React.Fragment>
   );
 };

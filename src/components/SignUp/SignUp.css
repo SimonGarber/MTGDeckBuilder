@@ -12,8 +12,12 @@
   z-index: 21;
 }
 
+.center-collapse {
+  display: none;
+}
+
 .center label {
-  color: 'aqua'
+  color: "aqua";
 }
 
 .card {
@@ -22,7 +26,7 @@
   padding: 0.8rem;
 }
 
-.card>form {
+.card > form {
   display: flex;
   flex-direction: column;
 }

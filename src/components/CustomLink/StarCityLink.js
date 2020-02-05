@@ -1,9 +1,9 @@
 import React from "react";
 import stringToSplit from "../../helpers/stringSplit";
 
-const StarCityLink = props => {
+const StarCityLink = ({ card }) => {
   const str = "0";
-  const str2 = props.card.set;
+  const str2 = card.set;
   const isNewSet = () => {
     if (str2 === "thb" || str2 === "eld") {
       return true;
@@ -11,28 +11,43 @@ const StarCityLink = props => {
       return false;
     }
   };
-
-  const isTwoDigits = () => {
-    if (props.card.collectionNumber.length < 3) {
+  const isMasterPiece = card => {
+    if (card.set_type[0] === "masterpiece") {
       return true;
     } else {
       return false;
     }
   };
+  const isTwoDigits = () => {
+    if (card.collectionNumber.length < 3) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const isNewSetPromo = card => {
+    if (isNewSet(card) && card.isPromo) {
+      return true;
+    }
+  };
+
   return (
     <a
-      href={`https://starcitygames.com/${stringToSplit(
-        props.card.name
-      )}-sgl-mtg-${
-        isNewSet(props.card) && props.card.isPromo
+      href={`https://starcitygames.com/${stringToSplit(card.name)}-sgl-mtg-${
+        isNewSetPromo(card)
           ? str2.concat("2")
-          : props.card.set
+          : isMasterPiece(card)
+          ? str2.concat("2")
+          : isNewSet(card)
+          ? card.set
+          : card.set
       }-${
-        isNewSet(props.card) && isTwoDigits(props.card)
-          ? str.concat(props.card.collectionNumber)
-          : !isNewSet(props.card) && isTwoDigits(props.card)
-          ? props.card.collectionNumber
-          : props.card.collectionNumber
+        isNewSet(card) && isTwoDigits(card)
+          ? str.concat(card.collectionNumber)
+          : !isNewSet(card) && isTwoDigits(card)
+          ? card.collectionNumber
+          : card.collectionNumber
       }-enn`}
       target="_blank"
       rel="noopener noreferrer"
