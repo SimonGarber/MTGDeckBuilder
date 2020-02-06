@@ -28,7 +28,7 @@ const SignUp = props => {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      props.history.push("/dashboard");
+      props.history.push("/search");
     }
   }, [props.history]);
   return (

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { Provider as AuthProvider } from "../../stateManagement/AuthContext";
+// import { Provider as AuthProvider } from "../../stateManagement/AuthContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import ToolBar from "../ToolBar/ToolBar";
 import SideDrawer from "../SideDrawer/SideDrawer";
@@ -27,7 +27,7 @@ const DashBoard = props => {
     backDrop = <BackDrop click={backdropClickHandler} />;
   }
   return (
-    <AuthProvider>
+    <React.Fragment>
       <ToolBar
         loggedIn={state.token}
         showSearch={() => props.history.push("/")}
@@ -57,7 +57,7 @@ const DashBoard = props => {
           }}
         ></main>
       </div>
-    </AuthProvider>
+    </React.Fragment>
   );
 };
 export default DashBoard;

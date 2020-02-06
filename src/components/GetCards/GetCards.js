@@ -204,11 +204,14 @@ const GetCards = props => {
   }, [userCards.state.showCard]);
   return (
     <React.Fragment>
-      <DashBoard history={props.history} search={showSearch} />
       <LoadingIndicator />
       <div
         className={
-          !isLoading ? "GetCardsContainer" : "GetCardsContainer-collapse"
+          cards.length > 0
+            ? "GetCardsContainer-Results"
+            : !isLoading
+            ? "GetCardsContainer"
+            : "GetCardsContainer-collapse"
         }
       >
         {cards.length < 1 ? <h2>Card Search</h2> : null}
@@ -268,105 +271,101 @@ const GetCards = props => {
         {cards.length > 0 ? (
           <React.Fragment>
             <Default>
-              <Portal>
-                {cards.map(card => {
-                  return (
-                    <div key={card.id}>
-                      {card.oversized ? null : (
-                        <Card
-                          bg="primary"
-                          text="white"
-                          key={card.id ? card.id : Math.floor(Math.random())}
-                        >
-                          <Image
-                            src={`https://img.scryfall.com/cards/normal/front/${
-                              card.id[0]
-                            }/${card.id[1]}/${card.id}.jpg?${card.id.slice(
-                              0,
-                              10
-                            )}`}
-                            wrapped
-                            ui={false}
-                          />
-                          {!card.in_Collection ? (
-                            <Card.Content extra>
-                              <button
-                                onClick={() => handleAddCard({ state, card })}
-                              >
-                                Add Card
-                              </button>
-                              <CardLinks card={card} />
-                            </Card.Content>
-                          ) : (
-                            <React.Fragment>
-                              <button
-                                style={{
-                                  color: "white",
-                                  backgroundColor: "Green"
-                                }}
-                              >
-                                In Collection
-                              </button>
-                              <StarCityLink card={card} />
-                              <StarCityFoil card={card} />
-                            </React.Fragment>
-                          )}
-                        </Card>
-                      )}
-                    </div>
-                  );
-                })}
-              </Portal>
+              {cards.map(card => {
+                return (
+                  <div key={card.id}>
+                    {card.oversized ? null : (
+                      <Card
+                        bg="primary"
+                        text="white"
+                        key={card.id ? card.id : Math.floor(Math.random())}
+                      >
+                        <Image
+                          src={`https://img.scryfall.com/cards/normal/front/${
+                            card.id[0]
+                          }/${card.id[1]}/${card.id}.jpg?${card.id.slice(
+                            0,
+                            10
+                          )}`}
+                          wrapped
+                          ui={false}
+                        />
+                        {!card.in_Collection ? (
+                          <Card.Content extra>
+                            <button
+                              onClick={() => handleAddCard({ state, card })}
+                            >
+                              Add Card
+                            </button>
+                            <CardLinks card={card} />
+                          </Card.Content>
+                        ) : (
+                          <React.Fragment>
+                            <button
+                              style={{
+                                color: "white",
+                                backgroundColor: "Green"
+                              }}
+                            >
+                              In Collection
+                            </button>
+                            <StarCityLink card={card} />
+                            <StarCityFoil card={card} />
+                          </React.Fragment>
+                        )}
+                      </Card>
+                    )}
+                  </div>
+                );
+              })}
             </Default>
 
             <Mobile>
-              <Portal>
-                {cards.map(card => {
-                  return (
-                    <div key={card.id}>
-                      {card.oversized ? null : (
-                        <Card bg="primary" text="white" key={card.id}>
-                          <Image
-                            key={Math.floor(Math.random())}
-                            width="300px"
-                            src={`https://img.scryfall.com/cards/normal/front/${
-                              card.id[0]
-                            }/${card.id[1]}/${card.id}.jpg?${card.id.slice(
-                              0,
-                              10
-                            )}`}
-                            wrapped
-                            ui={false}
-                          />
+              {cards.map(card => {
+                return (
+                  <div key={card.id}>
+                    {card.oversized ? null : (
+                      <Card bg="primary" text="white" key={card.id}>
+                        <Image
+                          key={Math.floor(Math.random())}
+                          width="300px"
+                          src={`https://img.scryfall.com/cards/normal/front/${
+                            card.id[0]
+                          }/${card.id[1]}/${card.id}.jpg?${card.id.slice(
+                            0,
+                            10
+                          )}`}
+                          wrapped
+                          ui={false}
+                        />
 
-                          {!card.in_Collection ? (
-                            <Card.Content extra>
-                              <button
-                                onClick={() => handleAddCard({ state, card })}
-                              >
-                                Add Card
-                              </button>
-                              <CardLinks card={card} />
-                            </Card.Content>
-                          ) : (
-                            <React.Fragment>
-                              <button
-                                style={{
-                                  color: "white",
-                                  backgroundColor: "Green"
-                                }}
-                              >
-                                In Collection
-                              </button>
-                              <CardLinks card={card} />
-                            </React.Fragment>
-                          )}
-                        </Card>
-                      )}
-                    </div>
-                  );
-                })}
-              </Portal>
+                        {!card.in_Collection ? (
+                          <Card.Content extra>
+                            <button
+                              onClick={() => handleAddCard({ state, card })}
+                            >
+                              Add Card
+                            </button>
+                            <CardLinks card={card} />
+                          </Card.Content>
+                        ) : (
+                          <React.Fragment>
+                            <button
+                              style={{
+                                color: "white",
+                                backgroundColor: "Green"
+                              }}
+                            >
+                              In Collection
+                            </button>
+                            <CardLinks card={card} />
+                          </React.Fragment>
+                        )}
+                      </Card>
+                    )}
+                  </div>
+                );
+              })}
             </Mobile>
           </React.Fragment>
         ) : (
