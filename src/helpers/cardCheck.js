@@ -2,15 +2,23 @@ import React from "react";
 import StarCityLink from "../components/CustomLink/StarCityLink";
 import StarCityFoil from "../components/CustomLink/StarcityFoil";
 
+// This function takes the card objects that are being rendered to the app from the search
+// Query and runs a check to see what links should be included depending on whether or not
+// there is a valid link being processed.
+// This component is rendered as either a starcity link or a star city foil link
+
 const CardLinks = ({ card }) => {
   function containsOnly(arr1, arr2) {
     return arr2.every(elem => arr1.includes(elem));
   }
 
   const gamesArray = ["mtgo"];
+  // ongoing issue with this check when the link is rendered to a user card collectoin
+  // when the list is first rendered
+
   const isMemorabilia = card.set_type.includes("memorabilia", 0) ? true : false;
-  const isPromo = card.set_type.includes("promo");
-  const isFunny = card.set_type.includes("funny");
+  const isPromo = card.set_type.includes("promo", 0);
+  const isFunny = card.set_type.includes("funny", 0);
 
   const checkedCardNonFoil = card => {
     if (

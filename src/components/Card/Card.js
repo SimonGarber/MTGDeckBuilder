@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Card, Image } from "semantic-ui-react";
 import "../../index.scss";
-const UserCard = ({ match, history }) => {
+const UserCard = ({ match }) => {
   const { state } = useContext(userCardsContext);
   const card = state.cards.find(card => match.params.cardId === card.id);
   const Mobile = ({ children }) => {

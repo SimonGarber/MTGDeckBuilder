@@ -1,47 +1,30 @@
 import React, { useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+
+import { Context as SearchCardsContext } from "../../stateManagement/searchCardsContext";
+import { Context as AuthContext } from "../../stateManagement/AuthContext";
+
+import NavBar from "../NavBar/Nav";
 import "./ToolBar.css";
 import "../SideDrawer/DrawerToggleButton";
-import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
-import { Context as AuthContext } from "../../stateManagement/AuthContext";
-const ToolBar = props => {
+
+const ToolBar = () => {
   const { state, signout } = useContext(AuthContext);
+  const searchCards = useContext(SearchCardsContext);
   const handleLogout = async () => {
     await signout();
   };
+  const handleReset = async () => {
+    const emptyCards = [];
+    await searchCards.resetSearch(emptyCards);
+  };
+
   return (
-    <header className="toolbar">
-      <nav className="toolbar-navigation">
-        {state.token ? (
-          <React.Fragment>
-            <div className="toolbar-toggle-button">
-              <DrawerToggleButton click={props.drawerClickHandler} />
-            </div>
-
-            <div className="toolbar-logo">
-              <label>MTG Deckbuilder</label>
-            </div>
-
-            <div className="spacer"></div>
-            <div className="toolbar-navigation-items">
-              <ul>
-                <li>
-                  <Link to="/search">Search</Link>
-                </li>
-                <li>
-                  <Link to="/cards">Collection</Link>
-                </li>
-                <li>
-                  <label onClick={handleLogout}>Log Out</label>
-                </li>
-              </ul>
-            </div>
-          </React.Fragment>
-        ) : (
-          <Redirect to="/signin" />
-        )}
-      </nav>
-    </header>
+    <NavBar
+      state={state}
+      searchCards={searchCards}
+      handleReset={handleReset}
+      handleLogout={handleLogout}
+    />
   );
 };
 export default ToolBar;
