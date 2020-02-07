@@ -12,33 +12,10 @@ const GetCards = () => {
   const { state } = useContext(AuthContext);
   const searchCards = useContext(SearchCardsContext);
 
-  const handleAddCard = async ({ state, card }) => {
+  const handleAddCard = async (state, card) => {
     const { userId } = state;
-    const {
-      id,
-      name,
-      images,
-      set,
-      collectionNumber,
-      isFoil,
-      isNonFoil,
-      set_type,
-      isPromo,
-      set_name
-    } = card;
-    await userCards.addCard(
-      userId,
-      id,
-      name,
-      images,
-      set,
-      collectionNumber,
-      isFoil,
-      isNonFoil,
-      set_type,
-      isPromo,
-      set_name
-    );
+
+    await userCards.addCard(userId, card);
     userCards.getCards(state);
   };
 

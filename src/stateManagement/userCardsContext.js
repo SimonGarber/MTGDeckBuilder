@@ -40,7 +40,7 @@ const getCards = dispatch => async state => {
     console.log("Error in Get Cards =>", err);
   }
 };
-const getCard = dispatch => async ({ card }) => {
+const getCard = dispatch => async card => {
   try {
     const response = await axios.get(
       // `http://localhost:3001/api/v1/cards/${card.id}`
@@ -51,11 +51,7 @@ const getCard = dispatch => async ({ card }) => {
     }
     dispatch({
       type: "get_card",
-      payload: {
-        id: response.data.data.id,
-        name: response.data.data.name,
-        image: response.data.data.image_uris.small
-      }
+      payload: card
     });
   } catch (err) {
     console.log("Error Showing Card =>", err.message);
@@ -74,34 +70,13 @@ const getSearchCard = dispatch => async ({ item }) => {
   });
 };
 
-const addCard = dispatch => async (
-  userId,
-  id,
-  name,
-  image,
-  set,
-  collectionNumber,
-  isFoil,
-  isNonFoil,
-  set_type,
-  isPromo
-) => {
+const addCard = dispatch => async (userId, card) => {
   try {
     const response = await axios.put(
       // `http://localhost:3001/api/v1/users/${userId}`,
       `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`,
       {
-        card: {
-          id: id,
-          name: name,
-          image: image,
-          set: set,
-          collectionNumber: collectionNumber,
-          isFoil: isFoil,
-          isNonFoil: isNonFoil,
-          set_type: set_type,
-          isPromo: isPromo
-        }
+        card
       }
     );
     if (!response.data) {
@@ -114,14 +89,7 @@ const addCard = dispatch => async (
     dispatch({
       type: "get_card",
       payload: {
-        id: id,
-        name: name,
-        image: image,
-        set_type: set_type,
-        set: set,
-        collectionNumber: collectionNumber,
-        isFoil: isFoil,
-        isNonFoil: isNonFoil
+        card
       }
     });
   } catch (err) {

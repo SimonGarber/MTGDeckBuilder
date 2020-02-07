@@ -4,7 +4,7 @@ import { Grid } from "semantic-ui-react";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 
-const Cards = props => {
+const UserCardList = props => {
   const userCards = useContext(userCardsContext);
   const { state } = useContext(AuthContext);
 
@@ -13,9 +13,9 @@ const Cards = props => {
   }, []);
   return (
     <React.Fragment>
-      <Grid.Column className="userCardList">
-        {userCards.state.cards.map(card => {
-          return (
+      {userCards.state.cards.map(card => {
+        return (
+          <Grid.Column className="userCardList">
             <Grid.Row
               key={card.id}
               style={{
@@ -30,7 +30,7 @@ const Cards = props => {
                 <h2
                   key={card.id}
                   onClick={() => {
-                    userCards.getCard({ card }).then(() => {
+                    userCards.getCard(card).then(() => {
                       props.history.push(`cards/${card.id}`);
                     });
                   }}
@@ -48,10 +48,10 @@ const Cards = props => {
                 </h3>
               </div>
             </Grid.Row>
-          );
-        })}
-      </Grid.Column>
+          </Grid.Column>
+        );
+      })}
     </React.Fragment>
   );
 };
-export default Cards;
+export default UserCardList;
