@@ -1,0 +1,11 @@
+.userCardList {
+	position: relative;
+	margin-top: 4rem;
+}
+
+.userCardsRow {
+	border: 2px solid black;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

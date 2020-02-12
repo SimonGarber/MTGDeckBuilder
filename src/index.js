@@ -1,15 +1,18 @@
 import React from "react";
-
 import ReactDOM from "react-dom";
+import App from "./App";
+import "./index.css";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import App from "./App";
-
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <Router>
-    <App history={history} />
-  </Router>,
-  document.getElementById("root")
+	<Router>
+		<ThemeProvider theme={theme}>
+			<App history={history} />
+		</ThemeProvider>
+	</Router>,
+	document.getElementById("root")
 );

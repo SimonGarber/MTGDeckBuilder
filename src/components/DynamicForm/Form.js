@@ -1,42 +1,54 @@
 import React, { memo, useContext, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { FormDataContext } from "../../stateManagement/Context";
 import { Context as searchCardsContext } from "../../stateManagement/searchCardsContext";
 import Body from "./Body";
-import { trackPromise } from "react-promise-tracker";
-import styles from "../../styles/styles";
+
+import "../../index.scss";
 
 const Form = memo(() => {
-  const context = useContext(FormDataContext);
-  const searchContext = useContext(searchCardsContext);
   const [isLoading, setIsLoading] = useState(false);
-  const handleSubmit = e => {
+  const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+    return isMobile ? children : null;
+  };
+  const Default = ({ children }) => {
+    const isNotMobile = useMediaQuery({ minWidth: 768 });
+    return isNotMobile ? children : null;
+  };
+  const searchCards = useContext(searchCardsContext);
+  const context = useContext(FormDataContext);
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    trackPromise(
-      searchContext
-        .searchDatabase(context.formData)
-
-        .catch(err => {
-          console.log("Error Searching DataBase =>", err);
-        })
-    );
+    await searchCards.searchDatabase(context.formData);
     setIsLoading(false);
   };
-
   return (
     <React.Fragment>
-      <form
-        style={!isLoading ? styles.form : styles.searchLoading}
-        onSubmit={handleSubmit}
-      >
-        <h1 style={styles.formTitle}>Card Search Form</h1>
+      <Default>
+        <form
+          className={!isLoading ? "form" : "searchLoading"}
+          onSubmit={handleSubmit}
+        >
+          <div className="albumWrapper">
+            <Body />
+          </div>
 
-        <div style={styles.albumWrapper}>
-          <Body />
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit">Submit</button>
+        </form>
+      </Default>
+      <Mobile>
+        <form
+          className={!isLoading ? "form" : "searchLoading"}
+          onSubmit={handleSubmit}
+        >
+          <div className="albumWrapper">
+            <Body />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </Mobile>
     </React.Fragment>
   );
 });

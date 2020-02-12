@@ -1,3 +1,5 @@
+import { Media } from "react-bootstrap";
+
 export default {
   form: {
     position: "relative",

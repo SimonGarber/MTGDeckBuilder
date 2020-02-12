@@ -9,14 +9,20 @@ const SearchCard = props => {
   const { state } = useContext(AuthContext);
   const userCards = useContext(UserCardsContext);
   const InCollection = searchedArray(props.card.id, userCards.state.cards);
+
   return (
     <div key={props.card.id}>
       {props.card.oversized ? null : (
-        <Card bg="primary" text="white" key={props.card.id}>
+        <Card
+          bg="primary"
+          text="white"
+          key={props.card.id}
+          style={{ display: "inlineFlex" }}
+        >
           <Image
             key={Math.floor(Math.random())}
             width={props.imageWidth}
-            src={`https://img.scryfall.com/cards/normal/front/${
+            src={`https://img.scryfall.com/cards/${props.imageSize}/front/${
               props.card.id[0]
             }/${props.card.id[1]}/${props.card.id}.jpg?${props.card.id.slice(
               0,

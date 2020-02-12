@@ -55,11 +55,11 @@ label {
   color: #fa923f;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .toolbar-navigation-items {
     display: none;
   }
-}
+} */
 
 @media (min-width: 769px) {
   .toolbar-toggle-button {
