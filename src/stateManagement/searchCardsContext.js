@@ -13,18 +13,21 @@ const searchReducer = (state, action) => {
 
 const searchDatabase = dispatch => async data => {
 	try {
-		const response = await fetch(`http://localhost:5000/api/v1/query`, {
-			method: "POST",
-			mode: "cors",
-			cache: "no-cache",
-			credentials: "same-origin",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-			body: JSON.stringify(data)
-		});
+		const response = await fetch(
+			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/query`,
+			{
+				method: "POST",
+				mode: "cors",
+				cache: "no-cache",
+				credentials: "same-origin",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				redirect: "follow",
+				referrerPolicy: "no-referrer",
+				body: JSON.stringify(data)
+			}
+		);
 		const resData = await response.json();
 
 		dispatch({

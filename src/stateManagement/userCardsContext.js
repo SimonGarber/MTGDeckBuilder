@@ -82,8 +82,8 @@ const getSearchCard = dispatch => async ({ item }) => {
 const addCard = dispatch => async (userId, card) => {
 	try {
 		const response = await axios.put(
-			`http://localhost:5000/api/v1/users/${userId}`,
-			// `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`,
+			// `http://localhost:5000/api/v1/users/${userId}`,
+			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`,
 			{
 				card
 			}
@@ -110,8 +110,8 @@ const removeCard = dispatch => async ({ state, card }) => {
 	const { userId } = state;
 	try {
 		const response = await axios.put(
-			`http://localhost:5000/api/v1/users/cards/delete/${userId}`,
-			// `https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/cards/delete/${userId}`,
+			// `http://localhost:5000/api/v1/users/cards/delete/${userId}`,
+			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/cards/delete/${userId}`,
 			{
 				card: { id: card.id }
 			}
