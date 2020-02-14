@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavLinks from "./NavLinks";
 import mobileNavIcon from "../../images/align-justify-duotone.svg";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
+
 const MyDesktopNavbar = styled.nav`
 	position: fixed;
 	width: 100vw;

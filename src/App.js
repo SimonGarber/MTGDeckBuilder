@@ -7,7 +7,7 @@ import { Switch, Route } from "react-router-dom";
 import { Provider as UserCardsProvider } from "./stateManagement/userCardsContext";
 import { Provider as AuthProvider } from "./stateManagement/AuthContext";
 import { Provider as SearchCardsProvider } from "./stateManagement/searchCardsContext";
-
+import GetCards from "./components/GetCards/GetCards";
 import WithAuth from "./components/WithAuth/WithAuth";
 import Cards from "./components/Cards/Cards";
 import UserCard from "./components/Card/Card";
@@ -17,7 +17,7 @@ import SignUp from "./components/SignUp/SignUp";
 const routes = [
 	{
 		path: "/search",
-		component: WithAuth(NewForm)
+		component: WithAuth(GetCards)
 	},
 	{
 		path: "/cards",
@@ -41,7 +41,6 @@ const App = props => {
 				<SearchCardsProvider>
 					<>
 						<Nav history={props.history} />
-
 						<Switch>
 							{routes.map(({ path, component: C }) => (
 								<Route

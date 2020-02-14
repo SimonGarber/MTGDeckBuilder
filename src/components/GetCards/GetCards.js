@@ -3,9 +3,9 @@ import { useMediaQuery } from "react-responsive";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 import { Context as SearchCardsContext } from "../../stateManagement/searchCardsContext";
-
+import NewForm from "../Form/Form";
 import SearchCard from "../SearchCard/SearchCard";
-import SearchForm from "../SearchForm/SearchForm";
+// import SearchForm from "../SearchForm/SearchForm";
 import "../../index.scss";
 import { Grid } from "semantic-ui-react";
 
@@ -37,7 +37,7 @@ const GetCards = () => {
 					display: "inlineBlock"
 				}}
 			>
-				<SearchForm />
+				<NewForm />
 			</div>
 
 			{searchCards.state.cards.length > 0 && (

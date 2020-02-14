@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Context as SearchCardsContext } from "../../stateManagement/searchCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
-
 import NavBar from "../NavBar/Nav";
 import "./ToolBar.css";
 import "../SideDrawer/DrawerToggleButton";
@@ -36,7 +35,7 @@ const ToolBar = () => {
 	};
 
 	return (
-		<React.Fragment>
+		<>
 			<Default>
 				<NavBar
 					state={state}
@@ -69,7 +68,7 @@ const ToolBar = () => {
 					handleLogout={handleLogout}
 				/>
 			</Tablet>
-		</React.Fragment>
+		</>
 	);
 };
 export default ToolBar;
