@@ -37,7 +37,7 @@ const GetCards = () => {
 					display: "inlineBlock"
 				}}
 			>
-				<NewForm />
+				<NewForm cards={searchCards.state.cards} />
 			</div>
 
 			{searchCards.state.cards.length > 0 && (

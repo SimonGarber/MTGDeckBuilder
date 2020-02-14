@@ -1,6 +1,7 @@
 import createDataContext from "./createDataContext";
 import axios from "axios";
-
+const DEV = `http://localhost:3001/api/v1/`;
+const PROD = `https://mtgdeckbuilder-api.herokuapp.com/api/v1/`;
 const cardsReducer = (state, action) => {
 	switch (action.type) {
 		case "remove_card":
@@ -34,8 +35,9 @@ const getCards = dispatch => async state => {
 	const { userId } = state;
 	try {
 		const response = await axios.get(
-			// `http://localhost:5000/api/v1/usercards/?userId=${userId}`
-			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/usercards/?userId=${userId}`
+			process.env.NODE_ENV === "development"
+				? `${DEV}usercards/?userId=${userId}`
+				: `${PROD}usercards/?userId=${userId}`
 		);
 
 		dispatch({
@@ -52,8 +54,9 @@ const getCards = dispatch => async state => {
 const getCard = dispatch => async card => {
 	try {
 		const response = await axios.get(
-			// `http://localhost:5000/api/v1/cards/${card.id}`
-			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/cards/${card.id}`
+			process.env.NODE_ENV === "development"
+				? `${DEV}cards/${card.id}`
+				: `${PROD}cards/${card.id}`
 		);
 		if (!response.data) {
 			return;
@@ -82,8 +85,9 @@ const getSearchCard = dispatch => async ({ item }) => {
 const addCard = dispatch => async (userId, card) => {
 	try {
 		const response = await axios.put(
-			// `http://localhost:5000/api/v1/users/${userId}`,
-			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/${userId}`,
+			process.env.NODE_ENV === "development"
+				? `${DEV}users/${userId}`
+				: `${PROD}users/${userId}`,
 			{
 				card
 			}
@@ -110,8 +114,9 @@ const removeCard = dispatch => async ({ state, card }) => {
 	const { userId } = state;
 	try {
 		const response = await axios.put(
-			// `http://localhost:5000/api/v1/users/cards/delete/${userId}`,
-			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/cards/delete/${userId}`,
+			process.env.NODE_ENV === "development"
+				? `${DEV}users/cards/delete/${userId}`
+				: `${PROD}users/cards/delete/${userId}`,
 			{
 				card: { id: card.id }
 			}

@@ -1,4 +1,6 @@
 import createDataContext from "./createDataContext";
+const DEV = `http://localhost:3001/api/v1/`;
+const PROD = `https://mtgdeckbuilder-api.herokuapp.com/api/v1/`;
 
 const searchReducer = (state, action) => {
 	switch (action.type) {
@@ -14,8 +16,7 @@ const searchReducer = (state, action) => {
 const searchDatabase = dispatch => async data => {
 	try {
 		const response = await fetch(
-			// `http://localhost:3001/api/v1/query`,
-			`https://mtgdeckbuilder-api.herokuapp.com/api/v1/query`,
+			process.env.NODE_ENV === "development" ? `${DEV}query` : `${PROD}query`,
 			{
 				method: "POST",
 				mode: "cors",
@@ -40,10 +41,10 @@ const searchDatabase = dispatch => async data => {
 	}
 };
 
-const resetSearch = dispatch => emptyCards => {
+const resetSearch = dispatch => () => {
 	dispatch({
 		type: "reset_search",
-		payload: emptyCards
+		payload: []
 	});
 };
 

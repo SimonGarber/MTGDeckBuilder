@@ -39,13 +39,13 @@ const NavLinks = ({ history, ...props }) => {
 					</li>
 
 					<li>
-						<Button
+						<Link
 							onClick={handleLogout}
 							className='link'
 							tabIndex={tempTabIndex}
 						>
 							Logout
-						</Button>
+						</Link>
 					</li>
 				</ul>
 			) : (

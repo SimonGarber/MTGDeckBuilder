@@ -41,8 +41,16 @@ const MyTextField = ({ label, ...props }) => {
 		</>
 	);
 };
+
 const NewForm = () => {
-	const { state, searchDatabase, resetSearch } = useContext(SearchContext);
+	const { searchDatabase } = useContext(SearchContext);
+
+	const handleSubmit = async (data, { setSubmitting, resetForm }) => {
+		setSubmitting(true);
+		await searchDatabase(data);
+		setSubmitting(false);
+		resetForm();
+	};
 	return (
 		<FieldContainer>
 			<Formik
@@ -55,70 +63,76 @@ const NewForm = () => {
 					oracleText: "",
 					colors: []
 				}}
-				onSubmit={async function(data, { setSubmitting }) {
-					setSubmitting(true);
-					await searchDatabase(data);
-					setSubmitting(false);
-				}}
+				onSubmit={handleSubmit}
 			>
 				{({ values, isSubmitting }) => (
-					<Form>
-						<FormContainerColumn>
-							<MyTextField name='cardName' type='input' label='Card Name' />
+					<>
+						<Form>
+							<FormContainerColumn>
+								<MyTextField name='cardName' type='input' label='Card Name' />
 
-							<MyTextField name='setName' type='input' label='Set Name' />
+								<MyTextField name='setName' type='input' label='Set Name' />
 
-							<MyTextField name='colorId' type='input' label='Color Identity' />
+								<MyTextField
+									name='colorId'
+									type='input'
+									label='Color Identity'
+								/>
 
-							<MyTextField
-								name='cmc'
-								type='input'
-								label='Converted Mana Cost'
-							/>
+								<MyTextField
+									name='cmc'
+									type='input'
+									label='Converted Mana Cost'
+								/>
 
-							<MyTextField name='typeLine' label='Type Line' type='input' />
+								<MyTextField name='typeLine' label='Type Line' type='input' />
 
-							<MyTextField name='oracleText' type='input' label='Oracle Text' />
-						</FormContainerColumn>
+								<MyTextField
+									name='oracleText'
+									type='input'
+									label='Oracle Text'
+								/>
+							</FormContainerColumn>
 
-						<FormContainerRow>
-							<MyCheckBox
-								name='colors'
-								type='checkbox'
-								value={`W`}
-								label='White'
-							/>
-							<MyCheckBox
-								name='colors'
-								type='checkbox'
-								value={`U`}
-								label='Blue'
-							/>
-							<MyCheckBox
-								name='colors'
-								type='checkbox'
-								value={`B`}
-								label='Black'
-							/>
-							<MyCheckBox
-								name='colors'
-								type='checkbox'
-								value={`R`}
-								label='Red'
-							/>
-							<MyCheckBox
-								name='colors'
-								type='checkbox'
-								value={`G`}
-								label='Green'
-							/>
-						</FormContainerRow>
-						<FieldContainer>
-							<Button disabled={isSubmitting} type='submit'>
-								submit
-							</Button>
-						</FieldContainer>
-					</Form>
+							<FormContainerRow>
+								<MyCheckBox
+									name='colors'
+									type='checkbox'
+									value={`W`}
+									label='White'
+								/>
+								<MyCheckBox
+									name='colors'
+									type='checkbox'
+									value={`U`}
+									label='Blue'
+								/>
+								<MyCheckBox
+									name='colors'
+									type='checkbox'
+									value={`B`}
+									label='Black'
+								/>
+								<MyCheckBox
+									name='colors'
+									type='checkbox'
+									value={`R`}
+									label='Red'
+								/>
+								<MyCheckBox
+									name='colors'
+									type='checkbox'
+									value={`G`}
+									label='Green'
+								/>
+							</FormContainerRow>
+							<FieldContainer>
+								<Button disabled={isSubmitting} type='submit'>
+									submit
+								</Button>
+							</FieldContainer>
+						</Form>
+					</>
 				)}
 			</Formik>
 		</FieldContainer>

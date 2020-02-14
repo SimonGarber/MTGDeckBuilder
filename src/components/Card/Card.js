@@ -11,7 +11,6 @@ const ContainerFlexColumn = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background-color: gray;
 `;
 
 const ImageWrapper = styled.div`

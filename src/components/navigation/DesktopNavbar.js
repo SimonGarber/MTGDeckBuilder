@@ -50,7 +50,7 @@ const MyDesktopNavbar = styled.nav`
 		align-items: center;
 		height: 15vh;
 		color: white;
-		font-size: 2.5vh;
+		font-size: 1.5vh;
 		text-decoration: none;
 		border-radius: 10px;
 		&:focus {

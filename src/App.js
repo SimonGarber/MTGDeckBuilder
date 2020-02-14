@@ -35,6 +35,7 @@ const routes = [
 ];
 
 const App = props => {
+	console.log(process.env);
 	return (
 		<AuthProvider>
 			<UserCardsProvider>

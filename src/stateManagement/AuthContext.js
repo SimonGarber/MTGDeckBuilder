@@ -1,5 +1,8 @@
 import createDataContext from "./createDataContext";
 import axios from "axios";
+
+const DEV = `http://localhost:3001/api/v1/`;
+const PROD = `https://mtgdeckbuilder-api.herokuapp.com/api/v1/`;
 const authReducer = (state, action) => {
 	switch (action.type) {
 		case "signin":
@@ -26,8 +29,9 @@ const signup = dispatch => async input => {
 	try {
 		const { email, password } = input;
 		const response = await axios.post(
-			// `http://localhost:5000/api/v1/users/signup`,
-			"https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/signup",
+			process.env.NODE_ENV === "development"
+				? `${DEV}users/signup`
+				: `${PROD}users/signup`,
 			{ email, password }
 		);
 		localStorage.setItem("token", response.data.token);
@@ -45,8 +49,9 @@ const signin = dispatch => async input => {
 	try {
 		const { email, password } = input;
 		const response = await axios.post(
-			// `http://localhost:5000/api/v1/users/signin`,
-			"https://mtgdeckbuilder-api.herokuapp.com/api/v1/users/signin",
+			process.env.NODE_ENV === "development"
+				? `${DEV}users/signin`
+				: `${PROD}users/signin`,
 			{ email, password }
 		);
 		localStorage.setItem("token", response.data.token);
