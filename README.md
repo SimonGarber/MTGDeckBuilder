@@ -40,8 +40,12 @@ data set was downloaded as a bulk data download from 'Scryfall' - an online appl
 
 ### Screenshots
 
-![screenshot_1](public/images/mtgdeckbuilder_search.png?raw=true "Main Screen")
+![screenshot_1](public/images/MTG_DeckBuilder_searchForm-new.png?raw=true "Main Screen")
 
-![screenshot_2](public/images/mtgdeckbuilder_search2.png?raw=true "Completed Search")
+![screenshot_2](public/images/MTG_DeckBuilder_searchResult-new.png?raw=true "Completed Search")
 
-![screenshot_3](public/images/mtgdeckbuilder_collection.png?raw=true "User Collection")
+![screenshot_3](public/images/MTG_DeckBuilder_collection-new.png?raw=true "User Collection")
+
+![screenshot_4](public/images/MTG_DeckBuilder_mobile_sidebar-new.png?raw=true "Mobile Sidebar")
+
+![screenshot_5](public/images/MTG_DeckBuilder_mobile_searchResult-new.png?raw=true "Mobile Search Result")
