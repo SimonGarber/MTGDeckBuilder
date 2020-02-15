@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import styled from "styled-components";
-
+import BackDrop from "../BackDrop/BackDrop";
 const MyNavBar = styled.div`
 	display: flex;
 	flex-flow: column nowrap;
@@ -13,7 +13,8 @@ const MyNavBar = styled.div`
 `;
 class Nav extends Component {
 	state = {
-		displayMobileNavBar: false
+		displayMobileNavBar: false,
+		displayBackDrop: false
 	};
 
 	componentDidMount = () => {
@@ -35,14 +36,22 @@ class Nav extends Component {
 			this.setState({ displayMobileNavBar: false });
 		}
 	};
+	backDropClickHandler = () => {
+		this.setState({ displayMobileNavBar: false });
+	};
 	render() {
-		console.log(this.props);
+		let backdrop;
+
+		if (this.state.displayMobileNavBar) {
+			backdrop = <BackDrop click={this.backDropClickHandler} />;
+		}
 		return (
 			<MyNavBar>
 				<DesktopNavbar
 					history={this.props.history}
 					displayMobileNavBar={this.state.displayMobileNavBar}
 					toggleMobileNavBar={this.toggleMobileNavBar}
+					backdrop={backdrop}
 				/>
 
 				<MobileNavbar

@@ -99,7 +99,7 @@ const DesktopNavbar = props => {
 				MTG
 				<p>DeckBuilder</p>
 			</div>
-
+			{props.backdrop}
 			<NavLinks signout={signout} state={state} history={props.history} />
 
 			<MyMobileNavButton

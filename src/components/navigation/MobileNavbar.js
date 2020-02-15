@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavLinks from "./NavLinks";
 import Portal from "../Portal/Portal";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
-
+import BackDrop from "../BackDrop/BackDrop";
 const MyMobileNavBar = styled.nav`
 	position: fixed;
 	top: 15vh;
@@ -43,6 +43,7 @@ const MobileNavbar = props => {
 			<MyMobileNavBar
 				history={props.history}
 				displayMobileNavBar={props.displayMobileNavBar}
+				displayBackDrop={props.displayBackDrop}
 				signout={signout}
 			>
 				<NavLinks isMobileLink={true} state={state} history={props.history} />

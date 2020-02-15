@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { Button } from "@material-ui/core";
+
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
 const NavLinks = ({ history, ...props }) => {
 	const { state, signout } = useContext(AuthContext);
