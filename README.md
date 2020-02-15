@@ -44,7 +44,7 @@ data set was downloaded as a bulk data download from 'Scryfall' - an online appl
 
 ![screenshot_2](public/images/MTG_DeckBuilder_searchResult-new.png?raw=true "Completed Search")
 
-![screenshot_3](public/images/MTG_DeckBuilder_collection-new.png?raw=true "User Collection")
+![screenshot_3](public/images/MTG_DeckBuilder_collection_new.png?raw=true "User Collection")
 
 ![screenshot_4](public/images/MTG_DeckBuilder_mobile_sidebar-new.png?raw=true "Mobile Sidebar")
 
