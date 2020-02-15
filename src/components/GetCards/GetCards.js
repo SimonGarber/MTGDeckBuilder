@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
 import { Context as AuthContext } from "../../stateManagement/AuthContext";
@@ -12,7 +12,7 @@ import { Grid } from "semantic-ui-react";
 const GetCards = () => {
 	const { state } = useContext(AuthContext);
 	const userCards = useContext(userCardsContext);
-	const searchCards = useContext(SearchCardsContext);
+	const SearchCards = useContext(SearchCardsContext);
 
 	const handleAddCard = async (state, card) => {
 		const { userId } = state;
@@ -29,6 +29,9 @@ const GetCards = () => {
 		const isNotMobile = useMediaQuery({ minWidth: 768 });
 		return isNotMobile ? children : null;
 	};
+	useEffect(() => {
+		SearchCards.resetSearch();
+	}, []);
 
 	return (
 		<div>
@@ -37,14 +40,14 @@ const GetCards = () => {
 					display: "inlineBlock"
 				}}
 			>
-				<NewForm cards={searchCards.state.cards} />
+				<NewForm cards={SearchCards.state.cards} />
 			</div>
 
-			{searchCards.state.cards.length > 0 && (
+			{SearchCards.state.cards.length > 0 && (
 				<>
 					<Grid.Column
 						key={Math.floor(Math.random())}
-						cards={searchCards.state.cards}
+						cards={SearchCards.state.cards}
 						style={{
 							display: "flex",
 							justifyContent: "center",
@@ -53,7 +56,7 @@ const GetCards = () => {
 						}}
 					>
 						<Default>
-							{searchCards.state.cards.map((card, index) => {
+							{SearchCards.state.cards.map((card, index) => {
 								return (
 									<Grid.Row key={card.id}>
 										<SearchCard
@@ -70,7 +73,7 @@ const GetCards = () => {
 						</Default>
 
 						<Mobile>
-							{searchCards.state.cards.map((card, index) => {
+							{SearchCards.state.cards.map((card, index) => {
 								return (
 									<Grid.Row key={card.id}>
 										<SearchCard
