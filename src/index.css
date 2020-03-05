@@ -1,110 +1,26 @@
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	font-family: "Raleway";
-	overflow: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Raleway";
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-	background: #fff;
-	/* background: url(./images/backdrop-background-orange-rough-132197.jpg)
-    no-repeat center center fixed; */
-	height: 100vh;
-	background-size: cover;
+  background: #fff;
+  height: 100vh;
+  background-size: cover;
 }
-
-/* * {
-  margin: 0;
-  padding: 0; }
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  height: 100%;
-  line-height: 2;
-  overflow: hidden; }
-
-.Card {
-  position: relative;
-  background-color: white;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
-  margin-bottom: 5px;
-  scroll-snap-align: center; }
-
-.Card img {
-  top: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  height: 75%; }
-
-.FormContainer {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  background: white;
-  z-index: 10;
-  text-align: center;
-  top: 0; }
-
-.FormContainer input {
-  width: 80%;
-  border: 2px solid grey;
-  padding: 2px;
-  height: 2rem;
-  margin-bottom: 1rem;
-  box-shadow: 5px 10px #888888; }
-
-.GetCardsContainer {
-  width: 100%;
-  top: 20%;
-  position: absolute;
-  z-index: 10; }
-
-.GetCardsContainer h2 {
-  text-align: center;
-  background: white; }
-
-.GetCardsContainer-collapse {
-  display: none; }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace; }
-
-.Nav {
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-  border-bottom: solid black;
-  margin-bottom: 3rem;
-  width: 100%;
-  z-index: 1;
-  background-color: #efefef;
-  position: fixed; }
-
-.Login {
-  float: right; }
-
 #portal {
-  box-sizing: border;
-  width: 100%;
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  position: absolute;
-  top: 56px;
-  text-align: center; } */
+  overflow: hidden;
+}

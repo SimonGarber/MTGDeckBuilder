@@ -1,55 +1,37 @@
-import React, { useContext } from "react";
-import { Card, Image } from "semantic-ui-react";
+import React, { useContext, memo, useState, useEffect } from "react";
+import { Card, Image, Button, Label } from "semantic-ui-react";
+import StarCityLink from "../CustomLink/StarCityLink";
+import StarCityFoil from "../CustomLink/StarcityFoil";
 
-import { Context as AuthContext } from "../../stateManagement/AuthContext";
-import { Context as UserCardsContext } from "../../stateManagement/userCardsContext";
-import searchedArray from "../../helpers/checkResult";
-
-const SearchCard = props => {
-  const { state } = useContext(AuthContext);
-  const userCards = useContext(UserCardsContext);
-  const InCollection = searchedArray(props.card.id, userCards.state.cards);
-
+const SearchCard = ({ auth, card, imageWidth, imageSize, handleAddCard }) => {
   return (
-    <div key={props.card.id}>
-      {props.card.oversized ? null : (
-        <Card
-          bg="primary"
-          text="white"
-          key={props.card.id}
-          style={{ display: "inlineFlex" }}
-        >
-          <Image
-            key={Math.floor(Math.random())}
-            width={props.imageWidth}
-            src={`https://img.scryfall.com/cards/${props.imageSize}/front/${
-              props.card.id[0]
-            }/${props.card.id[1]}/${props.card.id}.jpg?${props.card.id.slice(
-              0,
-              10
-            )}`}
-            wrapped
-            ui={false}
-          />
+    <div>
+      {card.oversized ? null : (
+        <Card>
+          <Card.Content>
+            <Image
+              key={Math.floor(Math.random())}
+              width={imageWidth}
+              src={`https://img.scryfall.com/cards/${imageSize}/front/${
+                card.id[0]
+              }/${card.id[1]}/${card.id}.jpg?${card.id.slice(0, 10)}`}
+            />
+          </Card.Content>
 
-          {!InCollection ? (
-            <Card.Content extra>
-              <button onClick={() => props.handleAddCard(state, props.card)}>
-                Add Card
-              </button>
-            </Card.Content>
-          ) : (
-            <React.Fragment>
-              <button
-                style={{
-                  color: "white",
-                  backgroundColor: "Green"
-                }}
+          <Card.Content extra>
+            <div className="ui 3 buttons">
+              <Button
+                disabled={card.inCollection}
+                inverted
+                color="green"
+                onClick={() => handleAddCard(auth, card)}
               >
-                In Collection
-              </button>
-            </React.Fragment>
-          )}
+                {card.inCollection ? "In Collection" : "Add Card"}
+              </Button>
+              <StarCityLink card={card} />
+              <StarCityFoil card={card} />
+            </div>
+          </Card.Content>
         </Card>
       )}
     </div>

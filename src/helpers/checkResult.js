@@ -3,6 +3,7 @@ const searchedArray = (someId, someArray) => {
     if (someArray[i].id === someId) {
       return true;
     }
+    return false;
   }
 };
 

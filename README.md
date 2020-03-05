@@ -35,8 +35,8 @@ data set was downloaded as a bulk data download from 'Scryfall' - an online appl
 
 ### Installation
 
-1. NPM install - This will download all of the necessary packages detailed in the JSON package file.
-2. NPM Run Start - This script will start the development server on the default port on LocalHost in the browser.
+1. npm install or yarn Add - This will download all of the necessary packages detailed in the JSON package file.
+2. npm run start - This script will start the development server on the default port on LocalHost in the browser.
 
 ### Screenshots
 
