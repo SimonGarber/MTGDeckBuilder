@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-
 import { useMediaQuery } from "react-responsive";
 import { Context as userCardsContext } from "../../stateManagement/userCardsContext";
-
 import styled from "styled-components";
 
 const ContainerFlexColumn = styled.div`
@@ -40,19 +38,6 @@ const OracleText = styled.p`
   max-width: 60%;
 `;
 
-// const ActionButton = styled.button`
-//   margin: 0 5px;
-//   padding: 8px 14px;
-//   background: rgba(155, 155, 155, 0.2);
-//   color: #fff;
-//   cursor: pointer;
-//   border: 1px solid #fff;
-//   outline: 0;
-//   font-weight: 300;
-//   :hover {
-//     opacity: 0.8;
-//   }
-// `;
 const Card2 = ({ name, type_line, oracle_text, image, width }) => (
   <React.Fragment>
     <ContainerFlexColumn>
@@ -70,17 +55,6 @@ const Card2 = ({ name, type_line, oracle_text, image, width }) => (
   </React.Fragment>
 );
 const Content = props => {
-  const buttons = [
-    {
-      label: "Regular"
-    },
-    {
-      label: "Foil"
-    },
-    {
-      label: "MTG Goldfish"
-    }
-  ];
   return (
     <Card2
       card={props.card}

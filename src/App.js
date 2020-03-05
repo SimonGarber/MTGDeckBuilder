@@ -1,6 +1,5 @@
 import React from "react";
 import Nav from "./components/navigation/Nav";
-
 import { Switch, Route } from "react-router-dom";
 import { Provider as UserCardsProvider } from "./stateManagement/userCardsContext";
 import { Provider as AuthProvider } from "./stateManagement/AuthContext";
@@ -60,35 +59,3 @@ const App = props => {
   );
 };
 export default App;
-
-// const App = props => {
-// 	return (
-// 		<AuthProvider>
-// 			<UserCardsProvider>
-// 				<SearchCardsProvider>
-// 					<div>
-// 						<ToolBar history={props.history} />
-// 					</div>
-// 					<Switch>
-// 						{routes.map(({ path, component: C }) => (
-// 							<Route
-// 								key={path}
-// 								exact={path !== `/cards/:cardId` ? true : false}
-// 								path={path}
-// 								render={
-// 									path === "/search"
-// 										? props => (
-// 												<FormDataProvider>
-// 													<C {...props} />{" "}
-// 												</FormDataProvider>
-// 										  )
-// 										: props => <C {...props} />
-// 								}
-// 							/>
-// 						))}
-// 					</Switch>
-// 				</SearchCardsProvider>
-// 			</UserCardsProvider>
-// 		</AuthProvider>
-// 	);
-// };

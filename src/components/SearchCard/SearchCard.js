@@ -1,5 +1,5 @@
-import React, { useContext, memo, useState, useEffect } from "react";
-import { Card, Image, Button, Label } from "semantic-ui-react";
+import React from "react";
+import { Card, Image, Button } from "semantic-ui-react";
 import StarCityLink from "../CustomLink/StarCityLink";
 import StarCityFoil from "../CustomLink/StarcityFoil";
 
